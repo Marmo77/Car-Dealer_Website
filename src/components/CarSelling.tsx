@@ -1,14 +1,18 @@
-import { show_all_cars } from "@/appwrite";
+import { getFilteredCars, show_all_cars } from "@/appwrite";
 import CarCard from "@/components/CarCard";
 // import { cars } from "@/data/cars";
 import { useEffect, useState } from "react";
+import { FilterCars } from "./FilterCars";
 
 export default function CarSelling() {
   const [find, setFind] = useState<string>("");
+  const [filterBrand, setFilterBrand] = useState<string>(""); // Filter by brand
 
   // get all cars from database
   const [cars, setCars] = useState<any[]>([]);
-  // fetching all cars form database
+
+  // Fetching all cars form database
+
   useEffect(() => {
     const fetch_cars = async () => {
       const result = await show_all_cars();
@@ -17,31 +21,66 @@ export default function CarSelling() {
     fetch_cars();
   }, []);
 
-  const handleSearching = (search: string) => {
-    setFind(search);
-  };
+  // Zmiana marki == przefiltorwane
+  useEffect(() => {
+    console.log(filterBrand);
+    const filter_cars = async () => {
+      if (filterBrand) {
+        if (filterBrand == "all") {
+          const result = await show_all_cars();
+          setCars(result);
+          // console.log("WSZYSKTIE");
+        } else {
+          const result = await getFilteredCars(filterBrand);
+          setCars(result);
+        }
+      }
+    };
+    filter_cars();
+  }, [filterBrand]);
 
-  const filteredCars = cars.filter((car) => {
-    const search = find.toLowerCase();
-    return (
-      car.brand.toLowerCase().includes(search) ||
-      car.model.toLowerCase().includes(search)
-    );
-  });
+  // const handleSearching = (search: string) => {
+  //   setFind(search);
+  // };
+  // useEffect(() => {
+  //   filteredCars(filterBrand);
+  // }, [filterBrand]);
+  // BOTH FILTERS (searching and brand select)
+
+  // const filteredCars = cars.filter((car) => {
+  //   // searching
+  //   const search = find.toLowerCase();
+  //   const matchesSearch =
+  //     car.brand.toLowerCase().includes(search) ||
+  //     car.model.toLowerCase().includes(search);
+  //   //brand
+  //   // const matchesBrand = filterBrand
+  //   //   ? car.brand.toLowerCase() === filterBrand.toLowerCase()
+  //   //   : true;
+
+  //   return matchesSearch;
+  // });
 
   return (
-    <div className="p-6 grid max-h-96 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <input
-        type="text"
-        className="w-36 h-12 bg-amber-400"
-        onChange={(e) => handleSearching(e.target.value)}
-      />
-      {filteredCars.map((car, i) => (
-        <div>
-          <CarCard key={i} {...car} />
-          <h1>{car.brand}</h1>
-        </div>
-      ))}
+    <div className="flex flex-col gap-12 items-center">
+      <div className="flex gap-6 items-center">
+        <label htmlFor="filter_search">Search Car:</label>
+        <input
+          type="text"
+          name="filter_search"
+          className="w-36 h-8 bg-gray-300"
+          // onChange={(e) => handleSearching(e.target.value)}
+        />
+        <FilterCars setFilterBrand={setFilterBrand} />
+      </div>
+      <div className="grid grid-cols-2">
+        {cars.map((car, i) => (
+          <div>
+            <CarCard key={i} {...car} />
+            <h1>{car.brand}</h1>
+          </div>
+        ))}
+      </div>
     </div>
     // <h1>Hello wrold</h1>
   );

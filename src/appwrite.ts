@@ -41,3 +41,15 @@ export const show_all_cars = async () => {
     return [];
   }
 };
+export const getFilteredCars = async (brand: string) => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.equal("brand", brand),
+    ]);
+    console.log("Filtered cars: ", result.documents);
+    return result.documents;
+  } catch (error) {
+    console.error("Error fetching cars ❌: ", error);
+    return [];
+  }
+};

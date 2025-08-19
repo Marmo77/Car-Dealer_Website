@@ -30,3 +30,14 @@ export const update = async () => {
     console.error(error);
   }
 };
+
+export const show_all_cars = async () => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID);
+    console.log("All cars: ", result.documents);
+    return result.documents;
+  } catch (error) {
+    console.error("Error fetching cars ❌: ", error);
+    return [];
+  }
+};

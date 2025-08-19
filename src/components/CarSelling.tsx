@@ -1,9 +1,21 @@
+import { show_all_cars } from "@/appwrite";
 import CarCard from "@/components/CarCard";
-import { cars } from "@/data/cars";
-import { useState } from "react";
+// import { cars } from "@/data/cars";
+import { useEffect, useState } from "react";
 
 export default function CarSelling() {
   const [find, setFind] = useState<string>("");
+
+  // get all cars from database
+  const [cars, setCars] = useState<any[]>([]);
+  // fetching all cars form database
+  useEffect(() => {
+    const fetch_cars = async () => {
+      const result = await show_all_cars();
+      setCars(result);
+    };
+    fetch_cars();
+  }, []);
 
   const handleSearching = (search: string) => {
     setFind(search);
@@ -16,6 +28,7 @@ export default function CarSelling() {
       car.model.toLowerCase().includes(search)
     );
   });
+
   return (
     <div className="p-6 grid max-h-96 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       <input

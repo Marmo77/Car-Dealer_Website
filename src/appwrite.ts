@@ -55,9 +55,19 @@ export const getFilteredCars = async (brand: string) => {
 };
 export const getSearchedCars = async (search: string) => {
   try {
-    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
-      Query.equal("brand", search) || Query.equal("model", search),
-    ]);
+    const terms = search.split(" ");
+
+    const queries = terms.map((term) =>
+      Query.or([Query.contains("brand", term), Query.contains("model", term)])
+    );
+
+    const result = await database.listDocuments(
+      DATABASE_ID,
+      COLLECTION_ID,
+      queries
+    );
+    //   Query.contains("brand", search) || Query.contains("model", search),
+    //   Query.equal("brand", search) ||
     console.log("Searched cars: ", result.documents);
     return result.documents;
   } catch (error) {

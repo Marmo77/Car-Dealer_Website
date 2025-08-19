@@ -1,4 +1,4 @@
-import { getFilteredCars, show_all_cars } from "@/appwrite";
+import { getFilteredCars, getSearchedCars, show_all_cars } from "@/appwrite";
 import CarCard from "@/components/CarCard";
 // import { cars } from "@/data/cars";
 import { useEffect, useState } from "react";
@@ -40,27 +40,19 @@ export default function CarSelling() {
     filter_cars();
   }, [filterBrand]);
 
-  // const handleSearching = (search: string) => {
-  //   setFind(search);
-  // };
-  // useEffect(() => {
-  //   filteredCars(filterBrand);
-  // }, [filterBrand]);
-  // BOTH FILTERS (searching and brand select)
-
-  // const filteredCars = cars.filter((car) => {
-  //   // searching
-  //   const search = find.toLowerCase();
-  //   const matchesSearch =
-  //     car.brand.toLowerCase().includes(search) ||
-  //     car.model.toLowerCase().includes(search);
-  //   //brand
-  //   // const matchesBrand = filterBrand
-  //   //   ? car.brand.toLowerCase() === filterBrand.toLowerCase()
-  //   //   : true;
-
-  //   return matchesSearch;
-  // });
+  useEffect(() => {
+    console.log(find);
+    const filterSearchCars = async () => {
+      if (find.length == 0) {
+        const result = await show_all_cars();
+        setCars(result);
+      } else if (find.length > 1) {
+        const result = await getSearchedCars(find);
+        setCars(result);
+      }
+    };
+    filterSearchCars();
+  }, [find]);
 
   return (
     <div className="flex flex-col gap-12 items-center">
@@ -70,7 +62,7 @@ export default function CarSelling() {
           type="text"
           name="filter_search"
           className="w-36 h-8 bg-gray-300"
-          // onChange={(e) => handleSearching(e.target.value)}
+          onChange={(e) => setFind(e.target.value)}
         />
         <FilterCars setFilterBrand={setFilterBrand} />
       </div>
@@ -78,11 +70,9 @@ export default function CarSelling() {
         {cars.map((car, i) => (
           <div>
             <CarCard key={i} {...car} />
-            {/* <h1>{car.brand}</h1> */}
           </div>
         ))}
       </div>
     </div>
-    // <h1>Hello wrold</h1>
   );
 }

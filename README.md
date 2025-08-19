@@ -1,69 +1,45 @@
-# React + TypeScript + Vite
+# Car Selling App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project came about very spontaneously, i got bored making "fake" databases, so i consider to learn database, I choosed AppWrite (its easy and i heard about it on youtube), make everything solo in here (mostly, chatgpt helped me with a idea of merging two queries by pushing them conditionally to array[]), back to topic - I learn quite a lot staff in this quick project (from 2am to 5am ☠️). At morning (for now it will be 1-2pm, I want to build a UI/UX design to it, becouse I made mostly functionalities.) I will use shadcn components and color pallete.
 
-Currently, two official plugins are available:
+# WHATS INSIDE?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Its website of "car selling shop", gets from database cars and show them (soon: more functions), and filtering system to it,
+- Working on UI/UX and some more addons to it, so it could be nice for user.
 
-## Expanding the ESLint configuration
+- For now (19.08.2025 - 5am) its alfa version of website it has only basic functionalities,
+there are screens how it look like fn.
+![snippet_alfa_1](./public/screen1.jpg)
+![snippet_alfa_2](./public/screen2.jpg)
+![snippet_alfa_3](./public/screen3.jpg)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# What tools did i used?
+- React
+- Vite
+- Tailwindcss
+- shadcn
+- AppWrite
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🧑‍💻 Installation
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+1. **Clone the repository**
+  ```
+  npm clone https://github.com/Marmo77/gym-worker-exercise.git
+  cd gym-worker-exercise
+  ```
+2. Install required
+  ```
+  npm install
+  ```
+3. **Run the app!**
+  ```
+  npm run dev
+  ```
+4. ❕**You need to create a account in AppWrite, create a profile with database and collection**
+  ```
+  1. get: PROJECT_ID, DATABASE_ID, ENDPOINT, COLLECTION_ID,
+  2. put it into: .env.local
+  3. integrate it with else of the code.
+  ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---

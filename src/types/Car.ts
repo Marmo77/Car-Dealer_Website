@@ -2,7 +2,7 @@ export type Car = {
   id?: number;
   brand: string;
   model: string;
-  isAvailable?: boolean | true;
+  isAvailable?: boolean;
   fuelType: "Diesel" | "Benzyna" | "LPG" | "Hybryda" | "Elektryk";
   engine_size: number;
   transmission: "Automatyczna" | "Manual";

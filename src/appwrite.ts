@@ -1,0 +1,77 @@
+import { Client, Databases, Query, ID } from "appwrite";
+
+const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
+const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
+const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
+const ENDPOINT = import.meta.env.VITE_APPWRITE_ENDPOINT;
+
+const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
+
+const database = new Databases(client);
+
+export const update = async () => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.equal("brand", "BMW"),
+    ]);
+    //     // jesli istnieje bmw zmien dostepnosc na false
+    if (result.documents.length > 0) {
+      console.log(result);
+      const doc = result.documents[0];
+
+      await database.updateDocument(DATABASE_ID, COLLECTION_ID, doc.$id, {
+        isAvailable: true,
+      });
+    } else {
+      console.log(result);
+    }
+    // const response = await database.getDocument(DATABASE_ID,COLLECTION_ID,)
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const show_all_cars = async () => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID);
+    console.log("All cars: ", result.documents);
+    return result.documents;
+  } catch (error) {
+    console.error("Error fetching All cars ❌: ", error);
+    return [];
+  }
+};
+export const getFilteredCars = async (brand: string) => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.equal("brand", brand.toLowerCase()),
+    ]);
+    console.log("Filtered cars: ", result.documents);
+    return result.documents;
+  } catch (error) {
+    console.error("Error fetching Filtered cars ❌: ", error);
+    return [];
+  }
+};
+export const getSearchedCars = async (search: string) => {
+  try {
+    const terms = search.split(" ");
+
+    const queries = terms.map((term) =>
+      Query.or([Query.contains("brand", term), Query.contains("model", term)])
+    );
+
+    const result = await database.listDocuments(
+      DATABASE_ID,
+      COLLECTION_ID,
+      queries
+    );
+    //   Query.contains("brand", search) || Query.contains("model", search),
+    //   Query.equal("brand", search) ||
+    console.log("Searched cars: ", result.documents);
+    return result.documents;
+  } catch (error) {
+    console.error("Error fetching Searched cars ❌: ", error);
+    return [];
+  }
+};

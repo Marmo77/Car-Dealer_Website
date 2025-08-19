@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { FilterCars } from "./FilterCars";
 
 export default function CarSelling() {
-  const [find, setFind] = useState<string>("");
-  const [filterBrand, setFilterBrand] = useState<string>(""); // Filter by brand
+  const [find, setFind] = useState<string>(""); // Filter by search
+  const [filterBrand, setFilterBrand] = useState<string>(""); // Filter by brand (combobox)
 
   // get all cars from database
   const [cars, setCars] = useState<any[]>([]);
@@ -27,10 +27,11 @@ export default function CarSelling() {
     const filter_cars = async () => {
       if (filterBrand) {
         if (filterBrand == "all") {
+          //Pokazuje wszystkie auta (filtr == Wszystkie)
           const result = await show_all_cars();
           setCars(result);
-          // console.log("WSZYSKTIE");
         } else {
+          // Pokazuje to co zostało wybrane w filtrze
           const result = await getFilteredCars(filterBrand);
           setCars(result);
         }
@@ -73,11 +74,11 @@ export default function CarSelling() {
         />
         <FilterCars setFilterBrand={setFilterBrand} />
       </div>
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-5 gap-4">
         {cars.map((car, i) => (
           <div>
             <CarCard key={i} {...car} />
-            <h1>{car.brand}</h1>
+            {/* <h1>{car.brand}</h1> */}
           </div>
         ))}
       </div>

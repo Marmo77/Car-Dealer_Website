@@ -77,7 +77,7 @@ export const FilterCars = ({ setFilterBrand }: FilterCarsProps) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
                     // console.log(brands.value);
-                    setFilterBrand(brands.value);
+                    setFilterBrand(brands.value.toLowerCase());
                   }}
                 >
                   {brands.label}

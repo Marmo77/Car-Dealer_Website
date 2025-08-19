@@ -37,19 +37,31 @@ export const show_all_cars = async () => {
     console.log("All cars: ", result.documents);
     return result.documents;
   } catch (error) {
-    console.error("Error fetching cars ❌: ", error);
+    console.error("Error fetching All cars ❌: ", error);
     return [];
   }
 };
 export const getFilteredCars = async (brand: string) => {
   try {
     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
-      Query.equal("brand", brand),
+      Query.equal("brand", brand.toLowerCase()),
     ]);
     console.log("Filtered cars: ", result.documents);
     return result.documents;
   } catch (error) {
-    console.error("Error fetching cars ❌: ", error);
+    console.error("Error fetching Filtered cars ❌: ", error);
+    return [];
+  }
+};
+export const getSearchedCars = async (search: string) => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.equal("brand", search) || Query.equal("model", search),
+    ]);
+    console.log("Searched cars: ", result.documents);
+    return result.documents;
+  } catch (error) {
+    console.error("Error fetching Searched cars ❌: ", error);
     return [];
   }
 };

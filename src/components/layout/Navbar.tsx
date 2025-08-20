@@ -9,17 +9,27 @@ interface NavbarProps {
   onPageChange: (page: string) => void;
 }
 
+const handleConsole = (current: string, item: string) => {
+  // onPageChange(page)
+  console.log("Current page: ", current);
+  console.log("item: ", item);
+};
+
 export function Navbar({ currentPage, onPageChange }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [quickSearchOpen, setQuickSearchOpen] = useState(false);
 
   const navigationItems = [
-    { id: "", label: "Home" },
-    { id: "listings", label: "Browse Cars" },
-    { id: "about", label: "About Us" },
-    { id: "contact", label: "Contact" },
+    { id: "/", label: "Home" },
+    { id: "/listings", label: "Browse Cars" },
+    { id: "/about", label: "About Us" },
+    { id: "/contact", label: "Contact" },
   ];
 
+  const onChange = (page: string) => {
+    onPageChange(page);
+    handleConsole(currentPage, page);
+  };
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,7 +37,7 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
           {/* Logo */}
           <div
             className="flex items-center gap-2 cursor-pointer"
-            onClick={() => onPageChange("home")}
+            onClick={() => onPageChange(company[0].navigationID[0].id)}
           >
             <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
               <Car className="h-6 w-6 text-white" />
@@ -47,7 +57,8 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
             {navigationItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => onPageChange(item.id)}
+                // onChange is temporarly to track on consol paths
+                onClick={() => onChange(item.id)}
                 className={`text-sm font-medium transition-colors hover:text-blue-600 cursor-pointer ${
                   currentPage === item.id
                     ? "text-blue-600 border-b-2 border-blue-600 pb-1"

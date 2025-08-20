@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 import Layout from "./components/layout/Layout";
 import HomePage from "./components/HomePage";
-import ListingPage from "./ListingPage";
+import ListingPage from "./components/ListingPage";
 import { company } from "./data/company";
+import About from "./components/About";
+import Contact from "./components/Contact";
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
             path={company[0].navigationID[1].id}
             element={<ListingPage />}
           />
+          <Route path={company[0].navigationID[2].id} element={<About />} />
+          <Route path={company[0].navigationID[3].id} element={<Contact />} />
         </Route>
       </Routes>
     </Router>

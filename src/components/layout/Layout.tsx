@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 const Layout = () => {
-  const [currentPage, setCurrentPage] = useState("home");
+  const [currentPage, setCurrentPage] = useState("");
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  //Keeping currentpage in sync with URL
-  useEffect(() => {
-    const path =
-      location.pathname === "/" ? "home" : location.pathname.replace("/", "");
-    setCurrentPage(path);
-  }, [location]);
 
   //Changing /routes when location change
   useEffect(() => {

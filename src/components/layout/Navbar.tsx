@@ -14,7 +14,7 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
   const [quickSearchOpen, setQuickSearchOpen] = useState(false);
 
   const navigationItems = [
-    { id: "home", label: "Home" },
+    { id: "", label: "Home" },
     { id: "listings", label: "Browse Cars" },
     { id: "about", label: "About Us" },
     { id: "contact", label: "Contact" },

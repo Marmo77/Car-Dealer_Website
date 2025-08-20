@@ -9,15 +9,21 @@ interface NavbarProps {
   onPageChange: (page: string) => void;
 }
 
+const handleConsole = (current: string, item: string) => {
+  // onPageChange(page)
+  console.log("Current page: ", current);
+  console.log("item: ", item);
+};
+
 export function Navbar({ currentPage, onPageChange }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [quickSearchOpen, setQuickSearchOpen] = useState(false);
 
   const navigationItems = [
     { id: "", label: "Home" },
-    { id: "listings", label: "Browse Cars" },
-    { id: "about", label: "About Us" },
-    { id: "contact", label: "Contact" },
+    { id: "/listings", label: "Browse Cars" },
+    { id: "/about", label: "About Us" },
+    { id: "/contact", label: "Contact" },
   ];
 
   return (
@@ -27,7 +33,7 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
           {/* Logo */}
           <div
             className="flex items-center gap-2 cursor-pointer"
-            onClick={() => onPageChange("home")}
+            onClick={() => onPageChange(company[0].navigationID[0].id)}
           >
             <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
               <Car className="h-6 w-6 text-white" />

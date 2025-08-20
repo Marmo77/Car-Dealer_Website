@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 const Layout = () => {
   const [currentPage, setCurrentPage] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   //Changing /routes when location change
   useEffect(() => {
     navigate(currentPage);
   }, [currentPage]);
+
+  useEffect(() => {
+    const page = location.pathname === "/" ? "" : location.pathname;
+    setCurrentPage(page);
+  }, [location]);
 
   const handlePageChange = (page: string, carId?: string) => {
     setCurrentPage(page);

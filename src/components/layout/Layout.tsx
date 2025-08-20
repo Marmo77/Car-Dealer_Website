@@ -3,7 +3,7 @@ import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 const Layout = () => {
-  const [currentPage, setCurrentPage] = useState("");
+  const [currentPage, setCurrentPage] = useState("/");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,7 +14,7 @@ const Layout = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    const page = location.pathname === "/" ? "" : location.pathname;
+    const page = location.pathname === "/" ? "/" : location.pathname;
     setCurrentPage(page);
   }, [location]);
 

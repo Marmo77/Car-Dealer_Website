@@ -20,12 +20,16 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
   const [quickSearchOpen, setQuickSearchOpen] = useState(false);
 
   const navigationItems = [
-    { id: "", label: "Home" },
+    { id: "/", label: "Home" },
     { id: "/listings", label: "Browse Cars" },
     { id: "/about", label: "About Us" },
     { id: "/contact", label: "Contact" },
   ];
 
+  const onChange = (page: string) => {
+    onPageChange(page);
+    handleConsole(currentPage, page);
+  };
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,7 +57,7 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
             {navigationItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => onPageChange(item.id)}
+                onClick={() => onChange(item.id)}
                 className={`text-sm font-medium transition-colors hover:text-blue-600 cursor-pointer ${
                   currentPage === item.id
                     ? "text-blue-600 border-b-2 border-blue-600 pb-1"

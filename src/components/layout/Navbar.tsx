@@ -57,6 +57,7 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
             {navigationItems.map((item) => (
               <button
                 key={item.id}
+                // onChange is temporarly to track on consol paths
                 onClick={() => onChange(item.id)}
                 className={`text-sm font-medium transition-colors hover:text-blue-600 cursor-pointer ${
                   currentPage === item.id

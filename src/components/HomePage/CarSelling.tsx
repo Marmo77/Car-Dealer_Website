@@ -4,11 +4,11 @@ import {
   // getSearchedCars,
   show_all_cars,
 } from "@/appwrite";
-import CarCard from "@/components/CarCard";
+import CarCard from "@/components/HomePage/CarCard";
 // import { cars } from "@/data/cars";
 import { useEffect, useState } from "react";
 import { FilterCars } from "./FilterCars";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 export default function CarSelling() {
   const [find, setFind] = useState<string>(""); // Filter by search
@@ -102,18 +102,29 @@ export default function CarSelling() {
     mergedSearch();
   };
 
+  // const ErrorLength = () => {
+  //   if (find.length < 2 && find.length <= 1) {
+  //     return true;
+  //   }
+  // };
+
   // ------------------------------------------------
 
   return (
     <div className="flex flex-col gap-12 items-center">
       <div className="flex gap-6 items-center">
         <label htmlFor="filter_search">Search Car:</label>
-        <input
-          type="text"
-          name="filter_search"
-          className="w-36 h-8 bg-gray-300"
-          onChange={(e) => setFind(e.target.value)}
-        />
+        <div className="flex items-center gap-4">
+          <input
+            type="text"
+            name="filter_search"
+            className="w-36 h-8 px-2 bg-gray-300 "
+            onChange={(e) => setFind(e.target.value)}
+          />
+          {/* <span className="text-red-500">
+            {ErrorLength() ? "Minium 2 characters" : ""}
+          </span> */}
+        </div>
         <FilterCars setFilterBrand={setFilterBrand} />
         <Button
           onClick={handleFiltering}

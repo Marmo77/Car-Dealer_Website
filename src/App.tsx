@@ -1,22 +1,30 @@
-import { Button } from "@/components/ui/button";
-import CarSelling from "@/components/CarSelling";
-import { useEffect } from "react";
-import { show_all_cars, update } from "./appwrite";
+//Browser routes
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React from "react";
+import Layout from "./components/layout/Layout";
+import HomePage from "./components/HomePage";
 
-function App() {
+const App = () => {
   return (
-    <>
-      <div className="flex min-h-svh flex-col gap-10 items-center justify-center">
-        <Button
-          onClick={() => show_all_cars()}
-          className="cursor-pointer shadow-xl"
-        >
-          Add
-        </Button>
-        <CarSelling />
-      </div>
-    </>
+    // <Router>
+    //   <Routes>
+    //     <Route element={<Layout />}>
+    //       <Route element={<HomePage />}></Route>
+    //     </Route>
+    //   </Routes>
+    // </Router>
+    <Router>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          {/* <Route path="/listings" element={<ListingsPage />} />
+          <Route path="/car/:id" element={<CarDetailsPage />} />
+          <Route path="/contact" element={<ContactPage />} /> */}
+        </Route>
+      </Routes>
+    </Router>
+    // <Layout />
   );
-}
+};
 
 export default App;

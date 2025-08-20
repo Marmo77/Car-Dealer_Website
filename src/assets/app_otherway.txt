@@ -1,0 +1,55 @@
+// import { Button } from "@/components/ui/button";
+// import CarSelling from "@/components/CarSelling";
+// import { useEffect, useState } from "react";
+// import { show_all_cars } from "./appwrite";
+// import { Navbar } from "./components/layout/Navbar";
+
+// function App() {
+//   const [currentPage, setCurrentPage] = useState("home");
+//   // const [selectedCarId, setSelectedCarId] = useState<string>("");
+
+//   // const handlePageChange = (page: string, carId?: string) => {
+//   //   setCurrentPage(page);
+//   //   if (carId) {
+//   //     setSelectedCarId(carId);
+//   //   }
+//   //   // Scroll to top when changing pages
+//   //   window.scrollTo({ top: 0, behavior: "smooth" });
+//   // };
+
+//   // // rendering page based on it
+//   // const renderCurrentPage = () => {
+//   //   switch (currentPage) {
+//   //     case "home":
+//   //       return <HomePage onPageChange={handlePageChange} />;
+//   //     case "listings":
+//   //       return <ListingsPage onPageChange={handlePageChange} />;
+//   //     case "car-details":
+//   //       return (
+//   //         <CarDetailsPage
+//   //           carId={selectedCarId}
+//   //           onPageChange={handlePageChange}
+//   //         />
+//   //       );
+//   //     case "contact":
+//   //       return <ContactPage />;
+//   //     default:
+//   //       return <HomePage onPageChange={handlePageChange} />;
+//   //   }
+//   // };
+
+//   return (
+//     // DESIGN: https://www.figma.com/make/QNhIqgxmuRir7Ij2gl0BIh/Appwrite-Learning-Platform?node-id=0-1&p=f&t=7PShIiRmI8xbcwY5-0
+//     // <Button onClick={() => show_all_cars()} className="cursor-pointer shadow-xl">Add</Button>
+//     <>
+//       <div className="min-h-screen bg-white">
+//         <Navbar currentPage={currentPage} onPageChange={setCurrentPage} />
+//         <main className="flex min-h-svh flex-col gap-10 items-center justify-center">
+//           <CarSelling />
+//         </main>
+//       </div>
+//     </>
+//   );
+// }
+
+// export default App;

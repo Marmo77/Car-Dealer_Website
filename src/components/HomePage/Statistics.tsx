@@ -2,7 +2,7 @@ import React from "react";
 import {
   type StatisticsItem,
   type StatsGuaranteesProps,
-} from "@/data/statistics";
+} from "@/types/Statistics";
 
 interface StatisticsProps {
   stats: StatisticsItem[];

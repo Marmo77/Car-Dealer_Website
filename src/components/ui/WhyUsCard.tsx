@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "./card";
-import { type BenefitsProps } from "@/data/benefits";
+import { type BenefitsProps } from "@/types/Benefits";
 
 const WhyUsCard = ({ title, description, icon }: BenefitsProps) => {
   const Icon = icon;

@@ -1,10 +1,7 @@
-export interface StatisticsItem {
-  id: number;
-  label: string;
-  // sufix?: string;
-  suffix?: string;
-  value: number;
-}
+import {
+  type StatisticsItem,
+  type StatsGuaranteesProps,
+} from "@/types/Statistics";
 
 export const statistics: StatisticsItem[] = [
   {
@@ -32,12 +29,6 @@ export const statistics: StatisticsItem[] = [
     suffix: "+",
   },
 ];
-
-export interface StatsGuaranteesProps {
-  id: number;
-  testimonial: string;
-}
-
 export const StatsGuarantees: StatsGuaranteesProps[] = [
   {
     id: 0,

@@ -5,7 +5,8 @@ import { type Car } from "@/types/Car";
 
 const CarCard = (car: Car) => {
   return (
-    <Card className="w-80 max-md:w-full py-0 gap-3 not-odd:-translate-y-3 bg-card not-odd:bg-primary/15 shadow-md hover:md:scale-105 transition-transform duration-200 overflow-hidden rounded-xl">
+    <Card className="w-80 max-md:w-full py-0 gap-3 not-odd:-translate-y-3 bg-card shadow-lg border-none hover:md:scale-105 transition-transform duration-200 overflow-hidden rounded-xl">
+      {/* not-odd:bg-primary/15 */}
       {/* Image + Badges */}
       <div className="relative">
         <img
@@ -32,8 +33,7 @@ const CarCard = (car: Car) => {
         <h3 className="text-lg font-semibold">
           {car.brand} {car.model}
         </h3>
-        <p className="text-sm text-gray-500">{car.year}</p>
-
+        <p className="text-sm text-gray-700">{2025}</p> {/*year */}
         <div className="mt-3 space-y-1 text-sm">
           <div className="flex justify-between border-gray-300 max-md:border-b-1 max-md:pb-1">
             <span className="text-gray-500">Mileage</span>

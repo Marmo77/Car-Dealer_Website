@@ -1,5 +1,8 @@
 import React from "react";
-import { type StatisticsItem, type StatsGuaranteesProps } from "@/data/company";
+import {
+  type StatisticsItem,
+  type StatsGuaranteesProps,
+} from "@/data/statistics";
 
 interface StatisticsProps {
   stats: StatisticsItem[];

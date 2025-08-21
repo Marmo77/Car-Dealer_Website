@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Search, SearchCheck } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -17,6 +18,11 @@ const Hero = () => {
     year: "",
     mileage: "",
   });
+  const navigation = useNavigate();
+
+  const handleAllCars = () => {
+    navigation("/listings");
+  };
   return (
     <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 text-white">
       <div className="absolute inset-0 bg-black/20"></div>
@@ -41,10 +47,10 @@ const Hero = () => {
                   setSearchFilters({ ...searchFilters, brand: value })
                 }
               >
-                <SelectTrigger className="bg-white">
+                <SelectTrigger className="bg-white cursor-pointer">
                   <SelectValue placeholder="Select Brand" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="">
                   <SelectItem value="all">All</SelectItem>
                   <SelectItem value="bmw">BMW</SelectItem>
                   <SelectItem value="audi">Audi</SelectItem>
@@ -61,7 +67,7 @@ const Hero = () => {
                   setSearchFilters({ ...searchFilters, maxPrice: value })
                 }
               >
-                <SelectTrigger className="bg-white">
+                <SelectTrigger className="bg-white cursor-pointer">
                   <SelectValue placeholder="Max Price" />
                 </SelectTrigger>
                 <SelectContent>
@@ -79,7 +85,7 @@ const Hero = () => {
                   setSearchFilters({ ...searchFilters, year: value })
                 }
               >
-                <SelectTrigger className="bg-white">
+                <SelectTrigger className="bg-white cursor-pointer">
                   <SelectValue placeholder="Year" />
                 </SelectTrigger>
                 <SelectContent>
@@ -97,7 +103,7 @@ const Hero = () => {
                   setSearchFilters({ ...searchFilters, mileage: value })
                 }
               >
-                <SelectTrigger className="bg-white">
+                <SelectTrigger className="bg-white cursor-pointer">
                   <SelectValue placeholder="Mileage" />
                 </SelectTrigger>
                 <SelectContent>
@@ -120,8 +126,9 @@ const Hero = () => {
               </Button>
               <Button
                 //   onClick={handleQuickSearch}
-                className=" bg-red-500 hover:bg-red-600 text-white py-4 text-lg font-semibold"
+                className=" bg-red-500 hover:bg-red-600 cursor-pointer text-white py-4 text-lg font-semibold"
                 size="lg"
+                onClick={handleAllCars}
               >
                 <span className="font-roboto">Discover All</span>
                 <SearchCheck className="ml-2 h-5 w-5" />

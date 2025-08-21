@@ -1,5 +1,8 @@
 import React from "react";
-import { type StatisticsItem, type StatsGuaranteesProps } from "@/data/company";
+import {
+  type StatisticsItem,
+  type StatsGuaranteesProps,
+} from "@/types/Statistics";
 
 interface StatisticsProps {
   stats: StatisticsItem[];
@@ -29,7 +32,7 @@ const Statistics = ({ stats, Guarantees }: StatisticsProps) => {
             <div key={index} className="text-center">
               <div className="text-5xl font-bold space-x-0.5 font-montserrat mb-2">
                 <span>{stat.value}</span>
-                <span className="text-highlight">{stat.prefix}</span>
+                <span className="text-highlight">{stat.suffix ?? "+"}</span>
               </div>
               <p className="text-light font-montserrat">{stat.label}</p>
             </div>

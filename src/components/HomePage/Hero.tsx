@@ -130,7 +130,7 @@ const Hero = () => {
                 size="lg"
                 onClick={handleAllCars}
               >
-                <span className="font-roboto">Discover All</span>
+                <span className="font-roboto">Browse All</span>
                 <SearchCheck className="ml-2 h-5 w-5" />
               </Button>
             </div>

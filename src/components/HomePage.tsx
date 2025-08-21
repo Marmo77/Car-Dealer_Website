@@ -1,24 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CarSelling from "./HomePage/CarSelling";
 import Hero from "./HomePage/Hero";
 import Statistics from "./HomePage/Statistics";
 
-import { statistics, StatsGuarantees } from "@/data/company";
+import { statistics, StatsGuarantees } from "@/data/statistics";
 import Partners from "./HomePage/Partners";
 import FeaturedCars from "./HomePage/FeaturedCars";
 import WhyUs from "./HomePage/WhyUs";
+import CTAhome from "./HomePage/CTAhome";
+import { products } from "@/data/footer";
 
 const HomePage = () => {
+  useEffect(() => {
+    console.log(products);
+  }, []);
   return (
     <section className="flex grow flex-col gap-2">
       <Hero />
       <Statistics stats={statistics} Guarantees={StatsGuarantees} />{" "}
-      {/* Do zmiany - bardziej zachęcająco */}
-      {/* tutaj featrued cars */} <FeaturedCars />
+      {/* tutaj featrued cars */}
+      <FeaturedCars />
       {/*z tego zrobic funkcje do searchingin <CarSelling /> */}
-      {/* Why choose us? + cta to aboutUs */} <WhyUs />
+      {/* Why choose us? + cta to aboutUs */}
+      <WhyUs />
+      {/* Partnerzy */}
       <Partners />
       {/* CTA - "ready to find your next car, "discover all car" + Contact specialist (cta to /contact)" */}
+      <CTAhome />
       {/* Newsletter */}
     </section>
   );

@@ -5,7 +5,7 @@ import { type Car } from "@/types/Car";
 
 const CarCard = (car: Car) => {
   return (
-    <Card className="w-80 max-md:w-full py-0 gap-3 not-odd:-translate-y-3 shadow-md hover:md:scale-105 transition-transform duration-200 overflow-hidden rounded-xl">
+    <Card className="w-80 max-md:w-full py-0 gap-3 not-odd:-translate-y-3 bg-card not-odd:bg-primary/15 shadow-md hover:md:scale-105 transition-transform duration-200 overflow-hidden rounded-xl">
       {/* Image + Badges */}
       <div className="relative">
         <img
@@ -62,7 +62,7 @@ const CarCard = (car: Car) => {
         </Button>
         <Button
           variant="outline"
-          className="hidden md:block hover:cursor-pointer"
+          className="hidden md:block hover:bg-blue-600 hover:text-white duration-300 hover:cursor-pointer"
         >
           View Details
         </Button>

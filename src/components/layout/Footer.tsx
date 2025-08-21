@@ -80,7 +80,7 @@ const Footer = ({
   ],
 }: Footer2Props) => {
   return (
-    <section className="py-32">
+    <section className="pt-32 pb-8 flex justify-center w-full">
       <div className="container">
         <footer>
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">

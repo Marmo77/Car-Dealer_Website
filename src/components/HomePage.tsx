@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CarSelling from "./HomePage/CarSelling";
 import Hero from "./HomePage/Hero";
 import Statistics from "./HomePage/Statistics";
@@ -8,8 +8,12 @@ import Partners from "./HomePage/Partners";
 import FeaturedCars from "./HomePage/FeaturedCars";
 import WhyUs from "./HomePage/WhyUs";
 import CTAhome from "./HomePage/CTAhome";
+import { products } from "@/data/footer";
 
 const HomePage = () => {
+  useEffect(() => {
+    console.log(products);
+  }, []);
   return (
     <section className="flex grow flex-col gap-2">
       <Hero />

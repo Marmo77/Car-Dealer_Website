@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import WhyUsCard from "../ui/whyusCard";
+import WhyUsCard from "../ui/WhyUsCard";
 import { company } from "@/data/company";
 import { benefits } from "@/data/benefits";
 
 export const WhyUs = () => {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6">
       <div className="text-center mb-12">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
           Why Choose {company[0].companyName}?

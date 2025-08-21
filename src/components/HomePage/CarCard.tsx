@@ -5,7 +5,7 @@ import { type Car } from "@/types/Car";
 
 const CarCard = (car: Car) => {
   return (
-    <Card className="w-80 max-md:w-full py-0 gap-3 not-odd:-translate-y-3 bg-card shadow-lg border-none hover:md:scale-105 transition-transform duration-200 overflow-hidden rounded-xl">
+    <Card className="w-80 group max-md:w-full py-0 gap-3 not-odd:-translate-y-3 bg-card shadow-lg border-none hover:md:scale-105 transition-transform duration-200 overflow-hidden rounded-xl">
       {/* not-odd:bg-primary/15 */}
       {/* Image + Badges */}
       <div className="relative">
@@ -16,7 +16,7 @@ const CarCard = (car: Car) => {
               : "https://c0.carzone.ie/web/image/electric-cars/octavia-electric/octavia-electric.png"
           }
           alt={`${car.brand} ${car.model}`}
-          className="w-full h-48 object-cover"
+          className="w-full group-hover:scale-105 h-48 object-cover transition-transform duration-300"
           onError={(e) => {
             e.currentTarget.src =
               "https://c0.carzone.ie/web/image/electric-cars/octavia-electric/octavia-electric.png";

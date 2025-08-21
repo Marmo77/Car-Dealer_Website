@@ -42,7 +42,7 @@ const partners = [
 
 const Partners = () => {
   return (
-    <section className="flex flex-col w-full text-center justify-center">
+    <section className="flex flex-col max-w-7xl mx-auto w-full text-center justify-center">
       <h1 className="mb-12 text-4xl font-montserrat font-semibold tracking-tight">
         Our Partners
       </h1>

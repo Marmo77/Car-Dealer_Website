@@ -31,6 +31,25 @@ export const update = async () => {
   }
 };
 
+export const featuredCars = async () => {
+  try {
+    //getting random number for result
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID);
+
+    if (!result.documents.length) return [];
+
+    const sortCars = [...result.documents].sort(() => 0.5 - Math.random());
+
+    const shuffledCars = sortCars.slice(0, 3);
+    // const random_numb = Math.floor(Math.random() * result.documents.length);
+
+    console.log("you got 3 cars: ", shuffledCars);
+    return shuffledCars;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const show_all_cars = async () => {
   try {
     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID);

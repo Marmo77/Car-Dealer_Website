@@ -19,13 +19,7 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [quickSearchOpen, setQuickSearchOpen] = useState(false);
 
-  const navigationItems = [
-    { id: "/", label: "Home" },
-    { id: "/listings", label: "Browse Cars" },
-    { id: "/about", label: "About Us" },
-    { id: "/contact", label: "Contact" },
-    { id: "/error", label: "ErrorPage" }, //temporarly
-  ];
+  const navigationItems = company[0].navigationID;
 
   const onChange = (page: string) => {
     onPageChange(page);

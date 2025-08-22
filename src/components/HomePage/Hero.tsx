@@ -24,7 +24,10 @@ const Hero = () => {
     navigation("/listings");
   };
   return (
-    <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 text-white">
+    <section
+      id="#"
+      className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 text-white"
+    >
       <div className="absolute inset-0 bg-black/20"></div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
         <div className="max-w-3xl max-lg:text-center max-lg:flex max-lg:flex-col max-lg:mx-auto">

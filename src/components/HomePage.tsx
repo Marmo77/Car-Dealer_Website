@@ -8,11 +8,11 @@ import Partners from "./HomePage/Partners";
 import FeaturedCars from "./HomePage/FeaturedCars";
 import WhyUs from "./HomePage/WhyUs";
 import CTAhome from "./HomePage/CTAhome";
-import { products } from "@/data/footer";
+import { navigation } from "@/data/footer";
 
 const HomePage = () => {
   useEffect(() => {
-    console.log(products);
+    console.log(navigation);
   }, []);
   return (
     <section className="flex grow flex-col gap-2">

@@ -1,30 +1,23 @@
 // import { Logo, LogoImage, LogoText } from "@/components/shadcnblocks/logo";
 import { CopyrightBar, navigation } from "@/data/footer";
 import { IoLogoApple } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useNavigateHandler } from "@/hooks/useNavigateHandler";
 import { Button } from "../ui/button";
 import { Car, Mail, Phone, Pin } from "lucide-react";
 import { company } from "@/data/company";
 
 const Footer = () => {
-  const navigate = useNavigate();
-
-  const handleNavigate = (location: string) => {
-    if (location.startsWith("/")) {
-      navigate(location);
-      return;
-    } else if (location.startsWith("#")) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      // back to top of the website
-      return;
-    }
-    window.open(location, "_blank", "noopener,noreferrer"); //link zewnętrzny (nie jest "/" ani "#")
-  };
+  const handleNavigate = useNavigateHandler();
   return (
     <section className="pt-12 pb-8 flex justify-center w-full">
       <div className="container">
         <footer>
-          <div className="grid grid-cols-2 gap-8 lg:grid-cols-6 max-max-md:px-6">
+          <div
+            className={`grid grid-cols-2 gap-8 lg:grid-cols-${
+              navigation.length + 2
+            } max-max-md:px-6`}
+            onClick={() => console.log(navigation.length + 2)}
+          >
             <div className="col-span-2 mb-8 lg:mb-0">
               <div className="flex items-center max-md:flex-col max-md:text-center max-md:justify-center gap-2 mb-6">
                 <div className="w-10 h-10 max-md:w-12 max-md:h-12 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -43,7 +36,7 @@ const Footer = () => {
                 <p className="mt-4 font-bold capitalize">
                   {CopyrightBar[0].tagline}
                 </p>
-                <p className="text-gray-500 mb-6 leading-relaxed pr-12 font-raleway">
+                <p className="text-gray-500 mb-6 leading-relaxed pr-0 lg:pr-12 font-raleway">
                   Your trusted partner in finding the perfect vehicle. We
                   connect buyers with quality cars from verified dealers
                   nationwide, ensuring a seamless and transparent car buying

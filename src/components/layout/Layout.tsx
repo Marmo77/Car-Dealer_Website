@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { useNavigateHandler } from "@/hooks/useNavigateHandler";
 const Layout = () => {
   const [currentPage, setCurrentPage] = useState("/");
 
-  const navigate = useNavigate();
+  const handleNavigate = useNavigateHandler();
   const location = useLocation();
 
   //Changing /routes when location change
   useEffect(() => {
-    navigate(currentPage);
+    handleNavigate(currentPage);
   }, [currentPage]);
 
   useEffect(() => {

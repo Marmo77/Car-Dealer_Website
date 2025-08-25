@@ -10,7 +10,12 @@ import WhyUs from "./HomePage/WhyUs";
 import CTAhome from "./HomePage/CTAhome";
 import { navigation } from "@/data/footer";
 
-const HomePage = () => {
+interface HomePageProps {
+  featuredCars: any[];
+  isLoading: boolean;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ featuredCars, isLoading }) => {
   useEffect(() => {
     console.log(navigation);
   }, []);
@@ -19,7 +24,7 @@ const HomePage = () => {
       <Hero />
       <Statistics stats={statistics} Guarantees={StatsGuarantees} />{" "}
       {/* tutaj featrued cars */}
-      <FeaturedCars />
+      <FeaturedCars featuredCars={featuredCars} isLoading={isLoading} />
       {/*z tego zrobic funkcje do searchingin <CarSelling /> */}
       {/* Why choose us? + cta to aboutUs */}
       <WhyUs />

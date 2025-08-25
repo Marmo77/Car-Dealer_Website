@@ -1,13 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { company } from "@/data/company";
+import { useNavigateHandler } from "@/hooks/useNavigateHandler";
 import { useNavigate } from "react-router-dom";
 
 export default function CallToAction() {
-  const navigation = useNavigate();
-
-  const handleNavigation = (location: string) => {
-    navigation(location);
-  };
+  const handleNavigate = useNavigateHandler();
 
   return (
     <section className="py-16 md:py-28">
@@ -28,7 +25,7 @@ export default function CallToAction() {
               asChild
               variant="custom2"
               size="xl"
-              onClick={() => handleNavigation("/listings")}
+              onClick={() => handleNavigate("/listings")}
             >
               <span>Browse All Cars</span>
             </Button>
@@ -37,7 +34,7 @@ export default function CallToAction() {
               asChild
               size="lg"
               variant="outline"
-              onClick={() => handleNavigation("/contact")}
+              onClick={() => handleNavigate("/contact")}
             >
               <span className="text-black">Contact Expert</span>
             </Button>

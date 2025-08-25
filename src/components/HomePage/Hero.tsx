@@ -129,7 +129,7 @@ const Hero = () => {
               </Button>
               <Button
                 //   onClick={handleQuickSearch}
-                className=" bg-red-500 hover:bg-red-600 cursor-pointer text-white py-4 text-lg font-semibold"
+                className="cursor-pointer drop-shadow-sm bg-accent hover:bg-blue-600 hover:text-white text-blue-600 py-4 text-lg font-semibold"
                 size="lg"
                 onClick={handleAllCars}
               >

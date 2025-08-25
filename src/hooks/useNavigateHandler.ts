@@ -8,10 +8,12 @@ export const useNavigateHandler = () => {
       navigate(location);
       return;
     } else if (location.startsWith("#")) {
-      const element = document.querySelector(location);
-      if (element) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+      // const element = document.querySelector(location);
+      // if (element) {
+      //   window.scrollTo({ top: 0, behavior: "smooth" });
+      // }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
       // back to top of the website or if # has other id
       return;
     }

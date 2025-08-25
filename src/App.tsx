@@ -15,7 +15,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadCars = async () => {
+    const fetchCars = async () => {
       try {
         const result = await fetchFeaturedCars();
         if (Array.isArray(result)) {
@@ -31,7 +31,7 @@ const App = () => {
       }
     };
 
-    loadCars();
+    fetchCars();
   }, []);
 
   return (
@@ -40,9 +40,7 @@ const App = () => {
         <Route element={<Layout />}>
           <Route
             path={company[0].navigationID[0].id}
-            element={
-              <HomePage featuredCars={cars} isLoading={isLoading} />
-            }
+            element={<HomePage featuredCars={cars} isLoading={isLoading} />}
           />
           <Route
             path={company[0].navigationID[1].id}

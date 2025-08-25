@@ -61,7 +61,7 @@ const Footer = () => {
     8: "lg:grid-cols-8",
   };
   return (
-    <section className="pt-6 pb-8 flex justify-center w-full bg-gray-900">
+    <section className="pt-6 flex justify-center w-full bg-gray-900">
       <div className="container text-accent">
         <Newsletter />
         <footer className="py-4 max-lg:px-8 px-0">
@@ -132,7 +132,7 @@ const Footer = () => {
               </div>
             ))}
           </div>
-          <div className="text-muted-foreground mt-12 flex flex-col justify-between gap-4 border-accent/10 border-t pt-8 text-sm font-medium md:flex-row md:items-center">
+          <div className="text-muted-foreground mt-6 pt-4 flex flex-col justify-between gap-4 border-accent/10 border-t text-sm font-medium md:flex-row md:items-center">
             <div className="flex md:flex-row flex-col max-md:mx-auto gap-6">
               <p>{CopyrightBar[0].copyright}</p>
               <ul className="flex gap-5">

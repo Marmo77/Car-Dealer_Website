@@ -1,5 +1,5 @@
 export type Car = {
-  id?: number;
+  id?: string;
   brand: string;
   model: string;
   isAvailable?: boolean;

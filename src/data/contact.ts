@@ -1,5 +1,5 @@
 import { company } from "./company";
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 export const contact = {
   phoneNumber: company[0].phoneNumber,

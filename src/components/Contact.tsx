@@ -2,6 +2,7 @@ import React from "react";
 import { contactInfo } from "@/data/contact";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
+import ContactForm from "./ui/ContactForm";
 
 const Contact = () => {
   return (
@@ -23,11 +24,11 @@ const Contact = () => {
         <div className="grid lg:grid-cols-3 gap-12 grid-cols-1">
           {/* # CONTACT INFORMATIONS # */}
           <div>
-            <div className="block pb-6">
-              <h3 className="text-start font-raleway mb-3  text-2xl font-bold">
+            <div className="block pb-6 text-center">
+              <h3 className="min-lg:text-start font-raleway mb-3  text-2xl font-bold">
                 Get in Touch
               </h3>
-              <p className="text-gray-700 font-montserrat px-1">
+              <p className="text-gray-700 min-lg:text-start font-montserrat px-1">
                 We're committed to providing exceptional service. Contact us
                 through any of the following methods:
               </p>
@@ -76,7 +77,9 @@ const Contact = () => {
             </div>
           </div>
           {/* # CONTACT FORM # */}
-          <div className="lg:col-span-2 rounded-3xl bg-amber-400">Form us</div>
+          <div className="lg:col-span-2 rounded-3xl bg-amber-400">
+            <ContactForm />
+          </div>
         </div>
       </div>
     </section>

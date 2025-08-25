@@ -118,22 +118,23 @@ const Hero = () => {
                 </SelectContent>
               </Select>
             </div>
-            <div className="relative flex max-md:flex-col gap-5">
+            <div className="relative font-raleway flex max-md:flex-col gap-5">
               <Button
                 //   onClick={handleQuickSearch}
                 className="min-md:grow-3 bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg font-semibold"
                 size="lg"
               >
                 <Search className="mr-3 h-5 w-5" />
-                <span className="font-poppins">Search Cars</span>
+                <span className="">Search Cars</span>
               </Button>
               <Button
                 //   onClick={handleQuickSearch}
-                className="cursor-pointer drop-shadow-sm bg-accent hover:bg-blue-600 hover:text-white text-blue-600 py-4 text-lg font-semibold"
+                variant={"outline"}
+                className="border-blue-600 text-blue-600 text-lg font-semibold  hover:text-card hover:bg-blue-600"
                 size="lg"
                 onClick={handleAllCars}
               >
-                <span className="font-roboto">Browse All</span>
+                <span className="">Browse All</span>
                 <SearchCheck className="ml-2 h-5 w-5" />
               </Button>
             </div>

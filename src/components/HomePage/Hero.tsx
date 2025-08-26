@@ -9,6 +9,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Button } from "../ui/button";
+import HeroBg from "@/assets/imgs/Hero_bg.jpg";
+
 // import { Card, CardContent } from '../ui/card'
 // import { Badge } from '../ui/badge'
 const Hero = () => {
@@ -26,9 +28,19 @@ const Hero = () => {
   return (
     <section
       id="#"
-      className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 text-white"
+      className="relative bg-gradient-to-br from-blue-900 via-gray-800 to-gray-900 text-white overflow-hidden"
     >
-      <div className="absolute inset-0 bg-black/20"></div>
+      {/* bg overlay */}
+      {/* <div className="absolute inset-0 bg-black/20"></div> */}
+      {/* bg img */}
+      <div className="absolute w-full h-full bg-cover bg-center">
+        <img
+          src={HeroBg}
+          alt=""
+          className="w-full h-full object-cover backdrop-blur-xl blur-sm"
+        />
+      </div>
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
         <div className="max-w-3xl max-lg:text-center max-lg:flex max-lg:flex-col max-lg:mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
@@ -118,22 +130,23 @@ const Hero = () => {
                 </SelectContent>
               </Select>
             </div>
-            <div className="relative flex max-md:flex-col gap-5">
+            <div className="relative font-raleway flex max-md:flex-col gap-5">
               <Button
                 //   onClick={handleQuickSearch}
                 className="min-md:grow-3 bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg font-semibold"
                 size="lg"
               >
                 <Search className="mr-3 h-5 w-5" />
-                <span className="font-poppins">Search Cars</span>
+                <span className="">Search Cars</span>
               </Button>
               <Button
                 //   onClick={handleQuickSearch}
-                className="cursor-pointer drop-shadow-sm bg-accent hover:bg-blue-600 hover:text-white text-blue-600 py-4 text-lg font-semibold"
+                variant={"outline"}
+                className="border-blue-600 text-blue-600 text-lg font-semibold  hover:text-card hover:bg-blue-600"
                 size="lg"
                 onClick={handleAllCars}
               >
-                <span className="font-roboto">Browse All</span>
+                <span className="">Browse All</span>
                 <SearchCheck className="ml-2 h-5 w-5" />
               </Button>
             </div>

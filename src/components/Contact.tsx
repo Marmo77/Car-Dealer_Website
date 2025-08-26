@@ -77,7 +77,7 @@ const Contact = () => {
             </div>
           </div>
           {/* # CONTACT FORM # */}
-          <div className="lg:col-span-2 rounded-3xl bg-amber-400">
+          <div className="lg:col-span-2">
             <ContactForm />
           </div>
         </div>

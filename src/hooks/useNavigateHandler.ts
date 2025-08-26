@@ -6,6 +6,7 @@ export const useNavigateHandler = () => {
   return (location: string) => {
     if (location.startsWith("/")) {
       navigate(location);
+      window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     } else if (location.startsWith("#")) {
       // const element = document.querySelector(location);

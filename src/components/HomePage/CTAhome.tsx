@@ -1,5 +1,5 @@
 import React from "react";
-import CallToAction from "../call-to-action";
+import CallToAction from "../ui/call-to-action";
 
 const CTAhome = () => {
   return (

@@ -10,18 +10,39 @@ import { useState } from "react";
 
 const Newsletter = () => {
   const [mail, setMail] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
-  let email = "";
+  const [gotMail, setGotMail] = useState<boolean>(
+    localStorage.getItem("Newsletter_email") !== null
+  );
 
-  const handleSubscribeSubmit = () => {
-    if (mail.includes("@")) {
-      email = mail;
-      console.log(email);
-      return;
-    } else {
-      console.log("upsss seams like you make it wrong.");
+  const handleSubscribeSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // simple email validation
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
+    if (!mail.trim()) {
+      setError("Please enter your email address");
       return;
     }
+    if (!isValid) {
+      setError("Please enter a valid email address");
+      return;
+    }
+    localStorage.setItem("Newsletter_email", mail);
+    setGotMail(true);
+    setError("");
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setMail("");
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 5000);
+    }, 1500);
   };
   return (
     <div className="w-full flex justify-center py-6 mb-6 border-b border-accent/10">
@@ -31,20 +52,46 @@ const Newsletter = () => {
           Get the latest car listings, exclusive deals, and automotive news
           delivered to your inbox. Be the first to get notification.
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 min-w-md mx-auto">
+        {/* {!isSubmitted ? ( */}
+        <form
+          onSubmit={handleSubscribeSubmit}
+          className="flex flex-col sm:flex-row gap-3 min-w-md mx-auto"
+        >
           <Input
-            placeholder="Enter your email address"
-            onChange={(e) => setMail(e.target.value)}
-            type="text"
+            placeholder={
+              gotMail ? "You already Subscribed!" : "Enter your email address"
+            }
+            type="email"
+            required
+            disabled={gotMail}
+            value={mail}
+            onChange={(e) => {
+              setMail(e.target.value);
+              if (error) setError("");
+            }}
             className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-400"
-          ></Input>
+          />
           <Button
             className="bg-blue-600 hover:bg-blue-700 text-white px-6"
-            onClick={handleSubscribeSubmit}
+            type="submit"
+            disabled={isSubmitting || gotMail}
           >
-            Subscribe
+            {isSubmitting
+              ? "Subscribing..."
+              : gotMail
+              ? "Subscribed"
+              : "Subscribe"}
           </Button>
-        </div>
+        </form>
+        {/* ) : ( */}
+        {isSubmitted && (
+          <p className="text-green-500 text-sm font-semibold">
+            Thank you for subscribing!
+          </p>
+        )}
+        {/* )} */}
+
+        {error && <p className="text-red-500 text-sm font-semibold">{error}</p>}
       </div>
     </div>
   );

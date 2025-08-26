@@ -1,3 +1,4 @@
+@ -0,0 +1,165 @@
 import React, { useState } from "react";
 import {
   Card,
@@ -46,7 +47,7 @@ const ContactForm = () => {
           message: "",
           questionType: "",
         });
-      }, 5000);
+      }, 10000);
     }, 1500);
   };
 
@@ -62,7 +63,6 @@ const ContactForm = () => {
       <CardContent>
         {isSubmitted ? (
           <div className="flex font-montserrat text-center flex-col items-center py-6">
-            {" "}
             <CircleCheckBig className="text-green-500 w-18 h-18 mb-4" />
             <h1 className="text-2xl font-semibold py-2">
               Message Sent Successfully!
@@ -75,14 +75,14 @@ const ContactForm = () => {
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col font-lexend space-y-2">
+            <div className="grid grid-cols-1 font-lexend sm:grid-cols-2 space-y-6 gap-5">
+              <div className="space-y-2">
                 <Label htmlFor="firstName">First Name *</Label>
                 <Input
                   type="text"
-                  name="firstName"
                   id="firstName"
-                  className="px-2 bg-accent"
+                  required
+                  className="px-2 shadow-md"
                   placeholder="Enter your first name"
                   value={formData.firstName}
                   onChange={(e) =>
@@ -93,9 +93,50 @@ const ContactForm = () => {
                   }
                 />
               </div>
-              <div>2</div>
-              <div>3</div>
-              <div>4</div>
+              <div className="space-y-2">
+                <Label htmlFor="lastName">Last Name *</Label>
+                <Input
+                  type="text"
+                  id="lastName"
+                  required
+                  className="px-2 shadow-md"
+                  placeholder="Enter your last name"
+                  value={formData.lastName}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      lastName: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email *</Label>
+                <Input
+                  type="email"
+                  id="email"
+                  required
+                  className="px-2 shadow-md"
+                  placeholder="Enter your email address"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      email: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone *</Label>
+                <Input
+                  type="tel"
+                  id="phone"
+                  required
+                  placeholder="Enter your phone number"
+                  className="px-2 shadow-md"
+                />
+              </div>
             </div>
             <Button
               type="submit"

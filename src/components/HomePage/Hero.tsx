@@ -9,6 +9,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Button } from "../ui/button";
+import HeroBg from "@/assets/imgs/Hero_bg.jpg";
+
 // import { Card, CardContent } from '../ui/card'
 // import { Badge } from '../ui/badge'
 const Hero = () => {
@@ -26,9 +28,19 @@ const Hero = () => {
   return (
     <section
       id="#"
-      className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 text-white"
+      className="relative bg-gradient-to-br from-blue-900 via-gray-800 to-gray-900 text-white overflow-hidden"
     >
-      <div className="absolute inset-0 bg-black/20"></div>
+      {/* bg overlay */}
+      {/* <div className="absolute inset-0 bg-black/20"></div> */}
+      {/* bg img */}
+      <div className="absolute w-full h-full bg-cover bg-center">
+        <img
+          src={HeroBg}
+          alt=""
+          className="w-full h-full object-cover backdrop-blur-xl blur-sm"
+        />
+      </div>
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
         <div className="max-w-3xl max-lg:text-center max-lg:flex max-lg:flex-col max-lg:mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">

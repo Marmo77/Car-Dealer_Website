@@ -62,7 +62,7 @@ const Hero = () => {
                   setSearchFilters({ ...searchFilters, brand: value })
                 }
               >
-                <SelectTrigger className="bg-white cursor-pointer">
+                <SelectTrigger className="bg-white cursor-pointer w-full">
                   <SelectValue placeholder="Select Brand" />
                 </SelectTrigger>
                 <SelectContent className="">
@@ -82,7 +82,7 @@ const Hero = () => {
                   setSearchFilters({ ...searchFilters, maxPrice: value })
                 }
               >
-                <SelectTrigger className="bg-white cursor-pointer">
+                <SelectTrigger className="bg-white cursor-pointer w-full">
                   <SelectValue placeholder="Max Price" />
                 </SelectTrigger>
                 <SelectContent>
@@ -100,7 +100,7 @@ const Hero = () => {
                   setSearchFilters({ ...searchFilters, year: value })
                 }
               >
-                <SelectTrigger className="bg-white cursor-pointer">
+                <SelectTrigger className="bg-white cursor-pointer w-full">
                   <SelectValue placeholder="Year" />
                 </SelectTrigger>
                 <SelectContent>
@@ -118,7 +118,7 @@ const Hero = () => {
                   setSearchFilters({ ...searchFilters, mileage: value })
                 }
               >
-                <SelectTrigger className="bg-white cursor-pointer">
+                <SelectTrigger className="bg-white cursor-pointer w-full">
                   <SelectValue placeholder="Mileage" />
                 </SelectTrigger>
                 <SelectContent>

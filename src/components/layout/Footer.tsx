@@ -14,9 +14,8 @@ const Newsletter = () => {
   const [error, setError] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-
   const [gotMail, setGotMail] = useState<boolean>(
-    localStorage.getItem("Newsletter_email") !== null
+    localStorage.getItem("Newsletter") === "True" ? true : false
   );
 
   const handleSubscribeSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,9 +31,11 @@ const Newsletter = () => {
       setError("Please enter a valid email address");
       return;
     }
-    localStorage.setItem("Newsletter_email", mail);
 
+    localStorage.setItem("Newsletter", "True");
     handleNewsletterUser({ email: mail });
+    console.log(`User Added to Newsletter (${mail})`);
+
     setGotMail(true);
     setError("");
     setIsSubmitting(true);

@@ -1,8 +1,10 @@
-import { Client, Databases, Query, ID } from "appwrite";
+import { Client, Databases, Query, ID, Permission, Role } from "appwrite";
 
 const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
+const CONTACT_MESSAGE_COLLECTION_ID = import.meta.env
+  .VITE_APPWRITE_CONTACT_MESSAGE_COLLECTION_ID;
 const ENDPOINT = import.meta.env.VITE_APPWRITE_ENDPOINT;
 
 const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
@@ -26,6 +28,73 @@ export const update = async () => {
       console.log(result);
     }
     // const response = await database.getDocument(DATABASE_ID,COLLECTION_ID,)
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const DummyCars = async () => {
+  try {
+    return [];
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+export const LoginUser = async () => {
+  try {
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+interface handleContactForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  questionType: string;
+  subject: string;
+  message: string;
+}
+
+export const handleContactForm = async ({
+  firstName,
+  lastName,
+  email,
+  phone,
+  questionType,
+  subject,
+  message,
+}: handleContactForm) => {
+  try {
+    // const result = await database.listDocuments(
+    //   DATABASE_ID,
+    //   CONTACT_MESSAGE_COLLECTION_ID
+    // );
+
+    const createNewMessage = await database.createDocument(
+      DATABASE_ID,
+      CONTACT_MESSAGE_COLLECTION_ID,
+      ID.unique(),
+      {
+        firstName: firstName,
+        lastName: lastName,
+        Email: email,
+        Phone: phone,
+        QuestionType: questionType,
+        Subject: subject,
+        Message: message,
+      },
+      [
+        Permission.read(Role.any()),
+        Permission.update(Role.any()),
+        Permission.delete(Role.any()),
+      ]
+    );
+    // console.log(createNewMessage);
+    return createNewMessage;
   } catch (error) {
     console.error(error);
   }

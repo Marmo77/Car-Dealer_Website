@@ -53,6 +53,7 @@ const ContactForm = () => {
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
+      console.log(formData);
 
       // Reset form after showing success
       setTimeout(() => {
@@ -95,7 +96,8 @@ const ContactForm = () => {
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 mb-6 font-lexend sm:grid-cols-2 gap-5">
-              <div className="space-y-2">
+              {/* FIRST NAME */}
+              <div className="space-y-2 md:col-span-1 col-span-2">
                 <Label htmlFor="firstName">First Name *</Label>
                 <Input
                   type="text"
@@ -112,7 +114,8 @@ const ContactForm = () => {
                   }
                 />
               </div>
-              <div className="space-y-2">
+              {/* LAST NAME */}
+              <div className="space-y-2 md:col-span-1 col-span-2">
                 <Label htmlFor="lastName">Last Name *</Label>
                 <Input
                   type="text"
@@ -129,7 +132,8 @@ const ContactForm = () => {
                   }
                 />
               </div>
-              <div className="space-y-2">
+              {/* EMAIL */}
+              <div className="space-y-2 md:col-span-1 col-span-2">
                 <Label htmlFor="email">Email *</Label>
                 <Input
                   type="email"
@@ -146,7 +150,8 @@ const ContactForm = () => {
                   }
                 />
               </div>
-              <div className="space-y-2">
+              {/* PHONE */}
+              <div className="space-y-2 md:col-span-1 col-span-2">
                 <Label htmlFor="phone">Phone *</Label>
                 <Input
                   type="tel"
@@ -154,8 +159,13 @@ const ContactForm = () => {
                   required
                   placeholder="Enter your phone number"
                   className="px-2 shadow-md"
+                  value={formData.phone}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, phone: e.target.value }))
+                  }
                 />
               </div>
+              {/* QUESTION TYPE */}
               <div className="space-y-2 col-span-2">
                 <Label htmlFor="questionType">Question Type</Label>
                 <Select
@@ -177,6 +187,7 @@ const ContactForm = () => {
                   </SelectContent>
                 </Select>
               </div>
+              {/* SUBJECT */}
               <div className="space-y-2 col-span-2">
                 <Label htmlFor="subject">Subject *</Label>
                 <Input
@@ -193,13 +204,14 @@ const ContactForm = () => {
                   }
                 />
               </div>
+              {/* MESSAGE */}
               <div className="col-span-2">
                 <Label htmlFor="message">Message *</Label>
                 <Textarea
                   value={formData.message}
                   required
                   placeholder="Enter your message here..."
-                  className="max-h-[250px] shadow-md px-2"
+                  className="max-h-[250px] min-h-[150px] max-lg:border-accent my-2 shadow-md px-2"
                   onChange={(e) =>
                     setFormData((prev) => ({
                       ...prev,
@@ -209,6 +221,7 @@ const ContactForm = () => {
                 />
               </div>
             </div>
+            {/* PRIVACY NOTICE */}
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
               <p className="text-sm text-blue-800">
                 <strong>Privacy Notice:</strong> Your information will be kept
@@ -217,6 +230,7 @@ const ContactForm = () => {
                 consent.
               </p>
             </div>
+            {/* SUBMIT BUTTOn */}
             <Button
               type="submit"
               disabled={isSubmitting}

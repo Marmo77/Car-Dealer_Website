@@ -1,7 +1,8 @@
 //Browser routes
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { featuredCars as fetchFeaturedCars } from "@/appwrite";
+// import { featuredCars as fetchFeaturedCars } from "@/appwrite"; //this is for getting 3 random cars from database
+import { DummyCars as fetchFeaturedCars } from "@/appwrite.ts"; // this is dummy empty for not using that much database
 import Layout from "./components/layout/Layout";
 import HomePage from "./components/HomePage";
 import ListingPage from "./components/ListingPage";

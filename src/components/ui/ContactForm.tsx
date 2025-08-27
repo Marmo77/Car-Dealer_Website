@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "./textarea";
+import { handleContactForm } from "@/appwrite";
 
 const questionTypes = [
   { value: "car_information", label: "Vehicle Information" },
@@ -49,11 +50,12 @@ const ContactForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
+    // Form submission
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-      console.log(formData);
+      // Data submission to appwrite Database
+      handleContactForm(formData);
 
       // Reset form after showing success
       setTimeout(() => {
@@ -101,6 +103,7 @@ const ContactForm = () => {
                 <Label htmlFor="firstName">First Name *</Label>
                 <Input
                   type="text"
+                  maxLength={20}
                   id="firstName"
                   required
                   className="px-2 shadow-md"
@@ -119,6 +122,7 @@ const ContactForm = () => {
                 <Label htmlFor="lastName">Last Name *</Label>
                 <Input
                   type="text"
+                  maxLength={32}
                   id="lastName"
                   required
                   className="px-2 shadow-md"
@@ -156,6 +160,7 @@ const ContactForm = () => {
                 <Input
                   type="tel"
                   id="phone"
+                  maxLength={15}
                   required
                   placeholder="Enter your phone number"
                   className="px-2 shadow-md"
@@ -192,6 +197,7 @@ const ContactForm = () => {
                 <Label htmlFor="subject">Subject *</Label>
                 <Input
                   type="text"
+                  maxLength={128}
                   required
                   value={formData.subject}
                   className="shadow-md px-2"
@@ -210,6 +216,7 @@ const ContactForm = () => {
                 <Textarea
                   value={formData.message}
                   required
+                  maxLength={1024}
                   placeholder="Enter your message here..."
                   className="max-h-[250px] min-h-[150px] max-lg:border-accent my-2 shadow-md px-2"
                   onChange={(e) =>

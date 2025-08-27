@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import CarSelling from "./HomePage/CarSelling";
+import React from "react";
 import Hero from "./HomePage/Hero";
 import Statistics from "./HomePage/Statistics";
 
@@ -8,7 +7,6 @@ import Partners from "./HomePage/Partners";
 import FeaturedCars from "./HomePage/FeaturedCars";
 import WhyUs from "./HomePage/WhyUs";
 import CTAhome from "./HomePage/CTAhome";
-import { navigation } from "@/data/footer";
 
 interface HomePageProps {
   featuredCars: any[];
@@ -16,9 +14,6 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ featuredCars, isLoading }) => {
-  useEffect(() => {
-    console.log(navigation);
-  }, []);
   return (
     <section className="flex grow flex-col gap-2">
       <Hero />

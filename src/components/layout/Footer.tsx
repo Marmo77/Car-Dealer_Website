@@ -7,6 +7,7 @@ import { Car, Mail, Phone, Pin } from "lucide-react";
 import { company } from "@/data/company";
 import { Input } from "../ui/input";
 import { useState } from "react";
+import { handleNewsletterUser } from "@/appwrite";
 
 const Newsletter = () => {
   const [mail, setMail] = useState<string>("");
@@ -32,6 +33,8 @@ const Newsletter = () => {
       return;
     }
     localStorage.setItem("Newsletter_email", mail);
+
+    handleNewsletterUser({ email: mail });
     setGotMail(true);
     setError("");
     setIsSubmitting(true);

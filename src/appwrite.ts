@@ -1,13 +1,33 @@
-import { Client, Databases, Query, ID, Permission, Role } from "appwrite";
+import {
+  Client,
+  Databases,
+  Query,
+  ID,
+  Permission,
+  Role,
+  Locale,
+} from "appwrite";
 
 const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
 const CONTACT_MESSAGE_COLLECTION_ID = import.meta.env
   .VITE_APPWRITE_CONTACT_MESSAGE_COLLECTION_ID;
+const NEWSLETTER_COLLECTION_ID = import.meta.env
+  .VITE_APPWRITE_NEWSLETTER_COLLECTION_ID;
 const ENDPOINT = import.meta.env.VITE_APPWRITE_ENDPOINT;
 
 const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
+
+// ############################
+// GET MORE INFO ABOUT USER
+
+const locale = new Locale(client);
+
+const userLocale = await locale.get();
+const userIpAddress = userLocale.ip;
+const userCountry = userLocale.country;
+// ############################
 
 const database = new Databases(client);
 
@@ -95,6 +115,24 @@ export const handleContactForm = async ({
     );
     // console.log(createNewMessage);
     return createNewMessage;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const handleNewsletterUser = async ({ email }: { email: string }) => {
+  try {
+    const addNewsletterUser = await database.createDocument(
+      DATABASE_ID,
+      NEWSLETTER_COLLECTION_ID,
+      ID.unique(),
+      {
+        email: email,
+        user_ip: userIpAddress,
+        user_country: userCountry,
+      }
+    );
+    return addNewsletterUser;
   } catch (error) {
     console.error(error);
   }

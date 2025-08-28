@@ -1,10 +1,15 @@
 import React from "react";
+import Hero from "./AboutPage/AboutHero";
+import Mission from "./AboutPage/Mission";
 
 const About = () => {
   return (
-    <div className="text-3xl mx-auto text-center w-full text-red-500">
-      This is abpit PAGE!!
-    </div>
+    <>
+      <div className="min-h-screen bg-white">
+        <Hero />
+        <Mission />
+      </div>
+    </>
   );
 };
 

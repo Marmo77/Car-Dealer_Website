@@ -4,27 +4,21 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { company } from "@/data/company";
 
-interface NavbarProps {
-  currentPage: string;
-  onPageChange: (page: string) => void;
-}
+import { useLocation, useNavigate } from "react-router-dom";
 
-const handleConsole = (current: string, item: string) => {
-  // onPageChange(page)
-  console.log("Current page: ", current);
-  console.log("item: ", item);
-};
-
-export function Navbar({ currentPage, onPageChange }: NavbarProps) {
+// interface NavbarProps {
+//   currentPage: string;
+//   onPageChange: (page: string) => void;
+// }
+export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [quickSearchOpen, setQuickSearchOpen] = useState(false);
 
   const navigationItems = company[0].navigationID;
 
-  const onChange = (page: string) => {
-    onPageChange(page);
-    handleConsole(currentPage, page);
-  };
+  const location = useLocation();
+  const navigate = useNavigate();
+
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-lg drop-shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,7 +26,7 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
           {/* Logo */}
           <div
             className="flex items-center gap-2 cursor-pointer"
-            onClick={() => onPageChange(company[0].navigationID[0].id)}
+            onClick={() => navigate(company[0].navigationID[0].id)}
           >
             <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
               <Car className="h-6 w-6 text-white" />
@@ -52,10 +46,9 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
             {navigationItems.map((item) => (
               <button
                 key={item.id}
-                // onChange is temporarly to track on consol paths
-                onClick={() => onChange(item.id)}
+                onClick={() => navigate(item.id)}
                 className={`text-sm font-medium transition-colors hover:text-blue-600 cursor-pointer ${
-                  currentPage === item.id
+                  location.pathname === item.id
                     ? "text-blue-600 border-b-2 border-blue-600 pb-1"
                     : "text-gray-700  hover:scale-105"
                 }`}
@@ -121,11 +114,11 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
                 <button
                   key={item.id}
                   onClick={() => {
-                    onPageChange(item.id);
+                    navigate(item.id);
                     setIsMobileMenuOpen(false);
                   }}
                   className={`block w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    currentPage === item.id
+                    location.pathname === item.id
                       ? "text-blue-600 bg-blue-50"
                       : "text-gray-700 hover:bg-gray-50"
                   }`}

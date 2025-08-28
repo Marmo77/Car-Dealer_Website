@@ -1,5 +1,5 @@
 //Browser routes
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 // import { featuredCars as fetchFeaturedCars } from "@/appwrite"; //this is for getting 3 random cars from database
 import { DummyCars as fetchFeaturedCars } from "@/appwrite.ts"; // this is dummy empty for not using that much database
@@ -36,23 +36,19 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route
-            path={company[0].navigationID[0].id}
-            element={<HomePage featuredCars={cars} isLoading={isLoading} />}
-          />
-          <Route
-            path={company[0].navigationID[1].id}
-            element={<ListingPage />}
-          />
-          <Route path={company[0].navigationID[2].id} element={<About />} />
-          <Route path={company[0].navigationID[3].id} element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </Router>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route
+          index
+          path={company[0].navigationID[0].id}
+          element={<HomePage featuredCars={cars} isLoading={isLoading} />}
+        />
+        <Route path={company[0].navigationID[1].id} element={<ListingPage />} />
+        <Route path={company[0].navigationID[2].id} element={<About />} />
+        <Route path={company[0].navigationID[3].id} element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
     // <Layout />
   );
 };

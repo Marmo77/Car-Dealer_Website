@@ -10,13 +10,16 @@ const ListingPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
-  //filters
-  const [filters, setFilters] = React.useState({
+  // filters
+  const [filters, setFilters] = React.useState<{
+    brand: string[];
+    priceRange: number[];
+  }>({
     brand: [],
     priceRange: [0, 250000],
   });
 
-  const cleanFilters = () => {
+  const clearFilters = () => {
     setFilters({
       brand: [],
       priceRange: [0, 250000],
@@ -42,12 +45,12 @@ const ListingPage = () => {
         <div className="col-span-1">
           <Filters
             filters={filters}
-            // setFilters={setFilters}
-            cleanFilters={cleanFilters}
+            setFilters={setFilters}
+            clearFilters={clearFilters}
           />
         </div>
         <div className="col-span-3">
-          <AllCars />
+          <AllCars totalCars={totalCars!} />
         </div>
       </div>
     </section>

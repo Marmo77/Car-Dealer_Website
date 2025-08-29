@@ -26,8 +26,35 @@ const locale = new Locale(client);
 
 const userLocale = await locale.get();
 const userIpAddress = userLocale.ip;
-const userCountry = userLocale.country;
+let userCountry = userLocale.country;
+
 // ############################
+// set user basic data (IP & Country)
+export const setUserData = () => {
+  if (
+    userIpAddress !== localStorage.getItem("userIpAddress") ||
+    userCountry !== localStorage.getItem("userCountry")
+  ) {
+    localStorage.setItem("userIpAddress", userIpAddress);
+    localStorage.setItem("userCountry", userCountry);
+  } else {
+    console.log("User ip is: ", userIpAddress);
+    console.log("User country is: ", userCountry);
+  }
+};
+
+export const AllCarsLimit = async (limit: number) => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.limit(limit),
+    ]);
+    console.log("All cars: ", result.documents);
+    return result.documents;
+  } catch (error) {
+    console.error("Error fetching All cars ❌: ", error);
+    return [];
+  }
+};
 
 const database = new Databases(client);
 

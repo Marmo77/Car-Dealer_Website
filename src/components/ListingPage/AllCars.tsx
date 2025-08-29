@@ -1,7 +1,15 @@
 import React from "react";
+import CarSelling from "../HomePage/CarSelling";
 
-const AllCars = () => {
-  return <div className="bg-red-600 col-span-2">AllCars</div>;
+const AllCars = ({ totalCars }: { totalCars: number }) => {
+  const limited = 12;
+  return (
+    <div className="col-span-2">
+      <div>
+        <CarSelling limit={limited} totalCars={totalCars} />
+      </div>
+    </div>
+  );
 };
 
 export default AllCars;

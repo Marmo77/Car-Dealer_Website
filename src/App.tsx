@@ -1,7 +1,7 @@
 //Browser routes
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { featuredCars as fetchFeaturedCars } from "@/appwrite"; //this is for getting 3 random cars from database
+import { featuredCars as fetchFeaturedCars, setUserData } from "@/appwrite"; //this is for getting 3 random cars from database
 // import { DummyCars as fetchFeaturedCars } from "@/appwrite.ts"; // this is dummy empty for not using that much database
 import Layout from "./components/layout/Layout";
 import HomePage from "./components/HomePage";
@@ -15,7 +15,6 @@ import { type CarDocument } from "./types/Car";
 const App = () => {
   const [cars, setCars] = useState<CarDocument[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     const fetchCars = async () => {
       try {
@@ -33,6 +32,8 @@ const App = () => {
         setIsLoading(false);
       }
     };
+    // on load check user IP and Country
+    setUserData();
 
     fetchCars();
   }, []);

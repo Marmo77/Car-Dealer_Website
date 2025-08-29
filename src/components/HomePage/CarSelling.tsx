@@ -1,4 +1,5 @@
 import {
+  AllCarsLimit,
   getFilteredAndSearchedCars,
   // getFilteredCars,
   // getSearchedCars,
@@ -9,137 +10,110 @@ import CarCard from "@/components/HomePage/CarCard";
 import { useEffect, useState } from "react";
 import { FilterCars } from "./FilterCars";
 import { Button } from "../ui/button";
+import { Loader2 } from "lucide-react";
 
-export default function CarSelling() {
+export default function CarSelling({
+  limit,
+  totalCars,
+}: {
+  limit: number;
+  totalCars: number;
+}) {
   const [find, setFind] = useState<string>(""); // Filter by search
   const [filterBrand, setFilterBrand] = useState<string>(""); // Filter by brand (combobox)
   // get all cars from database
   const [cars, setCars] = useState<any[]>([]);
 
+  //load more
+  const [loadMore, setLoadMore] = useState<number>(limit);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isCollapsing, setIsCollapsing] = useState<boolean>(false);
+
   // Fetching all cars form database
 
   useEffect(() => {
     const fetch_cars = async () => {
-      const result = await show_all_cars();
+      const result = await AllCarsLimit(limit);
       setCars(result);
     };
     fetch_cars();
   }, []);
 
-  // ------ Filtrowanie od razu po zmianie / odrazu po wpisaniu ------
-
-  // Zmiana marki == przefiltorwane
-  // useEffect(() => {
-  //   console.log(filterBrand);
-  //   const filter_cars = async () => {
-  //     if (filterBrand) {
-  //       if (filterBrand == "all") {
-  //         //Pokazuje wszystkie auta (filtr == Wszystkie)
-  //         const result = await show_all_cars();
-  //         setCars(result);
-  //       } else {
-  //         // Pokazuje to co zostało wybrane w filtrze
-  //         const result = await getFilteredCars(filterBrand);
-  //         setCars(result);
-  //       }
-  //     }
-  //   };
-  //   filter_cars();
-  // }, [filterBrand]);
-  // // WYSZUKIWANIE Searching
-  // useEffect(() => {
-  //   console.log(find);
-  //   const filterSearchCars = async () => {
-  //     if (find.length == 0) {
-  //       const result = await show_all_cars();
-  //       setCars(result);
-  //     } else if (find.length > 1) {
-  //       const result = await getSearchedCars(find);
-  //       setCars(result);
-  //     }
-  //   };
-  //   filterSearchCars();
-  // }, [find]);
-
-  // --------------------------------------------------------------
-
-  // ------ Filtorwanie po kliknieciu guzika ------
-
-  // #### filtorwanie tylko poprzez comboboxa ####
-  // const filter_cars = async () => {
-  //   if (filterBrand) {
-  //     if (filterBrand == "all") {
-  //       //Pokazuje wszystkie auta (filtr == Wszystkie)
-  //       const result = await show_all_cars();
-  //       setCars(result);
-  //     } else {
-  //       // Pokazuje to co zostało wybrane w filtrze
-  //       const result = await getFilteredCars(filterBrand);
-  //       setCars(result);
-  //     }
-  //   }
-  // };
-  // #################################################
-  // #### filtorwanie tylko poprzez wyszukiwanie ####
-  // const filterSearchCars = async () => {
-  //   if (find.length == 0) {
-  //     const result = await show_all_cars();
-  //     setCars(result);
-  //   } else if (find.length > 1) {
-  //     const result = await getSearchedCars(find);
-  //     setCars(result);
-  //   }
-  // };
-  // #################################################
-
-  //łączenie dwóch kwerend (zrobione z backendu (getFilteredAndSearchedCars))
-  const mergedSearch = async () => {
-    const result = await getFilteredAndSearchedCars(filterBrand, find);
-    setCars(result ?? []);
+  useEffect(() => {
+    const showload = console.log(loadMore);
+    showload;
+  }, [loadMore]);
+  const handleLoadMore = async () => {
+    setIsLoading(true);
+    const result = await AllCarsLimit(loadMore + 12);
+    setCars(result);
+    setLoadMore(loadMore + 12);
+    setIsLoading(false);
   };
 
-  const handleFiltering = () => {
-    mergedSearch();
+  const handleLoadLess = async () => {
+    setIsLoading(true);
+    setIsCollapsing(true); // start fade-out
+    // wait 1s for animation
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const result = await AllCarsLimit(limit);
+    setCars(result);
+    setLoadMore(limit);
+    setIsCollapsing(false); // end fade-out (fade back in)
+    setIsLoading(false);
+    // scroll back to top smoothly
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  // const ErrorLength = () => {
-  //   if (find.length < 2 && find.length <= 1) {
-  //     return true;
-  //   }
-  // };
-
-  // ------------------------------------------------
-
   return (
     <div className="flex flex-col gap-12 items-center">
-      <div className="flex gap-6 items-center">
-        <label htmlFor="filter_search">Search Car:</label>
-        <div className="flex items-center gap-4">
-          <input
-            type="text"
-            name="filter_search"
-            className="w-36 h-8 px-2 bg-gray-300 "
-            onChange={(e) => setFind(e.target.value)}
-          />
-          {/* <span className="text-red-500">
-            {ErrorLength() ? "Minium 2 characters" : ""}
-          </span> */}
-        </div>
-        <FilterCars setFilterBrand={setFilterBrand} />
-        <Button
-          onClick={handleFiltering}
-          className="hover:scale-105 duration-300 cursor-pointer active:scale-95"
-        >
-          Filter
-        </Button>
-      </div>
-      <div className="grid grid-cols-5 gap-4">
+      {/* //   <div className="flex gap-6 items-center">
+    //     <label htmlFor="filter_search">Search Car:</label>
+    //     <div className="flex items-center gap-4">
+    //       <input
+    //         type="text"
+    //         name="filter_search"
+    //         className="w-36 h-8 px-2 bg-gray-300 "
+    //         onChange={(e) => setFind(e.target.value)}
+    //       />
+    //     </div>
+    //     <FilterCars setFilterBrand={setFilterBrand} />
+    //     <Button
+    //       onClick={handleFiltering}
+    //       className="hover:scale-105 duration-300 cursor-pointer active:scale-95"
+    //     >
+    //       Filter
+    //     </Button>
+    //   </div> */}
+      <div
+        className={`grid grid-cols-3 gap-4 transition-opacity duration-1000 ${
+          isCollapsing ? "opacity-0" : "opacity-100"
+        }`}
+      >
         {cars.map((car, i) => (
           <div>
             <CarCard key={i} {...car} />
           </div>
         ))}
       </div>
+      {totalCars > loadMore ? (
+        <Button
+          variant={"custom1"}
+          className="w-36 py-4 mt-4"
+          onClick={handleLoadMore}
+        >
+          {isLoading ? <Loader2 className="animate-spin" /> : "Load More"}
+        </Button>
+      ) : (
+        totalCars <= loadMore && (
+          <Button
+            variant={"custom1"}
+            className="w-36 py-4 mt-4"
+            onClick={handleLoadLess}
+          >
+            {isLoading ? <Loader2 className="animate-spin" /> : "Show less"}
+          </Button>
+        )
+      )}
     </div>
   );
 }

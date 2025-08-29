@@ -97,7 +97,9 @@ const BrowseMenu = ({
                 size="sm"
                 onClick={() => setViewMode("grid")}
                 className={`px-3 ${
-                  viewMode === "grid" ? "bg-blue-500 hover:bg-blue-600" : ""
+                  viewMode === "grid"
+                    ? "bg-blue-500 hover:bg-blue-600 border-[1px] border-blue-500"
+                    : ""
                 }`}
               >
                 <Grid3X3 className="h-4 w-4" />
@@ -107,7 +109,9 @@ const BrowseMenu = ({
                 size="sm"
                 onClick={() => setViewMode("list")}
                 className={`px-3 ${
-                  viewMode === "list" ? "bg-blue-500 hover:bg-blue-600" : ""
+                  viewMode === "list"
+                    ? "bg-blue-500 hover:bg-blue-600 border-[1px] border-blue-500"
+                    : ""
                 }`}
               >
                 <List className="h-4 w-4" />

@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { useNavigateHandler } from "@/hooks/useNavigateHandler";
 
 import type { Car } from "@/types/Car";
+import Loading from "../ui/loading";
 
 interface FeaturedCarsProps {
   featuredCars: Car[];
@@ -28,10 +29,7 @@ const FeaturedCars: React.FC<FeaturedCarsProps> = ({
           </p>
         </div>
         {isLoading ? (
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading featured cars...</p>
-          </div>
+          <Loading text="Loading featured cars..." />
         ) : (
           <div className="flex max-md:flex-col gap-6 justify-center">
             {featuredCars.map((car) => (

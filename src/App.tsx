@@ -1,8 +1,8 @@
 //Browser routes
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-// import { featuredCars as fetchFeaturedCars } from "@/appwrite"; //this is for getting 3 random cars from database
-import { DummyCars as fetchFeaturedCars } from "@/appwrite.ts"; // this is dummy empty for not using that much database
+import { featuredCars as fetchFeaturedCars } from "@/appwrite"; //this is for getting 3 random cars from database
+// import { DummyCars as fetchFeaturedCars } from "@/appwrite.ts"; // this is dummy empty for not using that much database
 import Layout from "./components/layout/Layout";
 import HomePage from "./components/HomePage";
 import ListingPage from "./components/ListingPage";
@@ -10,9 +10,10 @@ import { company } from "./data/company";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import NotFound from "./components/NotFound.tsx";
+import { type CarDocument } from "./types/Car";
 
 const App = () => {
-  const [cars, setCars] = useState<any[]>([]);
+  const [cars, setCars] = useState<CarDocument[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,7 +21,8 @@ const App = () => {
       try {
         const result = await fetchFeaturedCars();
         if (Array.isArray(result)) {
-          setCars(result);
+          const typedCars = result.map((doc) => doc as CarDocument);
+          setCars(typedCars);
         } else {
           setCars([]);
         }
@@ -36,23 +38,19 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route
-            path={company[0].navigationID[0].id}
-            element={<HomePage featuredCars={cars} isLoading={isLoading} />}
-          />
-          <Route
-            path={company[0].navigationID[1].id}
-            element={<ListingPage />}
-          />
-          <Route path={company[0].navigationID[2].id} element={<About />} />
-          <Route path={company[0].navigationID[3].id} element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </Router>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route
+          index
+          path={company[0].navigationID[0].id}
+          element={<HomePage featuredCars={cars} isLoading={isLoading} />}
+        />
+        <Route path={company[0].navigationID[1].id} element={<ListingPage />} />
+        <Route path={company[0].navigationID[2].id} element={<About />} />
+        <Route path={company[0].navigationID[3].id} element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
     // <Layout />
   );
 };

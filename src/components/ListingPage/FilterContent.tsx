@@ -45,6 +45,7 @@ export const FilterContent = ({
             <Checkbox
               id={brand}
               checked={filters.brand.includes(brand)}
+              className="w-4 h-4 border-2 border-gray-300"
               onCheckedChange={(checked) => {
                 if (checked) {
                   setFilters((prev) => ({

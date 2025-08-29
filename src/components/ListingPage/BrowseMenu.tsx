@@ -12,13 +12,29 @@ import { Grid3X3, List, Search } from "lucide-react";
 import { GetAllCars, GetAllCarsLength } from "@/appwrite";
 import Loading from "@/components/ui/loading";
 
-const BrowseMenu = () => {
-  const [totalCars, setTotalCars] = useState<number | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [sortBy, setSortBy] = useState<string>("price-low");
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-
+const BrowseMenu = ({
+  totalCars,
+  setTotalCars,
+  isLoading,
+  setIsLoading,
+  sortBy,
+  setSortBy,
+  searchTerm,
+  setSearchTerm,
+  viewMode,
+  setViewMode,
+}: {
+  totalCars: number | null;
+  setTotalCars: React.Dispatch<React.SetStateAction<number | null>>;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  sortBy: string;
+  setSortBy: React.Dispatch<React.SetStateAction<string>>;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  viewMode: "grid" | "list";
+  setViewMode: React.Dispatch<React.SetStateAction<"grid" | "list">>;
+}) => {
   useEffect(() => {
     const fetchCount = async () => {
       try {
@@ -46,8 +62,8 @@ const BrowseMenu = () => {
           </p>
         </div>
         {/* SEARCH BAR */}
-        <div className="flex flex-col px-12 sm:px-0 sm:flex-row items-center justify-center lg:justify-end gap-4 lg:w-auto w-full">
-          <div className="relative lg:w-80">
+        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-end gap-4 lg:w-auto w-full">
+          <div className="relative min-w-64 lg:w-80 col-span-2">
             <Search className="absolute top-1/2 left-2 transform -translate-y-1/2 size-4 shrink-0 opacity-50" />
             <Input
               placeholder="Search by brand, model, location..."
@@ -57,40 +73,46 @@ const BrowseMenu = () => {
             />
           </div>
           {/* SORT BY PRICE / YEAR / MILEAGE */}
-          <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-full sm:w-48 bg-card shadow-md">
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="price-low">Price: Low to High</SelectItem>
-              <SelectItem value="price-high">Price: High to Low</SelectItem>
-              <SelectItem value="year-new">Year: Newest First</SelectItem>
-              <SelectItem value="year-old">Year: Oldest First</SelectItem>
-              <SelectItem value="mileage-low">Mileage: Low to High</SelectItem>
-              <SelectItem value="mileage-high">Mileage: High to Low</SelectItem>
-            </SelectContent>
-          </Select>
-          <div className="flex gap-3 items-center">
-            <Button
-              variant={viewMode === "grid" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setViewMode("grid")}
-              className={`px-3 ${
-                viewMode === "grid" ? "bg-blue-500 hover:bg-blue-600" : ""
-              }`}
-            >
-              <Grid3X3 className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={viewMode === "list" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setViewMode("list")}
-              className={`px-3 ${
-                viewMode === "list" ? "bg-blue-500 hover:bg-blue-600" : ""
-              }`}
-            >
-              <List className="h-4 w-4" />
-            </Button>
+          <div className="flex gap-4">
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-full sm:w-48 bg-card shadow-md">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="price-low">Price: Low to High</SelectItem>
+                <SelectItem value="price-high">Price: High to Low</SelectItem>
+                <SelectItem value="year-new">Year: Newest First</SelectItem>
+                <SelectItem value="year-old">Year: Oldest First</SelectItem>
+                <SelectItem value="mileage-low">
+                  Mileage: Low to High
+                </SelectItem>
+                <SelectItem value="mileage-high">
+                  Mileage: High to Low
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            <div className="flex gap-3 items-center">
+              <Button
+                variant={viewMode === "grid" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setViewMode("grid")}
+                className={`px-3 ${
+                  viewMode === "grid" ? "bg-blue-500 hover:bg-blue-600" : ""
+                }`}
+              >
+                <Grid3X3 className="h-4 w-4" />
+              </Button>
+              <Button
+                variant={viewMode === "list" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setViewMode("list")}
+                className={`px-3 ${
+                  viewMode === "list" ? "bg-blue-500 hover:bg-blue-600" : ""
+                }`}
+              >
+                <List className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>

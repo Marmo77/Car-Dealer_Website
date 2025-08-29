@@ -160,11 +160,31 @@ export const featuredCars = async () => {
 export const show_all_cars = async () => {
   try {
     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID);
-    console.log("All cars: ", result.documents);
+    // console.log("All cars: ", result.documents);
     return result.documents;
   } catch (error) {
     console.error("Error fetching All cars ❌: ", error);
     return [];
+  }
+};
+
+export const GetAllCars = async () => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID);
+    return result.documents;
+  } catch (error) {
+    console.error("Error fetching All cars ❌: ", error);
+    return [];
+  }
+};
+
+export const GetAllCarsLength = async () => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID);
+    return result.total; // total = ilosc wszystkich dokumentow w kolekcji, nie jest to ilosc dokumentow w aktualnej stronie
+  } catch (error) {
+    console.error("Error fetching All cars ❌: ", error);
+    return 0;
   }
 };
 // export const getFilteredCars = async (brand: string) => {

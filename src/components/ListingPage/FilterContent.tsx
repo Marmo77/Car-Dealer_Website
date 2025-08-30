@@ -9,12 +9,12 @@ export const FilterContent = ({
 }: {
   filters: {
     brand: string[];
-    priceRange: number[];
+    priceRange: [number, number];
   };
   setFilters: React.Dispatch<
     React.SetStateAction<{
       brand: string[];
-      priceRange: number[];
+      priceRange: [number, number];
     }>
   >;
   clearFilters: () => void;
@@ -78,7 +78,10 @@ export const FilterContent = ({
         <Slider
           value={filters.priceRange}
           onValueChange={(value) =>
-            setFilters((prev) => ({ ...prev, priceRange: value }))
+            setFilters((prev) => ({
+              ...prev,
+              priceRange: value as [number, number],
+            }))
           }
           max={250000}
           min={0}

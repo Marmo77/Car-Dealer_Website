@@ -249,6 +249,85 @@ export const GetAllCarsLength = async () => {
 //   }
 // };
 
+export const getFilteredCars = async (
+  brand: string[],
+  //model: string, -> not made yet
+  search: string,
+  priceRange: number[],
+  sortBy: string
+) => {
+  try {
+    const queries = [];
+
+    //brand
+    if (brand && brand.length > 0) {
+      queries.push(Query.equal("brand", brand));
+    }
+
+    //price range
+    if (priceRange && priceRange.length === 2) {
+      const [min, max] = priceRange;
+      queries.push(
+        Query.greaterThanEqual("price", min),
+        Query.lessThanEqual("price", max)
+      );
+    }
+
+    //search brand
+    if (search && search.length > 1) {
+      const terms = search.split(" ");
+      terms.forEach((term) =>
+        queries.push(
+          Query.or([
+            Query.contains("brand", term),
+            Query.contains("model", term),
+            // Query.contains("year", term),
+            // Query.contains("fuel", term),
+          ])
+        )
+      );
+    }
+
+    //sort by
+    if (sortBy) {
+      switch (sortBy) {
+        case "price-low":
+          queries.push(Query.orderAsc("price"));
+          break;
+        case "price-high":
+          queries.push(Query.orderDesc("price"));
+          break;
+        case "year-new":
+          queries.push(Query.orderDesc("year"));
+          break;
+        case "year-old":
+          queries.push(Query.orderAsc("year"));
+          break;
+        case "mileage-low":
+          queries.push(Query.orderAsc("mileage"));
+          break;
+        case "mileage-high":
+          queries.push(Query.orderDesc("mileage"));
+          break;
+        default:
+          queries.push(Query.orderAsc("price"));
+          break;
+      }
+    }
+
+    const result = await database.listDocuments(
+      DATABASE_ID,
+      COLLECTION_ID,
+      queries
+    );
+    console.log("Filtered cars: ", result.documents);
+    return result.documents;
+    //
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getFilteredAndSearchedCars = async (
   brand: string,
   search: string

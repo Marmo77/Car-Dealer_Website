@@ -13,42 +13,33 @@ import { GetAllCars, GetAllCarsLength } from "@/appwrite";
 import Loading from "@/components/ui/loading";
 
 const BrowseMenu = ({
-  totalCars,
-  setTotalCars,
-  isLoading,
-  setIsLoading,
   sortBy,
   setSortBy,
   searchTerm,
   setSearchTerm,
-  viewMode,
-  setViewMode,
 }: {
-  totalCars: number | null;
-  setTotalCars: React.Dispatch<React.SetStateAction<number | null>>;
-  isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   sortBy: string;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-  viewMode: "grid" | "list";
-  setViewMode: React.Dispatch<React.SetStateAction<"grid" | "list">>;
 }) => {
   useEffect(() => {
     const fetchCount = async () => {
       try {
         const count = await GetAllCarsLength();
-        setTotalCars(count);
       } catch (e) {
         console.error("Failed to load cars count", e);
-        setTotalCars(0);
       } finally {
-        setIsLoading(false);
+        // setIsLoading(false);
       }
     };
     fetchCount();
   }, []);
+
+  // if something change in Browse menu scroll to top
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [sortBy, searchTerm]);
 
   // HEADER OF THE PAGE
   return (
@@ -57,8 +48,8 @@ const BrowseMenu = ({
         <div>
           <h2 className="text-4xl font-bold text-gray-900 mb-2">Browse Cars</h2>
           <p className="text-lg lg:text-left text-center text-gray-500 max-w-2xl mx-auto">
-            {isLoading && <Loading text="Loading cars..." row size="small" />}
-            {totalCars !== null && !isLoading && `${totalCars} cars found`}
+            {/* {isLoading && <Loading text="Loading cars..." row size="small" />}
+            {totalCars !== null && !isLoading && `${totalCars} cars found`} */}
           </p>
         </div>
         {/* SEARCH BAR */}
@@ -91,7 +82,7 @@ const BrowseMenu = ({
                 </SelectItem>
               </SelectContent>
             </Select>
-            <div className="flex gap-3 items-center">
+            {/* <div className="flex gap-3 items-center">
               <Button
                 variant={viewMode === "grid" ? "default" : "outline"}
                 size="sm"
@@ -116,7 +107,7 @@ const BrowseMenu = ({
               >
                 <List className="h-4 w-4" />
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

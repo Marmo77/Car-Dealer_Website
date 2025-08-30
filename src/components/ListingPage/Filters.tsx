@@ -18,12 +18,12 @@ const Filters = ({
 }: {
   filters: {
     brand: string[];
-    priceRange: number[];
+    priceRange: [number, number];
   };
   setFilters: React.Dispatch<
     React.SetStateAction<{
       brand: string[];
-      priceRange: number[];
+      priceRange: [number, number];
     }>
   >;
   clearFilters: () => void;

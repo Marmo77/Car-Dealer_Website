@@ -1,6 +1,7 @@
 import {
   AllCarsLimit,
   getFilteredAndSearchedCars,
+  getFilteredCars,
   // getFilteredCars,
   // getSearchedCars,
   show_all_cars,
@@ -11,59 +12,85 @@ import { useEffect, useState } from "react";
 import { FilterCars } from "./FilterCars";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
+import type { CarDocument } from "@/types/Car";
 
 export default function CarSelling({
   limit,
-  totalCars,
+  searchTerm,
+  sortBy,
+  filters,
 }: {
   limit: number;
-  totalCars: number;
+  searchTerm: string;
+  sortBy: string;
+  filters: {
+    brand: string[];
+    priceRange: [number, number];
+  };
 }) {
-  const [find, setFind] = useState<string>(""); // Filter by search
-  const [filterBrand, setFilterBrand] = useState<string>(""); // Filter by brand (combobox)
-  // get all cars from database
+  // const [find, setFind] = useState<string>(""); // Filter by search
+  // const [filterBrand, setFilterBrand] = useState<string>(""); // Filter by brand (combobox)
+  // // get all cars from database
   const [cars, setCars] = useState<any[]>([]);
 
   //load more
-  const [loadMore, setLoadMore] = useState<number>(limit);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isCollapsing, setIsCollapsing] = useState<boolean>(false);
+  // const [loadMore, setLoadMore] = useState<number>(limit);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isCollapsing, setIsCollapsing] = useState<boolean>(false);
 
   // Fetching all cars form database
 
   useEffect(() => {
     const fetch_cars = async () => {
-      const result = await AllCarsLimit(limit);
-      setCars(result);
+      // const result = await AllCarsLimit(limit);
+      const result = await getFilteredCars(
+        filters.brand,
+        searchTerm,
+        filters.priceRange,
+        sortBy
+      );
+      console.log(searchTerm);
+      if (Array.isArray(result)) {
+        const typedCars = result.map((doc) => doc as CarDocument);
+        setCars(typedCars);
+      } else {
+        setCars([]);
+      }
     };
     fetch_cars();
-  }, []);
+  }, [filters, searchTerm, sortBy]);
 
-  useEffect(() => {
-    const showload = console.log(loadMore);
-    showload;
-  }, [loadMore]);
-  const handleLoadMore = async () => {
-    setIsLoading(true);
-    const result = await AllCarsLimit(loadMore + 12);
-    setCars(result);
-    setLoadMore(loadMore + 12);
-    setIsLoading(false);
-  };
+  // useEffect(() => {
+  //   const showload = console.log(loadMore);
+  //   showload;
+  // }, [loadMore]);
 
-  const handleLoadLess = async () => {
-    setIsLoading(true);
-    setIsCollapsing(true); // start fade-out
-    // wait 1s for animation
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    const result = await AllCarsLimit(limit);
-    setCars(result);
-    setLoadMore(limit);
-    setIsCollapsing(false); // end fade-out (fade back in)
-    setIsLoading(false);
-    // scroll back to top smoothly
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  // ###### handle Load More && handle Less
+
+  // const handleLoadMore = async () => {
+  //   setIsLoading(true);
+  //   const result = await AllCarsLimit(loadMore + 12);
+  //   setCars(result);
+  //   setLoadMore(loadMore + 12);
+  //   setIsLoading(false);
+  // };
+
+  // const handleLoadLess = async () => {
+  //   setIsLoading(true);
+  //   setIsCollapsing(true); // start fade-out
+  //   // wait 1s for animation
+  //   await new Promise((resolve) => setTimeout(resolve, 1000));
+  //   const result = await AllCarsLimit(limit);
+  //   setCars(result);
+  //   setLoadMore(limit);
+  //   setIsCollapsing(false); // end fade-out (fade back in)
+  //   setIsLoading(false);
+  //   // scroll back to top smoothly
+  //   window.scrollTo({ top: 0, behavior: "smooth" });
+  // };
+
+  // ################################################
+
   return (
     <div className="flex flex-col gap-12 items-center">
       {/* //   <div className="flex gap-6 items-center">
@@ -86,7 +113,8 @@ export default function CarSelling({
     //   </div> */}
       <div
         className={`grid grid-cols-3 gap-4 transition-opacity duration-1000 ${
-          isCollapsing ? "opacity-0" : "opacity-100"
+          // isCollapsing ? "opacity-0" : "opacity-100"
+          "opacity-100"
         }`}
       >
         {cars.map((car, i) => (
@@ -95,11 +123,11 @@ export default function CarSelling({
           </div>
         ))}
       </div>
-      {totalCars > loadMore ? (
+      {/* {totalCars > loadMore ? (
         <Button
           variant={"custom1"}
           className="w-36 py-4 mt-4"
-          onClick={handleLoadMore}
+          // onClick={handleLoadMore}
         >
           {isLoading ? <Loader2 className="animate-spin" /> : "Load More"}
         </Button>
@@ -108,12 +136,12 @@ export default function CarSelling({
           <Button
             variant={"custom1"}
             className="w-36 py-4 mt-4"
-            onClick={handleLoadLess}
+            // onClick={handleLoadLess}
           >
             {isLoading ? <Loader2 className="animate-spin" /> : "Show less"}
           </Button>
         )
-      )}
+      )} */}
     </div>
   );
 }

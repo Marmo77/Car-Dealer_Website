@@ -2,10 +2,12 @@ interface LoadingProps {
   text?: string;
   row?: boolean;
   size?: "small" | "medium" | "large";
+  onClick?: () => void;
 }
 
-const Loading = ({ text, row, size }: LoadingProps) => (
-  <span
+const Loading = ({ text, row, size, onClick }: LoadingProps) => (
+  <div
+    onClick={onClick}
     className={`inline-flex flex-col gap-6 items-center justify-center py-8 ${
       row ? "flex-row" : "flex-col"
     }`}
@@ -32,7 +34,7 @@ const Loading = ({ text, row, size }: LoadingProps) => (
         {text}
       </span>
     )}
-  </span>
+  </div>
 );
 
 export default Loading;

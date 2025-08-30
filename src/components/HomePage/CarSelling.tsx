@@ -13,6 +13,7 @@ import { FilterCars } from "./FilterCars";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 import type { CarDocument } from "@/types/Car";
+import Loading from "../ui/loading";
 
 export default function CarSelling({
   limit,
@@ -42,25 +43,33 @@ export default function CarSelling({
   // Fetching all cars form database
 
   useEffect(() => {
-    setIsLoading(true);
     const fetch_cars = async () => {
-      const result = await getFilteredCars(
-        filters.brand,
-        searchTerm,
-        filters.priceRange,
-        sortBy,
-        limit
-      );
-      const totalCars = result?.length;
-      setTotalCars(totalCars ?? 0);
-      if (Array.isArray(result)) {
-        const typedCars = result.map((doc) => doc as CarDocument);
-        setCars(typedCars);
-      } else {
+      setIsLoading(true);
+      try {
+        const result = await getFilteredCars(
+          filters.brand,
+          searchTerm,
+          filters.priceRange,
+          sortBy,
+          limit
+        );
+        const totalCars = result?.length;
+        setTotalCars(totalCars ?? 0);
+        if (Array.isArray(result)) {
+          const typedCars = result.map((doc) => doc as CarDocument);
+          setCars(typedCars);
+        } else {
+          setCars([]);
+        }
+      } catch (err) {
+        console.error("Failed to fetch cars", err);
         setCars([]);
+        setTotalCars(0);
+      } finally {
+        setIsLoading(false);
       }
     };
-    setIsLoading(false);
+
     fetch_cars();
   }, [filters, searchTerm, sortBy, limit]);
 
@@ -106,7 +115,7 @@ export default function CarSelling({
       </div>
       {isLoading && (
         <div className="flex items-center justify-center">
-          <Loader2 className="animate-spin w-24 h-24" />
+          <Loading text="Loading Cars..." size="large" />
         </div>
       )}
       {/* {totalCars > loadMore ? (

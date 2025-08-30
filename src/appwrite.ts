@@ -251,7 +251,7 @@ export const GetAllCarsLength = async () => {
 
 export const getFilteredCars = async (
   brand: string[],
-  //model: string, -> not made yet
+  //model: string, // -> not made yet
   search: string,
   priceRange: number[],
   sortBy: string,

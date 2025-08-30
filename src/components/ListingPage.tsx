@@ -76,7 +76,7 @@ const ListingPage = () => {
             clearFilters={clearFilters}
           />
         </div>
-        <div className="col-span-3">
+        <div className={`col-span-3`}>
           <AllCars
             searchTerm={searchTerm}
             sortBy={sortBy}

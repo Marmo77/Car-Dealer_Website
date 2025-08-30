@@ -30,7 +30,7 @@ const ListingPage = () => {
     if (sortBy) params.append("sort", sortBy);
     params.append("min", filters.priceRange[0].toString());
     params.append("max", filters.priceRange[1].toString());
-    for (let b of filters.brand) params.append("brand", b);
+    for (let b of filters.brand) params.append("brand", b.toLowerCase());
     if (searchTerm) params.append("search", searchTerm);
     setSearchParams(params);
   }, [filters, searchTerm, sortBy]);
@@ -50,6 +50,9 @@ const ListingPage = () => {
     setSearchParams({});
   };
 
+  // Total Cars Number
+  const [totalCars, setTotalCars] = useState<number>(0);
+
   return (
     <section className="bg-card py-16 mx-auto w-full">
       <div className="max-w-7xl px-12 sm:px-6 mx-auto grid grid-cols-4">
@@ -59,6 +62,7 @@ const ListingPage = () => {
             setSortBy={setSortBy}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
+            totalCars={totalCars}
           />
         </div>
         <div className="col-span-1">
@@ -69,7 +73,14 @@ const ListingPage = () => {
           />
         </div>
         <div className="col-span-3">
-          <AllCars searchTerm={searchTerm} sortBy={sortBy} filters={filters} />
+          <AllCars
+            searchTerm={searchTerm}
+            sortBy={sortBy}
+            filters={filters}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            setTotalCars={setTotalCars}
+          />
         </div>
       </div>
     </section>

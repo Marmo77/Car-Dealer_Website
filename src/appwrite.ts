@@ -254,10 +254,14 @@ export const getFilteredCars = async (
   //model: string, -> not made yet
   search: string,
   priceRange: number[],
-  sortBy: string
+  sortBy: string,
+  limit: number
 ) => {
   try {
     const queries = [];
+
+    //limit
+    // queries.push(Query.limit(limit));
 
     //brand
     if (brand && brand.length > 0) {
@@ -320,9 +324,18 @@ export const getFilteredCars = async (
       COLLECTION_ID,
       queries
     );
-    console.log("Filtered cars: ", result.documents);
+    // console.log("Filtered cars: ", result.documents);
     return result.documents;
     //
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getFilteredCarsLength = async () => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID);
+    return result.total;
   } catch (error) {
     console.error(error);
   }

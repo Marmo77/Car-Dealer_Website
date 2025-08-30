@@ -7,6 +7,9 @@ const AllCars = ({
   searchTerm,
   sortBy,
   filters,
+  isLoading,
+  setIsLoading,
+  setTotalCars,
 }: {
   searchTerm: string;
   sortBy: string;
@@ -14,6 +17,9 @@ const AllCars = ({
     brand: string[];
     priceRange: [number, number];
   };
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setTotalCars: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   return (
     <div className="col-span-2">
@@ -23,6 +29,9 @@ const AllCars = ({
           searchTerm={searchTerm}
           sortBy={sortBy}
           filters={filters}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          setTotalCars={setTotalCars}
         />
       </div>
     </div>

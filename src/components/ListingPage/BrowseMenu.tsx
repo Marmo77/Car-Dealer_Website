@@ -17,16 +17,18 @@ const BrowseMenu = ({
   setSortBy,
   searchTerm,
   setSearchTerm,
+  totalCars,
 }: {
   sortBy: string;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  totalCars: number;
 }) => {
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const count = await GetAllCarsLength();
+        const count = totalCars;
       } catch (e) {
         console.error("Failed to load cars count", e);
       } finally {
@@ -48,8 +50,7 @@ const BrowseMenu = ({
         <div>
           <h2 className="text-4xl font-bold text-gray-900 mb-2">Browse Cars</h2>
           <p className="text-lg lg:text-left text-center text-gray-500 max-w-2xl mx-auto">
-            {/* {isLoading && <Loading text="Loading cars..." row size="small" />}
-            {totalCars !== null && !isLoading && `${totalCars} cars found`} */}
+            {totalCars !== null && `${totalCars} cars found`}
           </p>
         </div>
         {/* SEARCH BAR */}

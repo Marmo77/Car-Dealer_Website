@@ -19,6 +19,9 @@ export default function CarSelling({
   searchTerm,
   sortBy,
   filters,
+  isLoading,
+  setIsLoading,
+  setTotalCars,
 }: {
   limit: number;
   searchTerm: string;
@@ -27,29 +30,27 @@ export default function CarSelling({
     brand: string[];
     priceRange: [number, number];
   };
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setTotalCars: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  // const [find, setFind] = useState<string>(""); // Filter by search
-  // const [filterBrand, setFilterBrand] = useState<string>(""); // Filter by brand (combobox)
   // // get all cars from database
   const [cars, setCars] = useState<any[]>([]);
-
-  //load more
-  // const [loadMore, setLoadMore] = useState<number>(limit);
-  // const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [isCollapsing, setIsCollapsing] = useState<boolean>(false);
 
   // Fetching all cars form database
 
   useEffect(() => {
+    setIsLoading(true);
     const fetch_cars = async () => {
-      // const result = await AllCarsLimit(limit);
       const result = await getFilteredCars(
         filters.brand,
         searchTerm,
         filters.priceRange,
-        sortBy
+        sortBy,
+        limit
       );
-      console.log(searchTerm);
+      const totalCars = result?.length;
+      setTotalCars(totalCars ?? 0);
       if (Array.isArray(result)) {
         const typedCars = result.map((doc) => doc as CarDocument);
         setCars(typedCars);
@@ -57,13 +58,9 @@ export default function CarSelling({
         setCars([]);
       }
     };
+    setIsLoading(false);
     fetch_cars();
-  }, [filters, searchTerm, sortBy]);
-
-  // useEffect(() => {
-  //   const showload = console.log(loadMore);
-  //   showload;
-  // }, [loadMore]);
+  }, [filters, searchTerm, sortBy, limit]);
 
   // ###### handle Load More && handle Less
 
@@ -92,37 +89,21 @@ export default function CarSelling({
   // ################################################
 
   return (
-    <div className="flex flex-col gap-12 items-center">
-      {/* //   <div className="flex gap-6 items-center">
-    //     <label htmlFor="filter_search">Search Car:</label>
-    //     <div className="flex items-center gap-4">
-    //       <input
-    //         type="text"
-    //         name="filter_search"
-    //         className="w-36 h-8 px-2 bg-gray-300 "
-    //         onChange={(e) => setFind(e.target.value)}
-    //       />
-    //     </div>
-    //     <FilterCars setFilterBrand={setFilterBrand} />
-    //     <Button
-    //       onClick={handleFiltering}
-    //       className="hover:scale-105 duration-300 cursor-pointer active:scale-95"
-    //     >
-    //       Filter
-    //     </Button>
-    //   </div> */}
+    <div className="flex flex-col gap-12">
       <div
-        className={`grid grid-cols-3 gap-4 transition-opacity duration-1000 ${
-          // isCollapsing ? "opacity-0" : "opacity-100"
-          "opacity-100"
-        }`}
+        className={`grid grid-cols-3 gap-4 transition-opacity duration-1000 ${"opacity-100"}`}
       >
         {cars.map((car, i) => (
-          <div>
-            <CarCard key={i} {...car} />
+          <div key={i}>
+            <CarCard {...car} />
           </div>
         ))}
       </div>
+      {isLoading && (
+        <div className="flex items-center justify-center">
+          <Loader2 className="animate-spin w-24 h-24" />
+        </div>
+      )}
       {/* {totalCars > loadMore ? (
         <Button
           variant={"custom1"}

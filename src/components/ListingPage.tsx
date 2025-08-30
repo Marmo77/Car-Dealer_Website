@@ -37,7 +37,9 @@ const ListingPage = () => {
 
   //###########################
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  // const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+  // view mode
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   // clear All Filters
   const clearFilters = () => {
@@ -63,6 +65,8 @@ const ListingPage = () => {
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             totalCars={totalCars}
+            viewMode={viewMode}
+            setViewMode={setViewMode}
           />
         </div>
         <div className="col-span-1">
@@ -80,6 +84,7 @@ const ListingPage = () => {
             isLoading={isLoading}
             setIsLoading={setIsLoading}
             setTotalCars={setTotalCars}
+            viewMode={viewMode}
           />
         </div>
       </div>

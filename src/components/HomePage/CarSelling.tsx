@@ -22,6 +22,7 @@ export default function CarSelling({
   isLoading,
   setIsLoading,
   setTotalCars,
+  viewMode,
 }: {
   limit: number;
   searchTerm: string;
@@ -33,6 +34,7 @@ export default function CarSelling({
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setTotalCars: React.Dispatch<React.SetStateAction<number>>;
+  viewMode: "grid" | "list";
 }) {
   // // get all cars from database
   const [cars, setCars] = useState<any[]>([]);
@@ -92,6 +94,9 @@ export default function CarSelling({
     <div className="flex flex-col gap-12">
       <div
         className={`grid grid-cols-3 gap-4 transition-opacity duration-1000 ${"opacity-100"}`}
+        style={{
+          gridTemplateColumns: `repeat(${viewMode === "grid" ? 3 : 1}, 1fr)`,
+        }}
       >
         {cars.map((car, i) => (
           <div key={i}>

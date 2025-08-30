@@ -18,12 +18,16 @@ const BrowseMenu = ({
   searchTerm,
   setSearchTerm,
   totalCars,
+  viewMode,
+  setViewMode,
 }: {
   sortBy: string;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
   totalCars: number;
+  viewMode: "grid" | "list";
+  setViewMode: React.Dispatch<React.SetStateAction<"grid" | "list">>;
 }) => {
   useEffect(() => {
     const fetchCount = async () => {
@@ -83,7 +87,7 @@ const BrowseMenu = ({
                 </SelectItem>
               </SelectContent>
             </Select>
-            {/* <div className="flex gap-3 items-center">
+            <div className="flex gap-3 items-center">
               <Button
                 variant={viewMode === "grid" ? "default" : "outline"}
                 size="sm"
@@ -108,7 +112,7 @@ const BrowseMenu = ({
               >
                 <List className="h-4 w-4" />
               </Button>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

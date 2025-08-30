@@ -1,17 +1,7 @@
-import {
-  AllCarsLimit,
-  getFilteredAndSearchedCars,
-  getFilteredCars,
-  // getFilteredCars,
-  // getSearchedCars,
-  show_all_cars,
-} from "@/appwrite";
+import { getFilteredCars } from "@/appwrite";
 import CarCard from "@/components/HomePage/CarCard";
 // import { cars } from "@/data/cars";
 import { useEffect, useState } from "react";
-import { FilterCars } from "./FilterCars";
-import { Button } from "../ui/button";
-import { Loader2 } from "lucide-react";
 import type { CarDocument } from "@/types/Car";
 import Loading from "../ui/loading";
 

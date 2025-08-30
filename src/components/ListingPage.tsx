@@ -49,6 +49,7 @@ const ListingPage = () => {
     });
     setSortBy("price-low");
     setSearchTerm("");
+    setViewMode("grid");
     setSearchParams({});
   };
 

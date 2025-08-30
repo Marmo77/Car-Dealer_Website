@@ -9,8 +9,6 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Grid3X3, List, Search } from "lucide-react";
-import { GetAllCars, GetAllCarsLength } from "@/appwrite";
-import Loading from "@/components/ui/loading";
 
 const BrowseMenu = ({
   sortBy,

@@ -30,16 +30,13 @@ export const FilterContent = ({
           "Mercedes",
           "Tesla",
           "Porsche",
-          "Range Rover",
+          "Volvo",
           "Lexus",
           "Ford",
           "Volkswagen",
-          "Jeep",
           "Honda",
           "McLaren",
-          "Subaru",
           "Aston Martin",
-          "Rivian",
         ].map((brand) => (
           <div key={brand} className="flex items-center space-x-2">
             <Checkbox

@@ -93,7 +93,7 @@ export default function CarSelling({
   return (
     <div className="flex flex-col gap-12">
       <div
-        className={`grid grid-cols-3 gap-4 transition-opacity duration-1000 ${"opacity-100"}`}
+        className={`grid gap-4 transition-opacity duration-1000 ${"opacity-100"}`}
         style={{
           gridTemplateColumns: `repeat(${viewMode === "grid" ? 3 : 1}, 1fr)`,
         }}

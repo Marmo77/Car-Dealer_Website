@@ -9,12 +9,12 @@ export const FilterContent = ({
 }: {
   filters: {
     brand: string[];
-    priceRange: number[];
+    priceRange: [number, number];
   };
   setFilters: React.Dispatch<
     React.SetStateAction<{
       brand: string[];
-      priceRange: number[];
+      priceRange: [number, number];
     }>
   >;
   clearFilters: () => void;
@@ -30,21 +30,19 @@ export const FilterContent = ({
           "Mercedes",
           "Tesla",
           "Porsche",
-          "Range Rover",
+          "Volvo",
           "Lexus",
           "Ford",
           "Volkswagen",
-          "Jeep",
           "Honda",
           "McLaren",
-          "Subaru",
           "Aston Martin",
-          "Rivian",
         ].map((brand) => (
           <div key={brand} className="flex items-center space-x-2">
             <Checkbox
               id={brand}
               checked={filters.brand.includes(brand)}
+              className="w-4 h-4 border-2 border-gray-300"
               onCheckedChange={(checked) => {
                 if (checked) {
                   setFilters((prev) => ({
@@ -77,7 +75,10 @@ export const FilterContent = ({
         <Slider
           value={filters.priceRange}
           onValueChange={(value) =>
-            setFilters((prev) => ({ ...prev, priceRange: value }))
+            setFilters((prev) => ({
+              ...prev,
+              priceRange: value as [number, number],
+            }))
           }
           max={250000}
           min={0}

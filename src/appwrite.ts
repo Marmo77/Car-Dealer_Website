@@ -26,8 +26,35 @@ const locale = new Locale(client);
 
 const userLocale = await locale.get();
 const userIpAddress = userLocale.ip;
-const userCountry = userLocale.country;
+let userCountry = userLocale.country;
+
 // ############################
+// set user basic data (IP & Country)
+export const setUserData = () => {
+  if (
+    userIpAddress !== localStorage.getItem("userIpAddress") ||
+    userCountry !== localStorage.getItem("userCountry")
+  ) {
+    localStorage.setItem("userIpAddress", userIpAddress);
+    localStorage.setItem("userCountry", userCountry);
+  } else {
+    console.log("User ip is: ", userIpAddress);
+    console.log("User country is: ", userCountry);
+  }
+};
+
+export const AllCarsLimit = async (limit: number) => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.limit(limit),
+    ]);
+    console.log("All cars: ", result.documents);
+    return result.documents;
+  } catch (error) {
+    console.error("Error fetching All cars ❌: ", error);
+    return [];
+  }
+};
 
 const database = new Databases(client);
 
@@ -157,86 +184,35 @@ export const featuredCars = async () => {
   }
 };
 
-export const show_all_cars = async () => {
-  try {
-    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID);
-    // console.log("All cars: ", result.documents);
-    return result.documents;
-  } catch (error) {
-    console.error("Error fetching All cars ❌: ", error);
-    return [];
-  }
-};
-
-export const GetAllCars = async () => {
-  try {
-    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID);
-    return result.documents;
-  } catch (error) {
-    console.error("Error fetching All cars ❌: ", error);
-    return [];
-  }
-};
-
-export const GetAllCarsLength = async () => {
-  try {
-    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID);
-    return result.total; // total = ilosc wszystkich dokumentow w kolekcji, nie jest to ilosc dokumentow w aktualnej stronie
-  } catch (error) {
-    console.error("Error fetching All cars ❌: ", error);
-    return 0;
-  }
-};
-// export const getFilteredCars = async (brand: string) => {
-//   try {
-//     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
-//       Query.equal("brand", brand.toLowerCase()),
-//     ]);
-//     console.log("Filtered cars: ", result.documents);
-//     return result.documents;
-//   } catch (error) {
-//     console.error("Error fetching Filtered cars ❌: ", error);
-//     return [];
-//   }
-// };
-// export const getSearchedCars = async (search: string) => {
-//   try {
-//     const terms = search.split(" ");
-
-//     const queries = terms.map((term) =>
-//       Query.or([Query.contains("brand", term), Query.contains("model", term)])
-//     );
-
-//     const result = await database.listDocuments(
-//       DATABASE_ID,
-//       COLLECTION_ID,
-//       queries
-//     );
-//     //   Query.contains("brand", search) || Query.contains("model", search),
-//     //   Query.equal("brand", search) ||
-//     console.log("Searched cars: ", result.documents);
-//     return result.documents;
-//   } catch (error) {
-//     console.error("Error fetching Searched cars ❌: ", error);
-//     return [];
-//   }
-// };
-
-export const getFilteredAndSearchedCars = async (
-  brand: string,
-  search: string
+export const getFilteredCars = async (
+  brand: string[],
+  //model: string, // -> not made yet
+  search: string,
+  priceRange: number[],
+  sortBy: string,
+  limit: number
 ) => {
   try {
-    // tworze array z queires zeby zbieral queires
     const queries = [];
 
-    // sprawdzam czy brand(marka z comboboxa nie jest pusta (wybrane - Wszystkie, jesli tak to nie dodaje tych Queries do arraya))
-    if (brand && brand !== "all") {
-      queries.push(Query.equal("brand", brand.toLowerCase()));
+    //limit
+    // queries.push(Query.limit(limit));
+
+    //brand
+    if (brand && brand.length > 0) {
+      queries.push(Query.equal("brand", brand));
     }
 
-    // teraz sprawdzamy czy użytkownik wyszukiwał (jeśli wyszukiwanie istnieje i ma długość większą niż 2 znaki to wtedy bierze pod uwage (pushuje do naszych kwerend))
+    //price range
+    if (priceRange && priceRange.length === 2) {
+      const [min, max] = priceRange;
+      queries.push(
+        Query.greaterThanEqual("price", min),
+        Query.lessThanEqual("price", max)
+      );
+    }
 
+    //search brand
     if (search && search.length > 1) {
       const terms = search.split(" ");
       terms.forEach((term) =>
@@ -244,18 +220,49 @@ export const getFilteredAndSearchedCars = async (
           Query.or([
             Query.contains("brand", term),
             Query.contains("model", term),
+            // Query.contains("year", term),
+            // Query.contains("fuel", term),
           ])
         )
       );
     }
+
+    //sort by
+    if (sortBy) {
+      switch (sortBy) {
+        case "price-low":
+          queries.push(Query.orderAsc("price"));
+          break;
+        case "price-high":
+          queries.push(Query.orderDesc("price"));
+          break;
+        case "year-new":
+          queries.push(Query.orderDesc("year"));
+          break;
+        case "year-old":
+          queries.push(Query.orderAsc("year"));
+          break;
+        case "mileage-low":
+          queries.push(Query.orderAsc("mileage"));
+          break;
+        case "mileage-high":
+          queries.push(Query.orderDesc("mileage"));
+          break;
+        default:
+          queries.push(Query.orderAsc("price"));
+          break;
+      }
+    }
+
     const result = await database.listDocuments(
       DATABASE_ID,
       COLLECTION_ID,
       queries
     );
-    console.log("Filtered and Searched Cars: ", result);
+    // console.log("Filtered cars: ", result.documents);
     return result.documents;
+    //
   } catch (error) {
-    console.error("Error in filtering and searching Cars! ", error);
+    console.error(error);
   }
 };

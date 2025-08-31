@@ -5,7 +5,8 @@ import { type Car } from "@/types/Car";
 
 const CarCard = (car: Car) => {
   return (
-    <Card className="w-80 group max-md:w-full py-0 gap-3 not-odd:-translate-y-3 bg-card shadow-lg border-none hover:md:scale-105 transition-transform duration-200 overflow-hidden rounded-xl">
+    <Card className="group max-md:w-full py-0 gap-3 bg-card shadow-lg border-none hover:md:scale-105 transition-transform duration-200 overflow-hidden rounded-xl">
+      {/* not-odd:-translate-y-3 */}
       {/* not-odd:bg-primary/15 */}
       {/* Image + Badges */}
       <div className="relative">

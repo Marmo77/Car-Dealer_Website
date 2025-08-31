@@ -9,46 +9,41 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Grid3X3, List, Search } from "lucide-react";
-import { GetAllCars, GetAllCarsLength } from "@/appwrite";
-import Loading from "@/components/ui/loading";
 
 const BrowseMenu = ({
-  totalCars,
-  setTotalCars,
-  isLoading,
-  setIsLoading,
   sortBy,
   setSortBy,
   searchTerm,
   setSearchTerm,
+  totalCars,
   viewMode,
   setViewMode,
 }: {
-  totalCars: number | null;
-  setTotalCars: React.Dispatch<React.SetStateAction<number | null>>;
-  isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   sortBy: string;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  totalCars: number;
   viewMode: "grid" | "list";
   setViewMode: React.Dispatch<React.SetStateAction<"grid" | "list">>;
 }) => {
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const count = await GetAllCarsLength();
-        setTotalCars(count);
+        const count = totalCars;
       } catch (e) {
         console.error("Failed to load cars count", e);
-        setTotalCars(0);
       } finally {
-        setIsLoading(false);
+        // setIsLoading(false);
       }
     };
     fetchCount();
   }, []);
+
+  // if something change in Browse menu scroll to top
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [sortBy, searchTerm]);
 
   // HEADER OF THE PAGE
   return (
@@ -57,8 +52,7 @@ const BrowseMenu = ({
         <div>
           <h2 className="text-4xl font-bold text-gray-900 mb-2">Browse Cars</h2>
           <p className="text-lg lg:text-left text-center text-gray-500 max-w-2xl mx-auto">
-            {isLoading && <Loading text="Loading cars..." row size="small" />}
-            {totalCars !== null && !isLoading && `${totalCars} cars found`}
+            {totalCars !== null && `${totalCars} cars found`}
           </p>
         </div>
         {/* SEARCH BAR */}
@@ -97,7 +91,9 @@ const BrowseMenu = ({
                 size="sm"
                 onClick={() => setViewMode("grid")}
                 className={`px-3 ${
-                  viewMode === "grid" ? "bg-blue-500 hover:bg-blue-600" : ""
+                  viewMode === "grid"
+                    ? "bg-blue-500 hover:bg-blue-600 border-[1px] border-blue-500"
+                    : ""
                 }`}
               >
                 <Grid3X3 className="h-4 w-4" />
@@ -107,7 +103,9 @@ const BrowseMenu = ({
                 size="sm"
                 onClick={() => setViewMode("list")}
                 className={`px-3 ${
-                  viewMode === "list" ? "bg-blue-500 hover:bg-blue-600" : ""
+                  viewMode === "list"
+                    ? "bg-blue-500 hover:bg-blue-600 border-[1px] border-blue-500"
+                    : ""
                 }`}
               >
                 <List className="h-4 w-4" />

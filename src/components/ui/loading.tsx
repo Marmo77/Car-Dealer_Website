@@ -1,18 +1,18 @@
-import React from "react";
-
 interface LoadingProps {
   text?: string;
   row?: boolean;
   size?: "small" | "medium" | "large";
+  onClick?: () => void;
 }
 
-const Loading = ({ text, row, size }: LoadingProps) => (
+const Loading = ({ text, row, size, onClick }: LoadingProps) => (
   <div
-    className={`flex flex-col gap-6 items-center justify-center py-8 ${
+    onClick={onClick}
+    className={`inline-flex flex-col gap-6 items-center justify-center py-8 ${
       row ? "flex-row" : "flex-col"
     }`}
   >
-    <div
+    <span
       className={`animate-spin rounded-full border-b-2 border-blue-500 ${
         size === "small"
           ? "h-4 w-4"
@@ -20,7 +20,7 @@ const Loading = ({ text, row, size }: LoadingProps) => (
           ? "h-8 w-8"
           : "h-12 w-12"
       }`}
-    ></div>
+    ></span>
     {text && (
       <span
         className={`ml-3 ${row ? "ml-0" : ""} ${

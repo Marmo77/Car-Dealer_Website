@@ -1,145 +1,132 @@
-import {
-  getFilteredAndSearchedCars,
-  // getFilteredCars,
-  // getSearchedCars,
-  show_all_cars,
-} from "@/appwrite";
+import { getFilteredCars } from "@/appwrite";
 import CarCard from "@/components/HomePage/CarCard";
 // import { cars } from "@/data/cars";
 import { useEffect, useState } from "react";
-import { FilterCars } from "./FilterCars";
-import { Button } from "../ui/button";
+import type { CarDocument } from "@/types/Car";
+import Loading from "../ui/loading";
 
-export default function CarSelling() {
-  const [find, setFind] = useState<string>(""); // Filter by search
-  const [filterBrand, setFilterBrand] = useState<string>(""); // Filter by brand (combobox)
-  // get all cars from database
+export default function CarSelling({
+  limit,
+  searchTerm,
+  sortBy,
+  filters,
+  isLoading,
+  setIsLoading,
+  setTotalCars,
+  viewMode,
+}: {
+  limit: number;
+  searchTerm: string;
+  sortBy: string;
+  filters: {
+    brand: string[];
+    priceRange: [number, number];
+  };
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setTotalCars: React.Dispatch<React.SetStateAction<number>>;
+  viewMode: "grid" | "list";
+}) {
+  // // get all cars from database
   const [cars, setCars] = useState<any[]>([]);
 
   // Fetching all cars form database
 
   useEffect(() => {
     const fetch_cars = async () => {
-      const result = await show_all_cars();
-      setCars(result);
+      setIsLoading(true);
+      try {
+        const result = await getFilteredCars(
+          filters.brand,
+          searchTerm,
+          filters.priceRange,
+          sortBy,
+          limit
+        );
+        const totalCars = result?.length;
+        setTotalCars(totalCars ?? 0);
+        if (Array.isArray(result)) {
+          const typedCars = result.map((doc) => doc as CarDocument);
+          setCars(typedCars);
+        } else {
+          setCars([]);
+        }
+      } catch (err) {
+        console.error("Failed to fetch cars", err);
+        setCars([]);
+        setTotalCars(0);
+      } finally {
+        setIsLoading(false);
+      }
     };
+
     fetch_cars();
-  }, []);
+  }, [filters, searchTerm, sortBy, limit]);
 
-  // ------ Filtrowanie od razu po zmianie / odrazu po wpisaniu ------
+  // ###### handle Load More && handle Less
 
-  // Zmiana marki == przefiltorwane
-  // useEffect(() => {
-  //   console.log(filterBrand);
-  //   const filter_cars = async () => {
-  //     if (filterBrand) {
-  //       if (filterBrand == "all") {
-  //         //Pokazuje wszystkie auta (filtr == Wszystkie)
-  //         const result = await show_all_cars();
-  //         setCars(result);
-  //       } else {
-  //         // Pokazuje to co zostało wybrane w filtrze
-  //         const result = await getFilteredCars(filterBrand);
-  //         setCars(result);
-  //       }
-  //     }
-  //   };
-  //   filter_cars();
-  // }, [filterBrand]);
-  // // WYSZUKIWANIE Searching
-  // useEffect(() => {
-  //   console.log(find);
-  //   const filterSearchCars = async () => {
-  //     if (find.length == 0) {
-  //       const result = await show_all_cars();
-  //       setCars(result);
-  //     } else if (find.length > 1) {
-  //       const result = await getSearchedCars(find);
-  //       setCars(result);
-  //     }
-  //   };
-  //   filterSearchCars();
-  // }, [find]);
-
-  // --------------------------------------------------------------
-
-  // ------ Filtorwanie po kliknieciu guzika ------
-
-  // #### filtorwanie tylko poprzez comboboxa ####
-  // const filter_cars = async () => {
-  //   if (filterBrand) {
-  //     if (filterBrand == "all") {
-  //       //Pokazuje wszystkie auta (filtr == Wszystkie)
-  //       const result = await show_all_cars();
-  //       setCars(result);
-  //     } else {
-  //       // Pokazuje to co zostało wybrane w filtrze
-  //       const result = await getFilteredCars(filterBrand);
-  //       setCars(result);
-  //     }
-  //   }
-  // };
-  // #################################################
-  // #### filtorwanie tylko poprzez wyszukiwanie ####
-  // const filterSearchCars = async () => {
-  //   if (find.length == 0) {
-  //     const result = await show_all_cars();
-  //     setCars(result);
-  //   } else if (find.length > 1) {
-  //     const result = await getSearchedCars(find);
-  //     setCars(result);
-  //   }
-  // };
-  // #################################################
-
-  //łączenie dwóch kwerend (zrobione z backendu (getFilteredAndSearchedCars))
-  const mergedSearch = async () => {
-    const result = await getFilteredAndSearchedCars(filterBrand, find);
-    setCars(result ?? []);
-  };
-
-  const handleFiltering = () => {
-    mergedSearch();
-  };
-
-  // const ErrorLength = () => {
-  //   if (find.length < 2 && find.length <= 1) {
-  //     return true;
-  //   }
+  // const handleLoadMore = async () => {
+  //   setIsLoading(true);
+  //   const result = await AllCarsLimit(loadMore + 12);
+  //   setCars(result);
+  //   setLoadMore(loadMore + 12);
+  //   setIsLoading(false);
   // };
 
-  // ------------------------------------------------
+  // const handleLoadLess = async () => {
+  //   setIsLoading(true);
+  //   setIsCollapsing(true); // start fade-out
+  //   // wait 1s for animation
+  //   await new Promise((resolve) => setTimeout(resolve, 1000));
+  //   const result = await AllCarsLimit(limit);
+  //   setCars(result);
+  //   setLoadMore(limit);
+  //   setIsCollapsing(false); // end fade-out (fade back in)
+  //   setIsLoading(false);
+  //   // scroll back to top smoothly
+  //   window.scrollTo({ top: 0, behavior: "smooth" });
+  // };
+
+  // ################################################
 
   return (
-    <div className="flex flex-col gap-12 items-center">
-      <div className="flex gap-6 items-center">
-        <label htmlFor="filter_search">Search Car:</label>
-        <div className="flex items-center gap-4">
-          <input
-            type="text"
-            name="filter_search"
-            className="w-36 h-8 px-2 bg-gray-300 "
-            onChange={(e) => setFind(e.target.value)}
-          />
-          {/* <span className="text-red-500">
-            {ErrorLength() ? "Minium 2 characters" : ""}
-          </span> */}
-        </div>
-        <FilterCars setFilterBrand={setFilterBrand} />
-        <Button
-          onClick={handleFiltering}
-          className="hover:scale-105 duration-300 cursor-pointer active:scale-95"
-        >
-          Filter
-        </Button>
-      </div>
-      <div className="grid grid-cols-5 gap-4">
+    <div className="flex flex-col gap-12">
+      <div
+        className={`grid gap-4 transition-opacity duration-1000 ${"opacity-100"}`}
+        style={{
+          gridTemplateColumns: `repeat(${viewMode === "grid" ? 3 : 1}, 1fr)`,
+        }}
+      >
         {cars.map((car, i) => (
-          <div>
-            <CarCard key={i} {...car} />
+          <div key={i}>
+            <CarCard {...car} />
           </div>
         ))}
       </div>
+      {isLoading && (
+        <div className="flex items-center justify-center">
+          <Loading text="Loading Cars..." size="large" />
+        </div>
+      )}
+      {/* {totalCars > loadMore ? (
+        <Button
+          variant={"custom1"}
+          className="w-36 py-4 mt-4"
+          // onClick={handleLoadMore}
+        >
+          {isLoading ? <Loader2 className="animate-spin" /> : "Load More"}
+        </Button>
+      ) : (
+        totalCars <= loadMore && (
+          <Button
+            variant={"custom1"}
+            className="w-36 py-4 mt-4"
+            // onClick={handleLoadLess}
+          >
+            {isLoading ? <Loader2 className="animate-spin" /> : "Show less"}
+          </Button>
+        )
+      )} */}
     </div>
   );
 }

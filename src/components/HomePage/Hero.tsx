@@ -10,6 +10,7 @@ import {
 } from "../ui/select";
 import { Button } from "../ui/button";
 import HeroBg from "@/assets/imgs/Hero_bg.jpg";
+import { getHeroSearchBarFilters } from "@/appwrite";
 
 // import { Card, CardContent } from '../ui/card'
 // import { Badge } from '../ui/badge'
@@ -25,6 +26,14 @@ const Hero = () => {
   const handleAllCars = () => {
     navigation("/listings");
   };
+  const handleHeroSearchBarFilters = () => {
+    getHeroSearchBarFilters(
+      searchFilters.brand,
+      searchFilters.maxPrice,
+      searchFilters.year,
+      searchFilters.mileage
+    );
+  };
   return (
     <section
       id="#"
@@ -37,6 +46,7 @@ const Hero = () => {
         <img
           src={HeroBg}
           alt=""
+          loading="lazy"
           className="w-full h-full object-cover backdrop-blur-xl blur-sm"
         />
       </div>
@@ -69,9 +79,11 @@ const Hero = () => {
                   <SelectItem value="all">All</SelectItem>
                   <SelectItem value="bmw">BMW</SelectItem>
                   <SelectItem value="audi">Audi</SelectItem>
+                  <SelectItem value="ford">Ford</SelectItem>
                   <SelectItem value="mercedes">Mercedes</SelectItem>
-                  <SelectItem value="tesla">Tesla</SelectItem>
+                  <SelectItem value="mini">Mini</SelectItem>
                   <SelectItem value="volvo">Volvo</SelectItem>
+                  <SelectItem value="porsche">Porsche</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -86,10 +98,11 @@ const Hero = () => {
                   <SelectValue placeholder="Max Price" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="30000">Under $30,000</SelectItem>
                   <SelectItem value="50000">Under $50,000</SelectItem>
                   <SelectItem value="75000">Under $75,000</SelectItem>
-                  <SelectItem value="100000">Under $100,000</SelectItem>
+                  <SelectItem value="125000">Under $125,000</SelectItem>
+                  <SelectItem value="150000">Under $150,000</SelectItem>
+                  <SelectItem value="200000">Under $200,000</SelectItem>
                   <SelectItem value="unlimited">No Limit</SelectItem>
                 </SelectContent>
               </Select>
@@ -104,11 +117,9 @@ const Hero = () => {
                   <SelectValue placeholder="Year" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="2025">2025</SelectItem>
                   <SelectItem value="2024">2024</SelectItem>
-                  <SelectItem value="2023">2023</SelectItem>
-                  <SelectItem value="2022">2022</SelectItem>
-                  <SelectItem value="2021">2021</SelectItem>
-                  <SelectItem value="older">2020 & Older</SelectItem>
+                  <SelectItem value="older">2023 & Older</SelectItem>
                 </SelectContent>
               </Select>
               {/* MILEAGE */}
@@ -126,6 +137,7 @@ const Hero = () => {
                   <SelectItem value="25000">Under 25,000 km</SelectItem>
                   <SelectItem value="50000">Under 50,000 km</SelectItem>
                   <SelectItem value="100000">Under 100,000 km</SelectItem>
+                  <SelectItem value="150000">Under 150,000 km</SelectItem>
                   <SelectItem value="unlimited">No Limit</SelectItem>
                 </SelectContent>
               </Select>
@@ -135,6 +147,7 @@ const Hero = () => {
                 //   onClick={handleQuickSearch}
                 className="min-md:grow-3 bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg font-semibold"
                 size="lg"
+                onClick={handleHeroSearchBarFilters}
               >
                 <Search className="mr-3 h-5 w-5" />
                 <span className="">Search Cars</span>

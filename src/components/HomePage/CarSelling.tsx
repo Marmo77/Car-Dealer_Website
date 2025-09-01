@@ -34,6 +34,7 @@ export default function CarSelling({
 
   useEffect(() => {
     const fetch_cars = async () => {
+      // setCars([]); // to reset cars to show loading on top
       setIsLoading(true);
       try {
         const result = await getFilteredCars(

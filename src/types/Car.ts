@@ -5,10 +5,10 @@ export type Car = {
   brand: string;
   model: string;
   isAvailable?: boolean;
-  fuelType: "Diesel" | "Benzyna" | "LPG" | "Hybryda" | "Elektryk";
+  fuelType: "Diesel" | "Petrol" | "Hybrid" | "Electric";
   engine_size: number;
-  transmission: "Automatyczna" | "Manual";
-  year: number;
+  transmission: "Automatic" | "Manual";
+  year: Date;
   mileage: number;
   power: number;
   imageUrl: string;
@@ -17,12 +17,13 @@ export type Car = {
 
 // Appwrite Document type for cars
 export interface CarDocument extends Models.Document {
+  $id: string;
   $brand: string;
   $model: string;
   $isAvailable: boolean;
-  $fuelType: string;
-  $transmission: string;
-  $year: number;
+  $fuelType: "Diesel" | "Petrol" | "Hybrid" | "Electric";
+  $transmission: "Automatic" | "Manual";
+  $year: Date;
   $mileage: number;
   $power: number;
   $imageUrl: string;

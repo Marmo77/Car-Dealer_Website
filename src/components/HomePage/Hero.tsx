@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search, SearchCheck } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -10,6 +10,7 @@ import {
 } from "../ui/select";
 import { Button } from "../ui/button";
 import HeroBg from "@/assets/imgs/Hero_bg.jpg";
+import { getHeroSearchBarFilters } from "@/appwrite";
 
 // import { Card, CardContent } from '../ui/card'
 // import { Badge } from '../ui/badge'
@@ -25,18 +26,40 @@ const Hero = () => {
   const handleAllCars = () => {
     navigation("/listings");
   };
+
+  const handleHeroSearchBarFilters = () => {
+    // CREATE URL PARAMS
+    const params = new URLSearchParams();
+    if (searchFilters.brand && searchFilters.brand !== "all") {
+      params.append("brand", searchFilters.brand);
+    }
+    if (searchFilters.maxPrice && searchFilters.maxPrice !== "unlimited") {
+      params.append("min", "0");
+      params.append("max", searchFilters.maxPrice);
+    } else {
+      params.append("min", "0");
+      params.append("max", "250000");
+    }
+    if (searchFilters.year) {
+      params.append("year", searchFilters.year);
+    }
+    if (searchFilters.mileage) {
+      params.append("mileage", searchFilters.mileage);
+    }
+    // Navigate to listings
+    navigation(`/listings?${params.toString()}`);
+  };
   return (
     <section
       id="#"
       className="relative bg-gradient-to-br from-blue-900 via-gray-800 to-gray-900 text-white overflow-hidden"
     >
-      {/* bg overlay */}
-      {/* <div className="absolute inset-0 bg-black/20"></div> */}
       {/* bg img */}
       <div className="absolute w-full h-full bg-cover bg-center">
         <img
           src={HeroBg}
           alt=""
+          loading="lazy"
           className="w-full h-full object-cover backdrop-blur-xl blur-sm"
         />
       </div>
@@ -69,9 +92,11 @@ const Hero = () => {
                   <SelectItem value="all">All</SelectItem>
                   <SelectItem value="bmw">BMW</SelectItem>
                   <SelectItem value="audi">Audi</SelectItem>
+                  <SelectItem value="ford">Ford</SelectItem>
                   <SelectItem value="mercedes">Mercedes</SelectItem>
-                  <SelectItem value="tesla">Tesla</SelectItem>
+                  <SelectItem value="mini">Mini</SelectItem>
                   <SelectItem value="volvo">Volvo</SelectItem>
+                  <SelectItem value="porsche">Porsche</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -86,10 +111,11 @@ const Hero = () => {
                   <SelectValue placeholder="Max Price" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="30000">Under $30,000</SelectItem>
                   <SelectItem value="50000">Under $50,000</SelectItem>
                   <SelectItem value="75000">Under $75,000</SelectItem>
-                  <SelectItem value="100000">Under $100,000</SelectItem>
+                  <SelectItem value="125000">Under $125,000</SelectItem>
+                  <SelectItem value="150000">Under $150,000</SelectItem>
+                  <SelectItem value="200000">Under $200,000</SelectItem>
                   <SelectItem value="unlimited">No Limit</SelectItem>
                 </SelectContent>
               </Select>
@@ -104,11 +130,9 @@ const Hero = () => {
                   <SelectValue placeholder="Year" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="2025">2025</SelectItem>
                   <SelectItem value="2024">2024</SelectItem>
-                  <SelectItem value="2023">2023</SelectItem>
-                  <SelectItem value="2022">2022</SelectItem>
-                  <SelectItem value="2021">2021</SelectItem>
-                  <SelectItem value="older">2020 & Older</SelectItem>
+                  <SelectItem value="older">2023 & Older</SelectItem>
                 </SelectContent>
               </Select>
               {/* MILEAGE */}
@@ -126,21 +150,21 @@ const Hero = () => {
                   <SelectItem value="25000">Under 25,000 km</SelectItem>
                   <SelectItem value="50000">Under 50,000 km</SelectItem>
                   <SelectItem value="100000">Under 100,000 km</SelectItem>
+                  <SelectItem value="150000">Under 150,000 km</SelectItem>
                   <SelectItem value="unlimited">No Limit</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="relative font-raleway flex max-md:flex-col gap-5">
               <Button
-                //   onClick={handleQuickSearch}
                 className="min-md:grow-3 bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg font-semibold"
                 size="lg"
+                onClick={handleHeroSearchBarFilters}
               >
                 <Search className="mr-3 h-5 w-5" />
                 <span className="">Search Cars</span>
               </Button>
               <Button
-                //   onClick={handleQuickSearch}
                 variant={"outline"}
                 className="border-blue-600 text-blue-600 text-lg font-semibold  hover:text-card hover:bg-blue-600"
                 size="lg"

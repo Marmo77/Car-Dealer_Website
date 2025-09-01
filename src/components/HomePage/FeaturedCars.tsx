@@ -3,11 +3,11 @@ import CarCard from "./CarCard";
 import { Button } from "../ui/button";
 import { useNavigateHandler } from "@/hooks/useNavigateHandler";
 
-import type { Car } from "@/types/Car";
+import type { CarDocument } from "@/types/Car";
 import Loading from "../ui/loading";
 
 interface FeaturedCarsProps {
-  featuredCars: Car[];
+  featuredCars: CarDocument[];
   isLoading: boolean;
 }
 
@@ -32,8 +32,8 @@ const FeaturedCars: React.FC<FeaturedCarsProps> = ({
           <Loading text="Loading featured cars..." />
         ) : (
           <div className="flex max-md:flex-col gap-6 justify-center">
-            {featuredCars.map((car) => (
-              <CarCard key={car.id} {...car} />
+            {featuredCars.map((car, i) => (
+              <CarCard key={i} {...car} />
             ))}
           </div>
         )}

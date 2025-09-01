@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search, SearchCheck } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -26,14 +26,63 @@ const Hero = () => {
   const handleAllCars = () => {
     navigation("/listings");
   };
+
   const handleHeroSearchBarFilters = () => {
-    getHeroSearchBarFilters(
-      searchFilters.brand,
-      searchFilters.maxPrice,
-      searchFilters.year,
-      searchFilters.mileage
-    );
+    // CREATE URL PARAMS
+    const params = new URLSearchParams();
+    if (searchFilters.brand && searchFilters.brand !== "all") {
+      params.append("brand", searchFilters.brand);
+    }
+    if (searchFilters.maxPrice && searchFilters.maxPrice !== "unlimited") {
+      params.append("min", "0");
+      params.append("max", searchFilters.maxPrice);
+    } else {
+      params.append("min", "0");
+      params.append("max", "250000");
+    }
+    if (searchFilters.year) {
+      params.append("year", searchFilters.year);
+    }
+    if (searchFilters.mileage) {
+      params.append("mileage", searchFilters.mileage);
+    }
+    // Navigate to listings
+    navigation(`/listings?${params.toString()}`);
   };
+  // ########## DRIVING STATE TO URL
+  // const [searchParams, setSearchParams] = useSearchParams();
+
+  // const [filters, setFilters] = useState<{
+  //   brand: string;
+  //   priceRange: [number, number];
+  //   year: string;
+  //   mileage: string;
+  // }>({
+  //   brand: searchParams.get(searchFilters.brand) ?? "",
+  //   priceRange: [
+  //     Number(searchParams.get("min") ?? 0),
+  //     Number(searchParams.get("max") ?? 250000),
+  //   ],
+  //   year: searchParams.get("year") ?? "",
+  //   mileage: searchParams.get("mileage") ?? "",
+  // });
+  // const handleHeroSearchBarFilters = () => {
+  //   getHeroSearchBarFilters(
+  //     searchFilters.brand,
+  //     searchFilters.maxPrice,
+  //     searchFilters.year,
+  //     searchFilters.mileage
+  //   );
+  //   const params = new URLSearchParams();
+  //   params.append("brand", filters.brand);
+  //   params.append("min", filters.priceRange[0].toString());
+  //   params.append("max", filters.priceRange[1].toString());
+  //   // params.append("year", filters.year);
+  //   // params.append("mileage", filters.mileage);
+  //   navigation(params.toString());
+  //   setGetSearchFilters(true);
+  // };
+
   return (
     <section
       id="#"

@@ -267,6 +267,49 @@ export const getFilteredCars = async (
   }
 };
 
+// export const getHeroSearchBarFilters = async (
+//   brand: string,
+//   maxPrice: string,
+//   year: string,
+//   mileage: string
+// ) => {
+//   try {
+//     const filtersQueries = [];
+
+//     if (brand !== "all") {
+//       filtersQueries.push(Query.equal("brand", brand));
+//     }
+//     if (maxPrice === "unlimited") {
+//       filtersQueries.push(Query.greaterThanEqual("price", 0));
+//     } else if (maxPrice) {
+//       filtersQueries.push(Query.lessThanEqual("price", Number(maxPrice)));
+//       filtersQueries.push(Query.greaterThanEqual("price", 0));
+//     }
+
+//     if (year === "older") {
+//       filtersQueries.push(Query.lessThanEqual("year", 2023));
+//     } else if (year) {
+//       filtersQueries.push(Query.greaterThanEqual("year", Number(year)));
+//     }
+
+//     if (mileage === "unlimited") {
+//       filtersQueries.push(Query.greaterThanEqual("mileage", 0));
+//     } else if (mileage) {
+//       filtersQueries.push(Query.lessThanEqual("mileage", Number(mileage)));
+//     }
+
+//     const result = await database.listDocuments(
+//       DATABASE_ID,
+//       COLLECTION_ID,
+//       filtersQueries
+//     );
+
+//     console.log(result.documents);
+//     return result.documents;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 export const getHeroSearchBarFilters = async (
   brand: string,
   maxPrice: string,
@@ -276,25 +319,28 @@ export const getHeroSearchBarFilters = async (
   try {
     const filtersQueries = [];
 
-    if (brand !== "all") {
+    Query.limit(100);
+
+    if (brand && brand !== "all" && brand !== "") {
       filtersQueries.push(Query.equal("brand", brand));
     }
+
     if (maxPrice === "unlimited") {
       filtersQueries.push(Query.greaterThanEqual("price", 0));
-    } else if (maxPrice) {
+    } else if (maxPrice && maxPrice !== "") {
       filtersQueries.push(Query.lessThanEqual("price", Number(maxPrice)));
       filtersQueries.push(Query.greaterThanEqual("price", 0));
     }
 
     if (year === "older") {
       filtersQueries.push(Query.lessThanEqual("year", 2023));
-    } else if (year) {
+    } else if (year && year !== "") {
       filtersQueries.push(Query.greaterThanEqual("year", Number(year)));
     }
 
     if (mileage === "unlimited") {
       filtersQueries.push(Query.greaterThanEqual("mileage", 0));
-    } else if (mileage) {
+    } else if (mileage && mileage !== "") {
       filtersQueries.push(Query.lessThanEqual("mileage", Number(mileage)));
     }
 
@@ -303,9 +349,11 @@ export const getHeroSearchBarFilters = async (
       COLLECTION_ID,
       filtersQueries
     );
-    console.log(result.documents);
+
+    console.log("Hero search results:", result.documents);
     return result.documents;
   } catch (error) {
-    console.error(error);
+    console.error("Hero search error:", error);
+    return [];
   }
 };

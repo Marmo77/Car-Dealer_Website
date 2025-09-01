@@ -49,47 +49,11 @@ const Hero = () => {
     // Navigate to listings
     navigation(`/listings?${params.toString()}`);
   };
-  // ########## DRIVING STATE TO URL
-  // const [searchParams, setSearchParams] = useSearchParams();
-
-  // const [filters, setFilters] = useState<{
-  //   brand: string;
-  //   priceRange: [number, number];
-  //   year: string;
-  //   mileage: string;
-  // }>({
-  //   brand: searchParams.get(searchFilters.brand) ?? "",
-  //   priceRange: [
-  //     Number(searchParams.get("min") ?? 0),
-  //     Number(searchParams.get("max") ?? 250000),
-  //   ],
-  //   year: searchParams.get("year") ?? "",
-  //   mileage: searchParams.get("mileage") ?? "",
-  // });
-  // const handleHeroSearchBarFilters = () => {
-  //   getHeroSearchBarFilters(
-  //     searchFilters.brand,
-  //     searchFilters.maxPrice,
-  //     searchFilters.year,
-  //     searchFilters.mileage
-  //   );
-  //   const params = new URLSearchParams();
-  //   params.append("brand", filters.brand);
-  //   params.append("min", filters.priceRange[0].toString());
-  //   params.append("max", filters.priceRange[1].toString());
-  //   // params.append("year", filters.year);
-  //   // params.append("mileage", filters.mileage);
-  //   navigation(params.toString());
-  //   setGetSearchFilters(true);
-  // };
-
   return (
     <section
       id="#"
       className="relative bg-gradient-to-br from-blue-900 via-gray-800 to-gray-900 text-white overflow-hidden"
     >
-      {/* bg overlay */}
-      {/* <div className="absolute inset-0 bg-black/20"></div> */}
       {/* bg img */}
       <div className="absolute w-full h-full bg-cover bg-center">
         <img
@@ -193,7 +157,6 @@ const Hero = () => {
             </div>
             <div className="relative font-raleway flex max-md:flex-col gap-5">
               <Button
-                //   onClick={handleQuickSearch}
                 className="min-md:grow-3 bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg font-semibold"
                 size="lg"
                 onClick={handleHeroSearchBarFilters}
@@ -202,7 +165,6 @@ const Hero = () => {
                 <span className="">Search Cars</span>
               </Button>
               <Button
-                //   onClick={handleQuickSearch}
                 variant={"outline"}
                 className="border-blue-600 text-blue-600 text-lg font-semibold  hover:text-card hover:bg-blue-600"
                 size="lg"

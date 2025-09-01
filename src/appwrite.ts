@@ -58,37 +58,6 @@ export const AllCarsLimit = async (limit: number) => {
 
 const database = new Databases(client);
 
-export const update = async () => {
-  try {
-    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
-      Query.equal("brand", "BMW"),
-    ]);
-    //     // jesli istnieje bmw zmien dostepnosc na false
-    if (result.documents.length > 0) {
-      console.log(result);
-      const doc = result.documents[0];
-
-      await database.updateDocument(DATABASE_ID, COLLECTION_ID, doc.$id, {
-        isAvailable: true,
-      });
-    } else {
-      console.log(result);
-    }
-    // const response = await database.getDocument(DATABASE_ID,COLLECTION_ID,)
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const DummyCars = async () => {
-  try {
-    return [];
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
-
 export const LoginUser = async () => {
   try {
   } catch (error) {
@@ -267,49 +236,6 @@ export const getFilteredCars = async (
   }
 };
 
-// export const getHeroSearchBarFilters = async (
-//   brand: string,
-//   maxPrice: string,
-//   year: string,
-//   mileage: string
-// ) => {
-//   try {
-//     const filtersQueries = [];
-
-//     if (brand !== "all") {
-//       filtersQueries.push(Query.equal("brand", brand));
-//     }
-//     if (maxPrice === "unlimited") {
-//       filtersQueries.push(Query.greaterThanEqual("price", 0));
-//     } else if (maxPrice) {
-//       filtersQueries.push(Query.lessThanEqual("price", Number(maxPrice)));
-//       filtersQueries.push(Query.greaterThanEqual("price", 0));
-//     }
-
-//     if (year === "older") {
-//       filtersQueries.push(Query.lessThanEqual("year", 2023));
-//     } else if (year) {
-//       filtersQueries.push(Query.greaterThanEqual("year", Number(year)));
-//     }
-
-//     if (mileage === "unlimited") {
-//       filtersQueries.push(Query.greaterThanEqual("mileage", 0));
-//     } else if (mileage) {
-//       filtersQueries.push(Query.lessThanEqual("mileage", Number(mileage)));
-//     }
-
-//     const result = await database.listDocuments(
-//       DATABASE_ID,
-//       COLLECTION_ID,
-//       filtersQueries
-//     );
-
-//     console.log(result.documents);
-//     return result.documents;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
 export const getHeroSearchBarFilters = async (
   brand: string,
   maxPrice: string,

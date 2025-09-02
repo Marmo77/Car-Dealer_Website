@@ -7,13 +7,16 @@ The project came about spontaneously when I got bored making "fake" databases an
 I chose AppWrite as my backend solution and learned a ton during this quick late-night coding session (2am to 5am ☠️).
 The website displays cars from a real database with filtering functionality, and I'm currently working on improving the UI/UX design to make it user-friendly and visually appealing.
 
+I tried to use as little AI as possible; this is a typical learning/portfolio project. Obviously, I mostly used AI for repetitive tasks and formatting (in the sense of reducing work time).
+
 # 📸 Screenshots
-- *Homepage*
-- *Featured Cars*
-- *Show Image*
-- *Filtering System*
-- *Contact Form*
-- *Filtering System*
+- Home page ![snippet1](./public/snippet1.jpg)
+- Home page 2 ![snippet2](./public/snippet2.jpg)
+- Home page 3 ![snippet3](./public/snippet3.jpg)
+- *Featured Cars* ![snippet5](./public/snippet5.jpg)
+- *Contact Form* ![snippet6](./public/snippet6.jpg)
+- *Mobile Responsibility* ![snippet7](./public/snippet7.jpg)
+- *Footer* ![snippet4](./public/snippet4.jpg)
 
 
 # 🎯 MVP (Minimum Viable Product)
@@ -158,6 +161,13 @@ The application will be available at http://localhost:5173
 - Learned to work with environment variables and API configuration
 
 ### The late-night coding session (2am-5am) taught me a lot about persistence and problem-solving.
+
+# Some code snippets (totaly random files all in .ts,.tsx + folder structure) 💻
+
+- ![code_snippet1](./public/code_snippet1.jpg)
+- ![code_snippet2](./public/code_snippet2.jpg)
+ 
+- ![folder_strucutre](./public/code_snippet3.jpg)
 
 # 🤝 Contributing
 This is primarily a learning project, but if you'd like to contribute:

@@ -167,7 +167,7 @@ The application will be available at http://localhost:5173
 - ![code_snippet1](./public/code_snippet1.jpg)
 - ![code_snippet2](./public/code_snippet2.jpg)
  
-- ![folder_strucutre](./public/code_snippet3.jpg)
+- ![folder_strucutre](./public/code_snippet3.png)
 
 # 🤝 Contributing
 This is primarily a learning project, but if you'd like to contribute:

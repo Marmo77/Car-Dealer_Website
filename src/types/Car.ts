@@ -23,7 +23,7 @@ export interface CarDocument extends Models.Document {
   $isAvailable: boolean;
   $fuelType: "Diesel" | "Petrol" | "Hybrid" | "Electric";
   $transmission: "Automatic" | "Manual";
-  $year: Date;
+  $year: number;
   $mileage: number;
   $power: number;
   $imageUrl: string;

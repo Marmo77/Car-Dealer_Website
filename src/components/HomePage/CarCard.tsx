@@ -1,7 +1,7 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { Car, CarDocument } from "@/types/Car";
+import type { CarDocument } from "@/types/Car";
 import { useNavigateHandler } from "@/hooks/useNavigateHandler";
 
 const CarCard = (car: CarDocument) => {
@@ -41,11 +41,7 @@ const CarCard = (car: CarDocument) => {
         <h3 className="text-lg font-semibold">
           {car.brand} {car.model}
         </h3>
-        <p className="text-sm text-gray-700">
-          {car.year instanceof Date
-            ? car.year.getFullYear()
-            : new Date(car.year).getFullYear()}
-        </p>
+        <p className="text-sm text-gray-700">{car.year}</p>
         <div className="mt-3 space-y-1 text-sm">
           <div className="flex justify-between border-gray-300 max-md:border-b-1 max-md:pb-1">
             <span className="text-gray-500">Mileage</span>

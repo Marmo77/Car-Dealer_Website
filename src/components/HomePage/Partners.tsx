@@ -1,4 +1,3 @@
-import React from "react";
 import { InfiniteSlider } from "../../components/ui/infinite-slider";
 import { ProgressiveBlur } from "../../components/ui/progressive-blur";
 import bmwLogo from "../../assets/imgs/bmw.png";
@@ -42,16 +41,16 @@ const partners = [
 
 const Partners = () => {
   return (
-    <section className="flex flex-col max-w-7xl mx-auto w-full text-center my-6 justify-center">
+    <section className="md:flex flex-col max-w-7xl mx-auto w-full text-center my-6 justify-center hidden">
       <h1 className="mb-12 text-4xl font-montserrat font-semibold tracking-tight">
         Our Partners
       </h1>
       {/* https://tailark.com/logo-cloud */}
       <div className="flex justify-center mx-auto">
-        <div className="relative max-lg:w-[80vw] py-6 max-w-7xl">
+        <div className="relative overflow-hidden py-6 md:w-7xl w-full">
           <InfiniteSlider speedOnHover={10} speed={50} gap={112}>
             {partners.map((item) => (
-              <div key={item.id} className="flex">
+              <div key={item.id} className="flex shrink-0">
                 <a href={item.link} target="_blank">
                   <img
                     src={item.src}
@@ -62,19 +61,20 @@ const Partners = () => {
               </div>
             ))}
           </InfiniteSlider>
-
-          <div className="bg-linear-to-r from-background absolute inset-y-0 left-0 w-20"></div>
-          <div className="bg-linear-to-l from-background absolute inset-y-0 right-0 w-20"></div>
-          <ProgressiveBlur
-            className="pointer-events-none max-lg:hidden absolute left-0 top-0 h-full w-20"
-            direction="left"
-            blurIntensity={1}
-          />
-          <ProgressiveBlur
-            className="pointer-events-none max-lg:hidden absolute right-0 top-0 h-full w-20"
-            direction="right"
-            blurIntensity={1}
-          />
+          <div className="md:block hidden pointer-events-none">
+            <div className="bg-linear-to-r from-background absolute inset-y-0 left-0 w-20"></div>
+            <div className="bg-linear-to-l from-background absolute inset-y-0 right-0 w-20"></div>
+            <ProgressiveBlur
+              className="pointer-events-none max-lg:hidden absolute left-0 top-0 h-full w-20"
+              direction="left"
+              blurIntensity={1}
+            />
+            <ProgressiveBlur
+              className="pointer-events-none max-lg:hidden absolute right-0 top-0 h-full w-20"
+              direction="right"
+              blurIntensity={1}
+            />
+          </div>
         </div>
       </div>
     </section>

@@ -1,5 +1,4 @@
 import { ArrowUpIcon } from "lucide-react";
-import React from "react";
 import { useHandleScrollTop } from "@/hooks/useHandleScrollTop";
 
 const ScrollTopButton = ({ showScrollTop }: { showScrollTop: boolean }) => {

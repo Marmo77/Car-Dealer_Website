@@ -1,13 +1,19 @@
 import React from "react";
 import Hero from "./AboutPage/AboutHero";
-import Mission from "./AboutPage/Mission";
+import CoreValues from "./AboutPage/CoreValues";
+import Awards from "./AboutPage/Awards";
+import OurStory from "./AboutPage/OurStory";
+import Faq from "./AboutPage/faq";
 
 const About = () => {
   return (
     <>
       <div className="min-h-screen bg-white">
         <Hero />
-        <Mission />
+        <OurStory />
+        <CoreValues />
+        <Awards />
+        <Faq />
       </div>
     </>
   );

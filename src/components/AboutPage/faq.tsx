@@ -16,10 +16,10 @@ const Faq = () => {
         {/* FAQ Section */}
         <div>
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
+            <h3 className="text-5xl font-bold text-gray-900 mb-4">
               Frequently Asked Questions
             </h3>
-            <p className="text-lg text-gray-600">
+            <p className="text-xl text-gray-600">
               Get answers to common questions about our luxury vehicle services
             </p>
           </div>
@@ -33,11 +33,11 @@ const Faq = () => {
                   className="border-gray-200"
                 >
                   <AccordionTrigger className="text-left hover:no-underline hover:text-amber-600 transition-colors">
-                    <span className="font-medium text-gray-900">
+                    <span className="text-lg font-medium text-gray-900">
                       {faq.question}
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 leading-relaxed pt-2">
+                  <AccordionContent className="text-gray-680 text-base font-raleway leading-relaxed pt-2">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>

@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { contactInfo } from "@/data/contact";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import ContactForm from "./ui/ContactForm";
+import { useLocation } from "react-router-dom";
 
 const Contact = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      if (el && "scrollIntoView" in el) {
+        (el as HTMLElement).scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }
+  }, [location.hash]);
+
   return (
     <section className="mx-auto w-full">
       {/* Header */}
@@ -20,7 +35,10 @@ const Contact = () => {
           </p>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto py-12 px-4">
+      <div
+        className="max-w-7xl scroll-mt-16 mx-auto py-12 px-4"
+        id="get-in-touch"
+      >
         <div className="grid lg:grid-cols-3 gap-12 grid-cols-1">
           {/* # CONTACT INFORMATIONS # */}
           <div>

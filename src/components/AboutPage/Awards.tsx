@@ -8,7 +8,7 @@ const Awards = () => {
     <section className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="font-raleway text-3xl font-bold text-gray-900 mb-6">
+          <h2 className="font-raleway text-5xl font-bold text-gray-900 mb-6">
             Awards & Recognition
           </h2>
           <p className="font-montserrat text-xl text-gray-600 max-w-3xl mx-auto">
@@ -30,7 +30,7 @@ const Awards = () => {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-2">
-                          <h3 className="font-raleway text-xl font-bold text-gray-900">
+                          <h3 className="font-montserrat lg:text-xl text-2xl font-bold text-gray-900">
                             {achievement.title}
                           </h3>
                           <Badge

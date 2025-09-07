@@ -1,29 +1,31 @@
 import StoryImg from "@/assets/imgs/Hero_bg.jpg";
+import { company } from "@/data/company";
 
 const OurStory = () => {
   return (
     <section className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="font-raleway text-3xl font-bold text-gray-900 mb-6">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="text-center lg:text-left lg:px-4 px-12">
+            <h2 className="font-montserrat text-6xl font-bold text-gray-900 mb-6">
               Our Story
             </h2>
-            <div className="space-y-6 font-montserrat text-gray-600 leading-relaxed">
-              <p>
-                Prestige Motors was born from a simple belief: luxury car buying
-                should be as extraordinary as the vehicles themselves. Founded
-                by automotive enthusiast Michael Stevens in 2010, we began as a
-                boutique dealership with an unwavering commitment to excellence.
+            <div className="space-y-6 font-montserrat text-lg text-gray-600 leading-relaxed">
+              <p className="font-raleway first-letter:uppercase">
+                {company[0].companyName} was born from a simple belief: luxury
+                car buying should be as extraordinary as the vehicles
+                themselves. Founded by automotive enthusiast Michael Stevens in
+                2010, we began as a boutique dealership with an unwavering
+                commitment to excellence.
               </p>
-              <p>
+              <p className="font-raleway first-letter:uppercase">
                 What started as a passion project has evolved into the region's
                 most trusted luxury automotive destination. Our success stems
                 from understanding that each client has unique needs and dreams,
                 and every vehicle tells a story of engineering mastery and
                 artistic vision.
               </p>
-              <p>
+              <p className="font-raleway first-letter:uppercase">
                 Today, we continue to set new standards in luxury automotive
                 retail, combining traditional values of personal service with
                 cutting-edge technology and innovation. Our curated collection
@@ -37,7 +39,7 @@ const OurStory = () => {
             <div className="relative overflow-hidden rounded-2xl shadow-2xl">
               <img
                 src={StoryImg}
-                alt="Prestige Motors luxury showroom"
+                alt={company[0].companyName}
                 className="w-full h-full object-cover"
               />
             </div>

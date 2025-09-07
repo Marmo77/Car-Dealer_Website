@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Car, Search, Menu, X, Phone, Mail } from "lucide-react";
+import { Car, Menu, X, Phone, Mail } from "lucide-react";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import { company } from "@/data/company";
+import { useNavigateHandler } from "@/hooks/useNavigateHandler";
 
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { contact } from "@/data/contact";
 
 // interface NavbarProps {
 //   currentPage: string;
@@ -12,12 +13,19 @@ import { useLocation, useNavigate } from "react-router-dom";
 // }
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [quickSearchOpen, setQuickSearchOpen] = useState(false);
 
   const navigationItems = company[0].navigationID;
 
   const location = useLocation();
-  const navigate = useNavigate();
+  const navigate = useNavigateHandler();
+
+  const navigateToContact = () => {
+    if (location.pathname === "/contact") {
+      navigate(contact.getInTouch);
+    } else {
+      navigate("/contact" + contact.getInTouch);
+    }
+  };
 
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-lg drop-shadow-lg">
@@ -59,22 +67,26 @@ export function Navbar() {
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setQuickSearchOpen(!quickSearchOpen)}
-              className="text-gray-600"
-            >
-              <Search className="h-4 w-4 mr-2" />
-              Quick Search
-            </Button>
+          <div className="hidden md:flex items-center justify-center gap-4">
             <div className="flex items-center gap-4 text-sm text-gray-600">
               <div className="flex items-center gap-1">
                 <Phone className="h-4 w-4" />
                 <span>{company[0].phoneNumber}</span>
               </div>
             </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="group hover:text-blue-600 duration-300"
+              onClick={() => navigateToContact()}
+            >
+              {
+                <Mail className="h-4 w-4 group-hover:-rotate-16 transition-transform group-hover:scale-110" />
+              }
+              <span className="group-hover:translate-x-1 transition-transform">
+                Get in touch
+              </span>
+            </Button>
           </div>
 
           {/* Mobile menu button */}
@@ -92,19 +104,6 @@ export function Navbar() {
             </Button>
           </div>
         </div>
-
-        {/* Quick Search Bar */}
-        {quickSearchOpen && (
-          <div className="py-4 border-t border-gray-100">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <Input
-                placeholder="Search by brand, model, or location..."
-                className="pl-10 pr-4"
-              />
-            </div>
-          </div>
-        )}
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (

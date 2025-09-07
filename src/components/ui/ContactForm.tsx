@@ -24,6 +24,7 @@ const questionTypes = [
   { value: "car_information", label: "Vehicle Information" },
   { value: "availability", label: "Vehicle Availability" },
   { value: "financing", label: "Financing & Payment Options" },
+  { value: "vehicle_financing", label: "Vehicle Financing" },
   { value: "trade_in", label: "Trade-In Appraisal" },
   { value: "test_drive", label: "Schedule a Test Drive" },
   { value: "warranty_service", label: "Warranty & Service Plans" },
@@ -32,19 +33,52 @@ const questionTypes = [
   { value: "other", label: "Other" },
 ];
 
-const ContactForm = () => {
+const ContactForm = ({
+  questionFooter,
+}: {
+  questionFooter: string | null | undefined;
+}) => {
   //   const [name, setName] = useState<string>("");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-    questionType: "",
+    questionType: questionFooter || "",
     subject: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log(questionFooter);
+    if (
+      questionFooter &&
+      questionTypes.some((item) => item.value === questionFooter)
+    ) {
+      if (questionFooter !== "") {
+        setFormData((prev) => ({
+          ...prev,
+          questionType: questionFooter,
+        }));
+      } else {
+        setFormData((prev) => ({
+          ...prev,
+          questionType: "other",
+        }));
+      }
+    }
+  }, [questionFooter]);
+
+  useEffect(() => {
+    if (questionFooter !== formData.questionType) {
+      const params = new URLSearchParams(location.search);
+      params.set("question", formData.questionType);
+      const newUrl = `${location.pathname}?${params.toString()}`;
+      window.history.replaceState(null, "", newUrl);
+    }
+  }, [formData.questionType]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

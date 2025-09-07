@@ -8,6 +8,7 @@ import { company } from "@/data/company";
 import { Input } from "../ui/input";
 import { useState } from "react";
 import { handleNewsletterUser } from "@/appwrite";
+import { useParams } from "react-router-dom";
 
 const Newsletter = () => {
   const [mail, setMail] = useState<string>("");
@@ -111,6 +112,15 @@ const Footer = () => {
     7: "lg:grid-cols-7",
     8: "lg:grid-cols-8",
   };
+  const handleContactValue = (value?: string) => {
+    let params = new URLSearchParams(window.location.search);
+    if (value && value !== "") {
+      params.set("question", value);
+    } else {
+      console.log("No value");
+    }
+    handleNavigate("/contact?" + params.toString());
+  };
   return (
     <section className="pt-6 flex justify-center w-full bg-gray-900">
       <div className="container text-accent">
@@ -120,7 +130,6 @@ const Footer = () => {
             className={`grid grid-cols-2 gap-8 ${
               gridCols[navigation.length + 2]
             } max-md:px-6`}
-            onClick={() => console.log(navigation.length + 2)}
           >
             <div className="col-span-2 mb-8 lg:mb-0 text-accent">
               <div className="flex items-center max-md:flex-col max-md:text-center max-md:justify-center gap-2 mb-6">
@@ -172,7 +181,7 @@ const Footer = () => {
                       <li
                         key={index}
                         className="hover:text-gray-300 font-medium flex items-center gap-1 cursor-pointer"
-                        onClick={() => handleNavigate(url.link)}
+                        onClick={() => handleContactValue(url.value)}
                       >
                         {Icon && <Icon className="w-5 h-5" />}
                         {url.title}

@@ -7,6 +7,7 @@ export const contact = {
   email: company[0].companyEmail,
   supportEmail: "support@autobahn.com",
   adress: company[0].companyLocation,
+  getInTouch: "#get-in-touch",
 };
 
 export const contactInfo = [

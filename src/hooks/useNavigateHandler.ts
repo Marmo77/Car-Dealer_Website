@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { company } from "@/data/company";
 
 export const useNavigateHandler = () => {
   const navigate = useNavigate();
+  const locationInfo = useLocation();
 
   return (location: string) => {
     if (location.startsWith("/")) {
@@ -9,12 +12,7 @@ export const useNavigateHandler = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     } else if (location.startsWith("#")) {
-      // const element = document.querySelector(location);
-      // if (element) {
-      //   window.scrollTo({ top: 0, behavior: "smooth" });
-      // }
       window.scrollTo({ top: 0, behavior: "smooth" });
-
       // back to top of the website or if # has other id
       return;
     }

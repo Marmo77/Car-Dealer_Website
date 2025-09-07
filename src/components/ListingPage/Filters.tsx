@@ -1,14 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "../ui/card";
 import { Filter } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../ui/sheet";
-import { Button } from "../ui/button";
 import { FilterContent } from "./FilterContent";
 
 const Filters = ({
@@ -36,7 +28,7 @@ const Filters = ({
   //   brandFilter?.classList.toggle("hidden");
   // };
   return (
-    <div className="flex gap-8 sticky top-25">
+    <div className="flex flex-col gap-8 sticky top-25">
       {/* Desktop Filters */}
       <div className="hidden lg:block w-64 flex-shrink-0">
         <Card className="">
@@ -58,23 +50,16 @@ const Filters = ({
             </div>
           </CardContent>
         </Card>
-        {/* Mobile Filters */}
       </div>
+      {/* Mobile Filters */}
       <div className="lg:hidden">
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="outline" className="mb-6">
-              <Filter className="mr-2 h-4 w-4" />
-              Filters
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-80">
-            <SheetHeader>
-              <SheetTitle>Filters</SheetTitle>
-            </SheetHeader>
-            <div className="mt-6">{/* <FilterContent /> */}</div>
-          </SheetContent>
-        </Sheet>
+        <div className="mt-6">
+          <FilterContent
+            filters={filters}
+            setFilters={setFilters}
+            clearFilters={clearFilters}
+          />
+        </div>
       </div>
     </div>
   );

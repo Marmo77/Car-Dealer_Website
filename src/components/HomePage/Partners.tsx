@@ -49,7 +49,7 @@ const Partners = () => {
       </h1>
       {/* https://tailark.com/logo-cloud */}
       <div className="flex justify-center mx-auto">
-        <div className="relative overflow-hidden py-6 lg:w-7xl w-full lg:block hidden">
+        <div className="relative overflow-hidden py-6 lg:w-6xl w-full lg:block hidden">
           <InfiniteSlider speedOnHover={10} speed={50} gap={112}>
             {partners.map((item) => (
               <div key={item.id} className="flex shrink-0">
@@ -78,7 +78,7 @@ const Partners = () => {
             />
           </div>
         </div>
-        <div className="lg:hidden grid grid-cols-3 gap-12 space-y-6 max-w-5xl">
+        <div className="lg:hidden grid grid-cols-3 gap-8 space-y-6 max-w-5xl">
           {partners.map((item) => (
             <a href={item.link} target="_blank" key={item.id}>
               <img

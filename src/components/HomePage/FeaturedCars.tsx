@@ -31,7 +31,7 @@ const FeaturedCars: React.FC<FeaturedCarsProps> = ({
         {isLoading ? (
           <Loading text="Loading featured cars..." />
         ) : (
-          <div className="grid lg:grid-cols-3 grid-cols-1 max-w-7xl gap-12 px-24 justify-center">
+          <div className="grid lg:grid-cols-3 grid-cols-1 max-w-7xl gap-12 px-24 max-sm:px-12 justify-center">
             {featuredCars.map((car, i) => (
               <CarCard key={i} {...car} />
             ))}

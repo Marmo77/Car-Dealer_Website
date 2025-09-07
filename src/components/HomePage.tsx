@@ -24,7 +24,7 @@ const HomePage: React.FC<HomePageProps> = ({ featuredCars, isLoading }) => {
       {/* Why choose us? + cta to aboutUs */}
       <WhyUs />
       {/* Partnerzy */}
-      {/* <Partners /> */}
+      <Partners />
       {/* CTA - "ready to find your next car, "discover all car" + Contact specialist (cta to /contact)" */}
       <CTAhome />
       {/* Newsletter */}

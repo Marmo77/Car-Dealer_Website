@@ -20,6 +20,19 @@ const Contact = () => {
     }
   }, [location.hash]);
 
+  const getParams = () => {
+    const params = new URLSearchParams(location.search);
+    // console.log(params.get("question"));
+
+    if (params.get("question")) {
+      console.log("has question");
+      return params.get("question");
+    } else {
+      console.log("no question");
+    }
+  };
+  const questionFooter = getParams();
+
   return (
     <section className="mx-auto w-full">
       {/* Header */}
@@ -96,7 +109,7 @@ const Contact = () => {
           </div>
           {/* # CONTACT FORM # */}
           <div className="lg:col-span-2">
-            <ContactForm />
+            <ContactForm questionFooter={questionFooter} />
           </div>
         </div>
       </div>

@@ -19,6 +19,14 @@ export function Navbar() {
   const location = useLocation();
   const navigate = useNavigateHandler();
 
+  const navigateToContact = () => {
+    if (location.pathname === "/contact") {
+      navigate(contact.getInTouch);
+    } else {
+      navigate("/contact" + contact.getInTouch);
+    }
+  };
+
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-lg drop-shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,7 +78,7 @@ export function Navbar() {
               variant="outline"
               size="sm"
               className="group hover:text-blue-600 duration-300"
-              onClick={() => navigate(contact.getInTouch)}
+              onClick={() => navigateToContact()}
             >
               {
                 <Mail className="h-4 w-4 group-hover:-rotate-16 transition-transform group-hover:scale-110" />

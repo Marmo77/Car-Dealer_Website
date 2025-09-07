@@ -11,6 +11,7 @@ interface urlsProps {
   title: string;
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   link: string;
+  value?: string;
 }
 
 type navigationProps = {
@@ -32,26 +33,32 @@ export const navigation: navigationProps[] = [
       {
         title: "Vehicle Financing",
         link: "#",
+        value: "vehicle_financing",
       },
       {
         title: "Trade-In Valuation",
         link: "#",
+        value: "trade_in",
       },
       {
         title: "Extended Warranties",
         link: "#",
+        value: "warranty_service",
       },
       {
-        title: "Service & Maintenance",
+        title: "Vehicle Availability",
         link: "#",
+        // value: "availability",
       },
       {
         title: "Parts & Accessories",
         link: "#",
+        value: "parts_and_accessories",
       },
       {
         title: "Vehicle History Reports",
         link: "#",
+        value: "vehicle_history",
       },
     ],
   },

@@ -51,16 +51,18 @@ const Newsletter = () => {
   };
   return (
     <div className="w-full flex justify-center py-6 mb-6 border-b border-accent/10">
-      <div className="text-center flex flex-col gap-5 max-sm:px-12">
-        <h1 className="text-4xl font-raleway font-bold">Stay Updated</h1>
-        <p className="text-lg font-montserrat max-w-3xl font-light text-gray-300">
+      <div className="text-center max-sm:px-auto flex flex-col gap-5">
+        <h1 className="text-4xl max-sm:text-3xl font-raleway font-bold">
+          Stay Updated
+        </h1>
+        <p className="text-lg max-sm:text-base font-montserrat px-4 font-light text-gray-300">
           Get the latest car listings, exclusive deals, and automotive news
           delivered to your inbox. Be the first to get notification.
         </p>
         {/* {!isSubmitted ? ( */}
         <form
           onSubmit={handleSubscribeSubmit}
-          className="flex flex-col sm:flex-row gap-3 min-w-md mx-auto"
+          className="flex flex-col sm:flex-row gap-3 max-sm:min-w-sm min-w-md mx-auto"
         >
           <Input
             placeholder={
@@ -181,7 +183,11 @@ const Footer = () => {
                       <li
                         key={index}
                         className="hover:text-gray-300 font-medium flex items-center gap-1 cursor-pointer"
-                        onClick={() => handleContactValue(url.value)}
+                        onClick={() => {
+                          url.value
+                            ? handleContactValue(url.value)
+                            : handleNavigate(url.link || "");
+                        }}
                       >
                         {Icon && <Icon className="w-5 h-5" />}
                         {url.title}

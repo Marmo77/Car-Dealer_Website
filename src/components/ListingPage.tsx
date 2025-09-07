@@ -77,7 +77,7 @@ const ListingPage = () => {
   return (
     <>
       <section className="bg-card py-16 mx-auto w-full">
-        <div className="max-w-7xl px-12 sm:px-6 mx-auto grid grid-cols-4">
+        <div className="max-w-7xl max-md:flex max-md:flex-col px-12 sm:px-6 mx-auto lg:grid lg:grid-cols-4">
           <div className="col-span-4">
             <BrowseMenu
               sortBy={sortBy}

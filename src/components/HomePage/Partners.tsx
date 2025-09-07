@@ -5,6 +5,7 @@ import LamboLogo from "../../assets/imgs/lamborghini.png";
 import FordLogo from "../../assets/imgs/Ford.svg";
 import VolvoLogo from "../../assets/imgs/volvo.png";
 import VtechLogo from "../../assets/imgs/VTech.jpg";
+import { useEffect, useState } from "react";
 
 const partners = [
   {
@@ -41,13 +42,14 @@ const partners = [
 
 const Partners = () => {
   return (
-    <section className="md:flex flex-col max-w-7xl mx-auto w-full text-center my-6 justify-center hidden">
+    // <section className="md:flex flex-col max-w-7xl mx-auto w-full text-center my-6 justify-center hidden">
+    <section className="flex flex-col max-w-7xl mx-auto text-center my-6">
       <h1 className="mb-12 text-4xl font-montserrat font-semibold tracking-tight">
         Our Partners
       </h1>
       {/* https://tailark.com/logo-cloud */}
       <div className="flex justify-center mx-auto">
-        <div className="relative overflow-hidden py-6 md:w-7xl w-full">
+        <div className="relative overflow-hidden py-6 lg:w-6xl w-full lg:block hidden">
           <InfiniteSlider speedOnHover={10} speed={50} gap={112}>
             {partners.map((item) => (
               <div key={item.id} className="flex shrink-0">
@@ -75,6 +77,17 @@ const Partners = () => {
               blurIntensity={1}
             />
           </div>
+        </div>
+        <div className="lg:hidden grid grid-cols-3 gap-8 space-y-6 max-w-5xl">
+          {partners.map((item) => (
+            <a href={item.link} target="_blank" key={item.id}>
+              <img
+                src={item.src}
+                alt={item.title}
+                className="mx-auto h-12 w-fit"
+              />
+            </a>
+          ))}
         </div>
       </div>
     </section>

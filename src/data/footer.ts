@@ -10,7 +10,7 @@ import {
 interface urlsProps {
   title: string;
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-  link: string;
+  link?: string;
   value?: string;
 }
 
@@ -32,32 +32,26 @@ export const navigation: navigationProps[] = [
     urls: [
       {
         title: "Vehicle Financing",
-        link: "#",
         value: "vehicle_financing",
       },
       {
         title: "Trade-In Valuation",
-        link: "#",
         value: "trade_in",
       },
       {
         title: "Extended Warranties",
-        link: "#",
         value: "warranty_service",
       },
       {
         title: "Vehicle Availability",
-        link: "#",
-        // value: "availability",
+        value: "availability",
       },
       {
         title: "Parts & Accessories",
-        link: "#",
         value: "parts_and_accessories",
       },
       {
         title: "Vehicle History Reports",
-        link: "#",
         value: "vehicle_history",
       },
     ],
@@ -69,7 +63,7 @@ export const navigation: navigationProps[] = [
       {
         title: "Twitter",
         icon: IoLogoTwitch,
-        link: "#",
+        link: "https://twitter.com/autobahn_de",
       },
       {
         title: "Facebook",
@@ -79,7 +73,7 @@ export const navigation: navigationProps[] = [
       {
         title: "Instagram",
         icon: IoLogoInstagram,
-        link: "#",
+        link: "https://www.instagram.com/autobahn_de/",
       },
       {
         title: "Github",
@@ -102,7 +96,7 @@ export const CopyrightBar = [
       {
         title: "Twitter",
         icon: IoLogoTwitch,
-        link: "#",
+        link: "https://twitter.com/autobahn_de",
       },
       {
         title: "Facebook",
@@ -112,7 +106,7 @@ export const CopyrightBar = [
       {
         title: "Instagram",
         icon: IoLogoInstagram,
-        link: "#",
+        link: "https://www.instagram.com/autobahn_de/",
       },
       {
         title: "Github",

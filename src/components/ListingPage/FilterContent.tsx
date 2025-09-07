@@ -19,11 +19,13 @@ export const FilterContent = ({
   >;
   clearFilters: () => void;
 }) => (
-  <div className="space-y-6">
+  <div className="space-y-6 max-lg:border max-lg:px-2 max-lg:py-6 my-3 max-lg:rounded-2xl">
     {/* Brand Filter */}
     <div className="space-y-3">
-      <h4 className="font-semibold text-gray-900">Brand</h4>
-      <div className="space-y-2">
+      <h4 className="font-semibold text-gray-900 max-lg:text-xl max-lg:text-center">
+        Brand
+      </h4>
+      <div className="space-y-2 max-lg:grid max-lg:grid-cols-6 max-md:grid-cols-3 max-lg:px-12">
         {[
           "BMW",
           "Audi",
@@ -38,11 +40,14 @@ export const FilterContent = ({
           "McLaren",
           "Aston Martin",
         ].map((brand) => (
-          <div key={brand} className="flex items-center space-x-2">
+          <div
+            key={brand}
+            className="flex max-md:flex-col items-center lg:space-x-2 md:space-x-2.5 space-x-0 "
+          >
             <Checkbox
               id={brand}
               checked={filters.brand.includes(brand)}
-              className="w-4 h-4 border-2 border-gray-300"
+              className="w-4 h-4 border-2 border-gray-300 cursor-pointer"
               onCheckedChange={(checked) => {
                 if (checked) {
                   setFilters((prev) => ({
@@ -59,7 +64,7 @@ export const FilterContent = ({
             />
             <label
               htmlFor={brand}
-              className="text-sm font-medium text-gray-700"
+              className="text-sm font-medium text-gray-700 cursor-pointer"
             >
               {brand}
             </label>

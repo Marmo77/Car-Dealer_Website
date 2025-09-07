@@ -32,18 +32,18 @@ export const statistics: StatisticsItem[] = [
 export const StatsGuarantees: StatsGuaranteesProps[] = [
   {
     id: 0,
-    testimonial: "Gwarancja na wszystkie usługi",
+    testimonial: "Warranty on all services",
   },
   {
     id: 1,
-    testimonial: "Tylko sprawdzone części i materiały",
+    testimonial: "Only verified parts and materials",
   },
   {
     id: 2,
-    testimonial: "Transparentne ceny bez ukrytych kosztów",
+    testimonial: "Transparent pricing with no hidden costs",
   },
   {
     id: 3,
-    testimonial: "Certyfikowani mechanicy",
+    testimonial: "Certified mechanics",
   },
 ];

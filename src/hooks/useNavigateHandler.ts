@@ -15,6 +15,9 @@ export const useNavigateHandler = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
       // back to top of the website or if # has other id
       return;
+    } else if (location.startsWith("https")) {
+      window.open(location, "_blank", "noopener,noreferrer");
+      return;
     }
     window.open(location, "_blank", "noopener,noreferrer"); //link zewnętrzny (nie jest "/" ani "#")
   };

@@ -1,7 +1,6 @@
 import React from "react";
 import CarSelling from "../HomePage/CarSelling";
 import { company } from "@/data/company";
-import type { CarDocument } from "@/types/Car";
 
 const AllCars = ({
   searchTerm,
@@ -11,12 +10,16 @@ const AllCars = ({
   setIsLoading,
   setTotalCars,
   viewMode,
+  extraFilters,
 }: {
   searchTerm: string;
   sortBy: string;
   filters: {
     brand: string[];
     priceRange: [number, number];
+  };
+  extraFilters: {
+    mileage: number;
   };
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,6 +34,7 @@ const AllCars = ({
           searchTerm={searchTerm}
           sortBy={sortBy}
           filters={filters}
+          extraFilters={extraFilters}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
           setTotalCars={setTotalCars}

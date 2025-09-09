@@ -14,6 +14,7 @@ export default function CarSelling({
   setIsLoading,
   setTotalCars,
   viewMode,
+  extraFilters,
 }: {
   limit: number;
   searchTerm: string;
@@ -26,6 +27,9 @@ export default function CarSelling({
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setTotalCars: React.Dispatch<React.SetStateAction<number>>;
   viewMode: "grid" | "list";
+  extraFilters: {
+    mileage: number;
+  };
 }) {
   // // get all cars from database
   const [cars, setCars] = useState<any[]>([]);
@@ -42,6 +46,7 @@ export default function CarSelling({
           searchTerm,
           filters.priceRange,
           sortBy,
+          extraFilters.mileage,
           limit
         );
         const totalCars = result?.length;
@@ -62,7 +67,7 @@ export default function CarSelling({
     };
 
     fetch_cars();
-  }, [filters, searchTerm, sortBy, limit]);
+  }, [filters, searchTerm, sortBy, limit, extraFilters]);
 
   // ###### handle Load More && handle Less
 

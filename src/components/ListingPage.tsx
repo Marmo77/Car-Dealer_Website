@@ -4,6 +4,7 @@ import Filters from "./ListingPage/Filters";
 import AllCars from "./ListingPage/AllCars";
 import { useSearchParams } from "react-router-dom";
 import ScrollTopButton from "./ui/scrolltop";
+import { Button } from "./ui/button";
 
 const ListingPage = () => {
   //viewport scroll top button
@@ -42,6 +43,10 @@ const ListingPage = () => {
   );
   const [sortBy, setSortBy] = useState(searchParams.get("sort") ?? "price-low");
 
+  const [extraFilters, setExtraFilters] = useState({
+    mileage: Number(searchParams.get("mileage") ?? 0),
+  });
+
   //push state to URL
   useEffect(() => {
     const params = new URLSearchParams();
@@ -50,8 +55,19 @@ const ListingPage = () => {
     params.append("max", filters.priceRange[1].toString());
     for (let b of filters.brand) params.append("brand", b.toLowerCase());
     if (searchTerm) params.append("search", searchTerm);
+    if (extraFilters.mileage !== 0) {
+      params.append("mileage", extraFilters.mileage.toString());
+    }
     setSearchParams(params);
-  }, [filters, searchTerm, sortBy]);
+  }, [filters, searchTerm, sortBy, extraFilters]);
+
+  // const applyExtraFilters = () => {
+  //   setSearchParams((prev) => {
+  //     const params = new URLSearchParams(prev);
+  //     params.set("mileage", extraFilters.mileage.toString());
+  //     return params;
+  //   });
+  // };
 
   //###########################
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -69,6 +85,7 @@ const ListingPage = () => {
     setSearchTerm("");
     setViewMode("grid");
     setSearchParams({});
+    setExtraFilters({ mileage: 0 });
   };
 
   // Total Cars Number
@@ -94,6 +111,9 @@ const ListingPage = () => {
               filters={filters}
               setFilters={setFilters}
               clearFilters={clearFilters}
+              extraFilters={extraFilters}
+              setExtraFilters={setExtraFilters}
+              // applyExtraFilters={applyExtraFilters}
             />
           </div>
           <div className={`col-span-3`}>
@@ -101,6 +121,7 @@ const ListingPage = () => {
               searchTerm={searchTerm}
               sortBy={sortBy}
               filters={filters}
+              extraFilters={extraFilters}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
               setTotalCars={setTotalCars}

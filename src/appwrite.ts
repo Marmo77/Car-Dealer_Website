@@ -159,6 +159,7 @@ export const getFilteredCars = async (
   search: string,
   priceRange: number[],
   sortBy: string,
+  mileage: number,
   limit: number
 ) => {
   try {
@@ -221,6 +222,13 @@ export const getFilteredCars = async (
           queries.push(Query.orderAsc("price"));
           break;
       }
+    }
+
+    //mileage
+    if (mileage === 0) {
+      queries.push(Query.greaterThanEqual("mileage", 0));
+    } else if (mileage && mileage !== 0) {
+      queries.push(Query.lessThanEqual("mileage", Number(mileage)));
     }
 
     const result = await database.listDocuments(

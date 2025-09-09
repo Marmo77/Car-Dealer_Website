@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent } from "../ui/card";
 import { Filter } from "lucide-react";
 import { FilterContent } from "./FilterContent";
@@ -7,6 +7,8 @@ const Filters = ({
   filters,
   setFilters,
   clearFilters,
+  extraFilters,
+  setExtraFilters,
 }: {
   filters: {
     brand: string[];
@@ -19,14 +21,15 @@ const Filters = ({
     }>
   >;
   clearFilters: () => void;
+  extraFilters: {
+    mileage: number;
+  };
+  setExtraFilters: React.Dispatch<
+    React.SetStateAction<{
+      mileage: number;
+    }>
+  >;
 }) => {
-  // LITTLE BONUS RANDOM THING :D
-  // const FilterRollOut = () => {
-  //   const doc = document.querySelector(".filters");
-  //   doc?.classList.toggle("rotate-90");
-  //   const brandFilter = document.querySelector(".brand-filter");
-  //   brandFilter?.classList.toggle("hidden");
-  // };
   return (
     <div className="flex flex-col gap-8 sticky top-25">
       {/* Desktop Filters */}
@@ -46,6 +49,8 @@ const Filters = ({
                 filters={filters}
                 setFilters={setFilters}
                 clearFilters={clearFilters}
+                setExtraFilters={setExtraFilters}
+                extraFilters={extraFilters}
               />
             </div>
           </CardContent>
@@ -58,6 +63,8 @@ const Filters = ({
             filters={filters}
             setFilters={setFilters}
             clearFilters={clearFilters}
+            setExtraFilters={setExtraFilters}
+            extraFilters={extraFilters}
           />
         </div>
       </div>

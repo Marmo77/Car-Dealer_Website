@@ -19,7 +19,7 @@ const HomePage: React.FC<HomePageProps> = ({ featuredCars, isLoading }) => {
       <Hero />
       <Statistics stats={statistics} Guarantees={StatsGuarantees} />{" "}
       {/* tutaj featrued cars */}
-      <FeaturedCars featuredCars={featuredCars} isLoading={isLoading} />
+      <FeaturedCars featuredCars={featuredCars} isLoading={isLoading} title />
       {/*z tego zrobic funkcje do searchingin <CarSelling /> */}
       {/* Why choose us? + cta to aboutUs */}
       <WhyUs />

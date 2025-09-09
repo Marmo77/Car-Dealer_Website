@@ -11,6 +11,7 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import NotFound from "./components/NotFound.tsx";
 import { type CarDocument } from "./types/Car";
+import CarDetails from "./components/CarDetails.tsx";
 
 const App = () => {
   const [cars, setCars] = useState<CarDocument[]>([]);
@@ -50,6 +51,7 @@ const App = () => {
         <Route path={company[0].navigationID[2].id} element={<About />} />
         <Route path={company[0].navigationID[3].id} element={<Contact />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/car/:car_id" element={<CarDetails />} />
       </Route>
     </Routes>
     // <Layout />

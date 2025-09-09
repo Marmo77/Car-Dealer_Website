@@ -148,6 +148,12 @@
   }
 }
 
+
+@layer components {
+  .specifications {
+    @apply flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0;
+  }
+}
 /**
  * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
  */

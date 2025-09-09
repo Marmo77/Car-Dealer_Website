@@ -158,6 +158,20 @@ export const getCarsCount = async () => {
   // as getFilteredCars but without limit to show cars
 };
 
+// /car/:car_id -> get car details
+export const getCarDetails = async (car_id: string) => {
+  try {
+    const result = await database.getDocument(
+      DATABASE_ID,
+      COLLECTION_ID,
+      car_id
+    );
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getFilteredCars = async (
   brand: string[],
   //model: string, // -> not made yet

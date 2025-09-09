@@ -15,6 +15,7 @@ export default function CarSelling({
   setTotalCars,
   viewMode,
   extraFilters,
+  page,
 }: {
   limit: number;
   searchTerm: string;
@@ -30,6 +31,7 @@ export default function CarSelling({
   extraFilters: {
     mileage: number;
   };
+  page: number;
 }) {
   // // get all cars from database
   const [cars, setCars] = useState<any[]>([]);
@@ -47,12 +49,15 @@ export default function CarSelling({
           filters.priceRange,
           sortBy,
           extraFilters.mileage,
+          page,
           limit
         );
-        const totalCars = result?.length;
+        const totalCars = (result as any)?.total;
         setTotalCars(totalCars ?? 0);
-        if (Array.isArray(result)) {
-          const typedCars = result.map((doc) => doc as CarDocument);
+        if (result && Array.isArray((result as any).documents)) {
+          const typedCars = (result as any).documents.map(
+            (doc: any) => doc as CarDocument
+          );
           setCars(typedCars);
         } else {
           setCars([]);
@@ -67,7 +72,7 @@ export default function CarSelling({
     };
 
     fetch_cars();
-  }, [filters, searchTerm, sortBy, limit, extraFilters]);
+  }, [filters, searchTerm, sortBy, limit, extraFilters, page]);
 
   // ###### handle Load More && handle Less
 

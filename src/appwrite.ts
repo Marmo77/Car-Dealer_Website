@@ -153,6 +153,11 @@ export const featuredCars = async () => {
   }
 };
 
+export const getCarsCount = async () => {
+  // the problem with getCarsCount it need to be same function
+  // as getFilteredCars but without limit to show cars
+};
+
 export const getFilteredCars = async (
   brand: string[],
   //model: string, // -> not made yet
@@ -160,13 +165,17 @@ export const getFilteredCars = async (
   priceRange: number[],
   sortBy: string,
   mileage: number,
+  page: number,
   limit: number
 ) => {
   try {
     const queries = [];
 
     //limit
-    // queries.push(Query.limit(limit));
+    queries.push(Query.limit(limit));
+    //offset for pagination
+    const offset = Math.max(0, (page - 1) * limit);
+    queries.push(Query.offset(offset));
 
     //brand
     if (brand && brand.length > 0) {
@@ -236,8 +245,8 @@ export const getFilteredCars = async (
       COLLECTION_ID,
       queries
     );
-    // console.log("Filtered cars: ", result.documents);
-    return result.documents;
+    // Return full response to access result.total for pagination
+    return result;
     //
   } catch (error) {
     console.error(error);

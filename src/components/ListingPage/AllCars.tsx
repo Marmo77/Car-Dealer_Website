@@ -11,6 +11,7 @@ const AllCars = ({
   setTotalCars,
   viewMode,
   extraFilters,
+  page,
 }: {
   searchTerm: string;
   sortBy: string;
@@ -25,6 +26,7 @@ const AllCars = ({
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setTotalCars: React.Dispatch<React.SetStateAction<number>>;
   viewMode: "grid" | "list";
+  page: number;
 }) => {
   return (
     <div className="col-span-2">
@@ -39,6 +41,7 @@ const AllCars = ({
           setIsLoading={setIsLoading}
           setTotalCars={setTotalCars}
           viewMode={viewMode}
+          page={page}
         />
       </div>
     </div>

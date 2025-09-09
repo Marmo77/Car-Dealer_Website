@@ -5,7 +5,7 @@ export const company = [
     phoneNumber: "+48 515 468 919",
     companyEmail: "sales@autobahn.com",
     companyLocation: "123 Elm Street, 32-142 New York",
-    limitCarLoad: 12,
+    limitCarLoad: 15,
     navigationID: [
       { id: "/", label: "Home" },
       { id: "/listings", label: "Browse Cars" },

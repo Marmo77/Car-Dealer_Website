@@ -153,19 +153,43 @@ export const featuredCars = async () => {
   }
 };
 
+export const getCarsCount = async () => {
+  // the problem with getCarsCount it need to be same function
+  // as getFilteredCars but without limit to show cars
+};
+
+// /car/:car_id -> get car details
+export const getCarDetails = async (car_id: string) => {
+  try {
+    const result = await database.getDocument(
+      DATABASE_ID,
+      COLLECTION_ID,
+      car_id
+    );
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getFilteredCars = async (
   brand: string[],
   //model: string, // -> not made yet
   search: string,
   priceRange: number[],
   sortBy: string,
+  mileage: number,
+  page: number,
   limit: number
 ) => {
   try {
     const queries = [];
 
     //limit
-    // queries.push(Query.limit(limit));
+    queries.push(Query.limit(limit));
+    //offset for pagination
+    const offset = Math.max(0, (page - 1) * limit);
+    queries.push(Query.offset(offset));
 
     //brand
     if (brand && brand.length > 0) {
@@ -223,13 +247,20 @@ export const getFilteredCars = async (
       }
     }
 
+    //mileage
+    if (mileage === 0) {
+      queries.push(Query.greaterThanEqual("mileage", 0));
+    } else if (mileage && mileage !== 0) {
+      queries.push(Query.lessThanEqual("mileage", Number(mileage)));
+    }
+
     const result = await database.listDocuments(
       DATABASE_ID,
       COLLECTION_ID,
       queries
     );
-    // console.log("Filtered cars: ", result.documents);
-    return result.documents;
+    // Return full response to access result.total for pagination
+    return result;
     //
   } catch (error) {
     console.error(error);

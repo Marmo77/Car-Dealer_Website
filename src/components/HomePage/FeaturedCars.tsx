@@ -9,25 +9,29 @@ import Loading from "../ui/loading";
 interface FeaturedCarsProps {
   featuredCars: CarDocument[];
   isLoading: boolean;
+  title?: boolean;
 }
 
 const FeaturedCars: React.FC<FeaturedCarsProps> = ({
   featuredCars,
   isLoading,
+  title,
 }) => {
   const handleNavigation = useNavigateHandler();
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Featured Premium Cars
-          </h2>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            Handpicked selection of our finest vehicles, each one thoroughly
-            inspected and certified for your peace of mind.
-          </p>
-        </div>
+        {title && (
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Featured Premium Cars
+            </h2>
+            <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+              Handpicked selection of our finest vehicles, each one thoroughly
+              inspected and certified for your peace of mind.
+            </p>
+          </div>
+        )}
         {isLoading ? (
           <Loading text="Loading featured cars..." />
         ) : (

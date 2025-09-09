@@ -4,6 +4,9 @@ import Filters from "./ListingPage/Filters";
 import AllCars from "./ListingPage/AllCars";
 import { useSearchParams } from "react-router-dom";
 import ScrollTopButton from "./ui/scrolltop";
+import { Button } from "./ui/button";
+import { company } from "@/data/company";
+import Paging from "./ListingPage/Paging";
 
 const ListingPage = () => {
   //viewport scroll top button
@@ -42,6 +45,15 @@ const ListingPage = () => {
   );
   const [sortBy, setSortBy] = useState(searchParams.get("sort") ?? "price-low");
 
+  const [extraFilters, setExtraFilters] = useState({
+    mileage: Number(searchParams.get("mileage") ?? 0),
+  });
+
+  // Pagination state (1-based)
+  const [page, setPage] = useState<number>(
+    Number(searchParams.get("page") ?? 1) || 1
+  );
+
   //push state to URL
   useEffect(() => {
     const params = new URLSearchParams();
@@ -50,9 +62,17 @@ const ListingPage = () => {
     params.append("max", filters.priceRange[1].toString());
     for (let b of filters.brand) params.append("brand", b.toLowerCase());
     if (searchTerm) params.append("search", searchTerm);
+    if (extraFilters.mileage !== 0) {
+      params.append("mileage", extraFilters.mileage.toString());
+    }
+    // push page to URL, always
+    params.append("page", String(page));
     setSearchParams(params);
-  }, [filters, searchTerm, sortBy]);
-
+  }, [filters, searchTerm, sortBy, extraFilters, page]);
+  useEffect(() => {
+    setPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters, searchTerm, sortBy, extraFilters]);
   //###########################
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -69,10 +89,15 @@ const ListingPage = () => {
     setSearchTerm("");
     setViewMode("grid");
     setSearchParams({});
+    setExtraFilters({ mileage: 0 });
   };
 
   // Total Cars Number
   const [totalCars, setTotalCars] = useState<number>(0);
+  const totalPages = Math.max(
+    1,
+    Math.ceil(totalCars / company[0].limitCarLoad)
+  );
 
   return (
     <>
@@ -88,12 +113,18 @@ const ListingPage = () => {
               viewMode={viewMode}
               setViewMode={setViewMode}
             />
+            <div className="flex items-center justify-between mt-2">
+              <Paging page={page} totalPages={totalPages} setPage={setPage} />
+            </div>
           </div>
           <div className="col-span-1">
             <Filters
               filters={filters}
               setFilters={setFilters}
               clearFilters={clearFilters}
+              extraFilters={extraFilters}
+              setExtraFilters={setExtraFilters}
+              // applyExtraFilters={applyExtraFilters}
             />
           </div>
           <div className={`col-span-3`}>
@@ -101,12 +132,17 @@ const ListingPage = () => {
               searchTerm={searchTerm}
               sortBy={sortBy}
               filters={filters}
+              extraFilters={extraFilters}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
               setTotalCars={setTotalCars}
               viewMode={viewMode}
+              page={page}
             />
           </div>
+        </div>
+        <div className="flex items-center justify-between mt-2">
+          <Paging page={page} totalPages={totalPages} setPage={setPage} />
         </div>
       </section>
       <ScrollTopButton showScrollTop={showScrollTop} />

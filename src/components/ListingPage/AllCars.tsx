@@ -1,7 +1,6 @@
 import React from "react";
 import CarSelling from "../HomePage/CarSelling";
 import { company } from "@/data/company";
-import type { CarDocument } from "@/types/Car";
 
 const AllCars = ({
   searchTerm,
@@ -11,6 +10,8 @@ const AllCars = ({
   setIsLoading,
   setTotalCars,
   viewMode,
+  extraFilters,
+  page,
 }: {
   searchTerm: string;
   sortBy: string;
@@ -18,10 +19,14 @@ const AllCars = ({
     brand: string[];
     priceRange: [number, number];
   };
+  extraFilters: {
+    mileage: number;
+  };
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setTotalCars: React.Dispatch<React.SetStateAction<number>>;
   viewMode: "grid" | "list";
+  page: number;
 }) => {
   return (
     <div className="col-span-2">
@@ -31,10 +36,12 @@ const AllCars = ({
           searchTerm={searchTerm}
           sortBy={sortBy}
           filters={filters}
+          extraFilters={extraFilters}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
           setTotalCars={setTotalCars}
           viewMode={viewMode}
+          page={page}
         />
       </div>
     </div>

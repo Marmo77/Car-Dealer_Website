@@ -35,7 +35,7 @@ const Newsletter = () => {
 
     localStorage.setItem("Newsletter", "True");
     handleNewsletterUser({ email: mail });
-    console.log(`User Added to Newsletter (${mail})`);
+    // console.log(`User Added to Newsletter (${mail})`);
 
     setGotMail(true);
     setError("");
@@ -119,7 +119,7 @@ const Footer = () => {
     if (value && value !== "") {
       params.set("question", value);
     } else {
-      console.log("No value");
+      // console.log("No value");
     }
     handleNavigate("/contact?" + params.toString());
   };

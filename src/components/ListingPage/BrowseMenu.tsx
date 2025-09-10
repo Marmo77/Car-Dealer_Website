@@ -1,3 +1,4 @@
+import { useDeferredValue } from "react";
 import {
   Select,
   SelectContent,
@@ -45,6 +46,9 @@ const BrowseMenu = ({
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [sortBy, searchTerm]);
 
+  // Replace direct searchTerm with:
+  const deferredSearchTerm = useDeferredValue(searchTerm);
+
   // HEADER OF THE PAGE
   return (
     <div className="bg-card py-3 ">
@@ -61,7 +65,7 @@ const BrowseMenu = ({
             <Search className="absolute top-1/2 left-2 transform -translate-y-1/2 size-4 shrink-0 opacity-50" />
             <Input
               placeholder="Search by brand, model, location..."
-              value={searchTerm}
+              value={deferredSearchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 bg-card shadow-md"
             />

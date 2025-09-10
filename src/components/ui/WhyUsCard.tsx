@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent } from "./card";
 import { type BenefitsProps } from "@/types/Benefits";
 

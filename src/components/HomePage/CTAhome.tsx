@@ -1,4 +1,3 @@
-import React from "react";
 import CallToAction from "../ui/call-to-action";
 
 const CTAhome = () => {

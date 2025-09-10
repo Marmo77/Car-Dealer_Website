@@ -1,6 +1,5 @@
 // import { Logo, LogoImage, LogoText } from "@/components/shadcnblocks/logo";
 import { CopyrightBar, navigation } from "@/data/footer";
-import { IoLogoApple } from "react-icons/io";
 import { useNavigateHandler } from "@/hooks/useNavigateHandler";
 import { Button } from "../ui/button";
 import { Car, Mail, Phone, Pin } from "lucide-react";
@@ -8,7 +7,6 @@ import { company } from "@/data/company";
 import { Input } from "../ui/input";
 import { useState } from "react";
 import { handleNewsletterUser } from "@/appwrite";
-import { useParams } from "react-router-dom";
 
 const Newsletter = () => {
   const [mail, setMail] = useState<string>("");

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import WhyUsCard from "../ui/WhyUsCard";
 import { company } from "@/data/company";
 import { benefits } from "@/data/benefits";

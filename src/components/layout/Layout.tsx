@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { Outlet, useLocation } from "react-router-dom";
-import Loading from "../ui/loading";
 
 const Layout = () => {
   // const [currentPage, setCurrentPage] = useState("/");

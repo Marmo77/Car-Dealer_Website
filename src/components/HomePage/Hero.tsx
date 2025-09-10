@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Search, SearchCheck } from "lucide-react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -10,7 +10,6 @@ import {
 } from "../ui/select";
 import { Button } from "../ui/button";
 import HeroBg from "@/assets/imgs/Hero_bg.jpg";
-import { getHeroSearchBarFilters } from "@/appwrite";
 
 // import { Card, CardContent } from '../ui/card'
 // import { Badge } from '../ui/badge'

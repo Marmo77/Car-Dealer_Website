@@ -18,6 +18,7 @@ import {
   Mail,
   MapPin,
   Phone,
+  Pin,
   Settings,
   Star,
 } from "lucide-react";
@@ -27,6 +28,8 @@ import {
 } from "@/hooks/useNavigateHandler";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import FeaturedCars from "./HomePage/FeaturedCars";
+import { company } from "@/data/company";
+import { contact } from "@/data/contact";
 
 const CarDetails = () => {
   const [car, setCar] = useState<CarDocument>();
@@ -35,7 +38,7 @@ const CarDetails = () => {
     const fetchCarDetails = async () => {
       try {
         const car = await getCarDetails(car_id as string);
-        console.log(car);
+        // console.log(car);
         setCar(car as CarDocument);
       } catch (error) {
         console.error(error);
@@ -46,31 +49,6 @@ const CarDetails = () => {
 
   const handleNavigation = useNavigateHandler();
 
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const CarImages = [
-    {
-      image: car?.imageUrl,
-      index: 0,
-    },
-    {
-      image:
-        "https://www.bmw.ie/content/dam/bmw/common/all-models/m-series/m760e-xdrive/2023/highlights/bmw-7-series-i7-m70-sd-bmw-individual-04.jpg",
-      index: 1,
-    },
-    {
-      image: car?.imageUrl,
-      index: 2,
-    },
-  ];
-
-  const [activeCarImage, setActiveCarImage] = useState(CarImages[0]);
-
-  const handleSetActiveCarImage = (image: string, index: number) => {
-    // console.log(index);
-    setActiveCarImage(CarImages[index]);
-  };
-
   return (
     <div className="flex flex-col max-w-7xl mx-auto py-16">
       <div className="mb-4">
@@ -80,39 +58,13 @@ const CarDetails = () => {
           onClick={() => handleNavigation("/listings")}
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Inventory
+          Back to Listings
         </Button>
       </div>
-      {/* inspo: https://www.figma.com/make/aN86VXGPCREalgNOrbWtUt/Car-Dealer-Website-Redesign?node-id=0-4&t=exxxfFULiqI7fj0J-0 */}
-      {/* TOP CAR INFO */}
+      {/* TOP - CAR INFO */}
       <div className="grid lg:grid-cols-2 gap-12 pb-12">
         {/* IMG DIV */}
-        <div className="w-full flex flex-col gap-4">
-          <div className="w-full">
-            <img
-              src={activeCarImage.image}
-              alt=""
-              className="w-full rounded-3xl border-gray-400 min-h-96 h-full object-cover"
-            />
-          </div>
-          <div className="w-full grid grid-cols-3 gap-4">
-            {CarImages.map((image, index) => (
-              <img
-                key={index}
-                src={image.image}
-                alt=""
-                className={`w-full rounded-3xl shadow-lg border h-32 object-cover cursor-pointer ${
-                  image.index === activeCarImage.index
-                    ? "border-blue-500"
-                    : "border-gray-200 "
-                }`}
-                onClick={() =>
-                  handleSetActiveCarImage(image.image, image.index)
-                }
-              />
-            ))}
-          </div>
-        </div>
+        <CarImages car={car as CarDocument} carid={car_id as string} />
         {/* INFO DIV */}
         <div className="w-full">
           <div className="flex flex-col gap-2">
@@ -143,6 +95,7 @@ const CarDetails = () => {
                 Schedule a Test Drive
               </Button>
             </div>
+            <ContactInfo />
           </div>
         </div>
       </div>
@@ -165,6 +118,78 @@ const CarDetails = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const ContactInfo = () => {
+  const carContactInfos = [
+    {
+      title: "Phone",
+      value: contact.phoneNumber,
+      value2: contact.serviceNumber,
+      icon: Phone,
+    },
+    {
+      title: "Email",
+      value: contact.email,
+      icon: Mail,
+    },
+    {
+      title: "Address",
+      value: contact.adress,
+      icon: MapPin,
+    },
+  ];
+  return (
+    <Card className="px-5 font-raleway font-light py-6">
+      <CardHeader>
+        <CardTitle className="text-xl flex items-center gap-2">
+          <MapPin className="w-5 h-5 text-blue-500" />
+          Contact Informations
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="font-montserrat font-normal px-8 flex flex-col gap-3">
+        {carContactInfos.map((item) => {
+          const Icon = item.icon;
+
+          return (
+            <div
+              className="flex items-center gap-2 hover:scale-[102%] transition-all hover:translate-x-1 hover:-translate-y-0.5"
+              key={item.title}
+            >
+              <div className="flex gap-3">
+                <Icon className="w-5 h-5 text-blue-500" />
+                <div className="flex gap-2">
+                  <span className="font-bold">{item.title}:</span>
+                  <span className="hover:text-blue-500 duration-300">
+                    {item.title === "Phone" ? (
+                      <a href={`tel:${item.value}`}>{item.value}</a>
+                    ) : item.title === "Email" ? (
+                      <a href={`mailto:${item.value}`}>{item.value}</a>
+                    ) : item.title === "Address" ? (
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${contact.adress}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <a href="#">{item.value}</a>
+                    )}
+                  </span>
+                  {item?.value2 && (
+                    <span className="hover:text-blue-500 duration-300">
+                      | <a href={`tel:${item.value2}`}>{item.value2}</a>
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </CardContent>
+    </Card>
   );
 };
 
@@ -195,6 +220,150 @@ const CarShortDescription = ({ car }: { car: CarDocument }) => {
         </div>
       </CardContent>
     </Card>
+  );
+};
+
+const CarImages = ({ car, carid }: { car: CarDocument; carid: string }) => {
+  const CarImages = [
+    {
+      image: car?.imageUrl,
+      index: 0,
+    },
+    {
+      image:
+        "https://www.bmw.ie/content/dam/bmw/common/all-models/m-series/m760e-xdrive/2023/highlights/bmw-7-series-i7-m70-sd-bmw-individual-04.jpg",
+      index: 1,
+    },
+    {
+      image: car?.imageUrl,
+      index: 2,
+    },
+  ];
+
+  const [activeCarImageIndex, setActiveCarImageIndex] = useState(0);
+
+  const handleSetActiveCarImage = (_image: string, index: number) => {
+    setActiveCarImageIndex(index);
+  };
+
+  const nextImage = () => {
+    setActiveCarImageIndex((prev) => {
+      const nextImage = prev + 1;
+      return nextImage;
+      //>= CarImages.length ? 0 : nextImage; // if not disabled (111, 119 line fn)
+    });
+  };
+
+  const prevImage = () => {
+    setActiveCarImageIndex((prev) => {
+      const prevImage = prev - 1;
+      return prevImage;
+      // < 0 ? CarImages.length - 1 : prevImage; // if not disabled
+    });
+  };
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const getFavoriteCars = (): string[] => {
+    try {
+      const raw = localStorage.getItem("favoriteCars"); // pobiera z localStorage
+      const parsed = raw ? JSON.parse(raw) : []; // parseuje z localStorage
+      return Array.isArray(parsed) ? parsed : []; // zwraca tablicę
+    } catch {
+      return []; // zwraca pustą tablicę jeśli coś się nie uda
+    }
+  };
+
+  const setFavoriteCars = (favorites: string[]) => {
+    try {
+      localStorage.setItem("favoriteCars", JSON.stringify(favorites)); // zapisuje do localStorage
+    } catch {
+      console.error("Error saving favorite cars");
+    }
+  };
+
+  const handleFavorite = () => {
+    setIsFavorite((prev) => {
+      const next = !prev;
+      const favorites = getFavoriteCars();
+      // console.log(favorites);
+      if (next) {
+        if (!favorites.includes(carid)) {
+          favorites.push(carid); // dodaje do tablicy jeśli nie jest w tablicy
+        }
+      } else {
+        const idx = favorites.indexOf(carid);
+        if (idx !== -1) favorites.splice(idx, 1); // usuwa z tablicy jeśli jest w tablicy
+      }
+      setFavoriteCars(favorites);
+      return next;
+    });
+  };
+
+  useEffect(() => {
+    const favorites = getFavoriteCars();
+    setIsFavorite(favorites.includes(carid));
+  }, [carid]);
+
+  return (
+    <div className="w-full flex flex-col gap-4">
+      <div className="w-full relative h-96 lg:h-[500px]">
+        <div
+          className="absolute top-4 right-4 cursor-pointer bg-gray-200 p-2 rounded-full"
+          onClick={() => handleFavorite()}
+        >
+          {isFavorite ? (
+            <Heart className="h-6 w-6 text-blue-600 fill-blue-600 duration-300 transition-colors" />
+          ) : (
+            <Heart className="h-6 w-6 text-gray-600 fill-none duration-300 transition-colors" />
+          )}
+        </div>
+        <Button
+          onClick={prevImage}
+          className="absolute left-4 top-1/2 rounded-full shadow-2xl"
+          variant="outline"
+          disabled={activeCarImageIndex === 0}
+        >
+          <ChevronLeft className="h-5 w-5 text-gray-700" />
+        </Button>
+        <Button
+          onClick={nextImage}
+          className="absolute right-4 top-1/2 rounded-full"
+          variant="outline"
+          disabled={activeCarImageIndex === CarImages.length - 1}
+        >
+          <ChevronRight className="h-5 w-5 text-gray-700" />
+        </Button>
+        <img
+          src={
+            CarImages[activeCarImageIndex]?.image ||
+            "https://via.placeholder.com/800x600?text=Loading+image"
+          }
+          loading="lazy"
+          alt=""
+          className="w-full select-none rounded-3xl border-gray-400 min-h-96 h-full object-cover"
+        />
+      </div>
+      <div className="w-full grid grid-cols-3 gap-4">
+        {CarImages.map((image, index) => (
+          <img
+            key={index}
+            src={
+              image.image || "https://via.placeholder.com/400x300?text=No+image"
+            }
+            alt=""
+            className={`w-full rounded-3xl shadow-lg border-2 h-32 object-cover cursor-pointer ${
+              index === activeCarImageIndex
+                ? "border-blue-500"
+                : "border-gray-200 "
+            }`}
+            onClick={() =>
+              handleSetActiveCarImage(image.image as string, index)
+            }
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 
@@ -297,18 +466,17 @@ const CarSpecifications = ({ car }: { car: CarDocument }) => {
   );
 };
 
-const keyFeatures = [
-  "Premium leather interior",
-  "Premium sound system",
-  "Panoramic sunroof",
-  "360 camera system",
-  "Bluetooth connectivity",
-  "Heated seats",
-  "Ambient lighting",
-];
-
 const CarKeyFeatures = () => {
   // key features
+  const keyFeatures = [
+    "Premium leather interior",
+    "Premium sound system",
+    "Panoramic sunroof",
+    "360 camera system",
+    "Bluetooth connectivity",
+    "Heated seats",
+    "Ambient lighting",
+  ];
   return (
     <Card className="bg-white shadow-lg">
       <CardHeader>

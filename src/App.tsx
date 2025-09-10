@@ -44,7 +44,7 @@ const App = () => {
       <Route element={<Layout />}>
         <Route
           index
-          path={company[0].navigationID[0].id}
+          path={"/"}
           element={<HomePage featuredCars={cars} isLoading={isLoading} />}
         />
         <Route path={company[0].navigationID[1].id} element={<ListingPage />} />

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import type { CarDocument } from "@/types/Car";
 import { useNavigateHandler } from "@/hooks/useNavigateHandler";
 import { Link } from "react-router-dom";
+import React from "react";
 
 const CarCard = (car: CarDocument) => {
   const navigateHandler = useNavigateHandler();
@@ -27,6 +28,8 @@ const CarCard = (car: CarDocument) => {
             alt={`${car.brand} ${car.model}`}
             className="w-full group-hover:scale-105 h-48 object-cover transition-transform duration-300"
             loading="lazy"
+            decoding="async"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             onError={(e) => {
               e.currentTarget.src =
                 "https://c0.carzone.ie/web/image/electric-cars/octavia-electric/octavia-electric.png";
@@ -87,4 +90,7 @@ const CarCard = (car: CarDocument) => {
   );
 };
 
-export default CarCard;
+export default React.memo(
+  CarCard,
+  (prev, next) => prev.$id === next.$id && prev.price === next.price
+);

@@ -38,8 +38,8 @@ export const setUserData = () => {
     localStorage.setItem("userIpAddress", userIpAddress);
     localStorage.setItem("userCountry", userCountry);
   } else {
-    console.log("User ip is: ", userIpAddress);
-    console.log("User country is: ", userCountry);
+    // console.log("User ip is: ", userIpAddress);
+    // console.log("User country is: ", userCountry);
   }
 };
 
@@ -48,7 +48,7 @@ export const AllCarsLimit = async (limit: number) => {
     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
       Query.limit(limit),
     ]);
-    console.log("All cars: ", result.documents);
+    // console.log("All cars: ", result.documents);
     return result.documents;
   } catch (error) {
     console.error("Error fetching All cars ❌: ", error);
@@ -146,7 +146,7 @@ export const featuredCars = async () => {
     const shuffledCars = sortCars.slice(0, 3);
     // const random_numb = Math.floor(Math.random() * result.documents.length);
 
-    console.log("you got 3 cars: ", shuffledCars);
+    // console.log("you got 3 cars: ", shuffledCars);
     return shuffledCars;
   } catch (error) {
     console.error(error);
@@ -307,10 +307,10 @@ export const getHeroSearchBarFilters = async (
       filtersQueries
     );
 
-    console.log("Hero search results:", result.documents);
+    // console.log("Hero search results:", result.documents);
     return result.documents;
   } catch (error) {
-    console.error("Hero search error:", error);
+    // console.error("Hero search error:", error);
     return [];
   }
 };

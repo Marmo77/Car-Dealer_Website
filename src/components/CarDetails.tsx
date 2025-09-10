@@ -49,6 +49,15 @@ const CarDetails = () => {
 
   const handleNavigation = useNavigateHandler();
 
+  const PriceConverter = (price: number) => {
+    return price.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+  };
+
   return (
     <div className="flex flex-col max-w-7xl mx-auto py-16">
       <div className="mb-4">
@@ -75,7 +84,7 @@ const CarDetails = () => {
               {car?.description}
             </p>
             <h4 className="text-3xl font-bold font-roboto text-blue-500 mb-4">
-              $ {car?.price}
+              {car?.price ? PriceConverter(car?.price) : "Price not available"}
             </h4>
             <CarShortDescription car={car as CarDocument} />
             <div className="grid lg:grid-cols-2  gap-6 py-4">
@@ -230,8 +239,7 @@ const CarImages = ({ car, carid }: { car: CarDocument; carid: string }) => {
       index: 0,
     },
     {
-      image:
-        "https://www.bmw.ie/content/dam/bmw/common/all-models/m-series/m760e-xdrive/2023/highlights/bmw-7-series-i7-m70-sd-bmw-individual-04.jpg",
+      image: car?.imageUrl,
       index: 1,
     },
     {
@@ -341,10 +349,17 @@ const CarImages = ({ car, carid }: { car: CarDocument; carid: string }) => {
           }
           loading="lazy"
           alt=""
-          className="w-full select-none rounded-3xl border-gray-400 min-h-96 h-full object-cover"
+          className={`w-full select-none rounded-3xl border-gray-400 min-h-96 h-full object-cover`}
         />
+        {CarImages[activeCarImageIndex]?.index === 1 && (
+          <div className="absolute top-1/2 left-1/2 transform bg-black/50 rounded-3xl p-4 -translate-x-1/2 text-center -translate-y-1/2">
+            <p className="text-2xl font-bold text-white">{car?.brand}</p>
+            <p className="text-2xl font-bold text-white">{car?.model}</p>
+            <p className="text-2xl font-bold text-white">{car?.year}</p>
+          </div>
+        )}
       </div>
-      <div className="w-full grid grid-cols-3 gap-4">
+      <div className="w-full grid grid-cols-4 gap-4">
         {CarImages.map((image, index) => (
           <img
             key={index}
@@ -352,7 +367,7 @@ const CarImages = ({ car, carid }: { car: CarDocument; carid: string }) => {
               image.image || "https://via.placeholder.com/400x300?text=No+image"
             }
             alt=""
-            className={`w-full rounded-3xl shadow-lg border-2 h-32 object-cover cursor-pointer ${
+            className={`w-full even:col-span-2 rounded-3xl shadow-lg border-2 h-32 object-cover cursor-pointer ${
               index === activeCarImageIndex
                 ? "border-blue-500"
                 : "border-gray-200 "

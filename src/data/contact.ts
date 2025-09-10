@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 export const contact = {
   phoneNumber: company[0].phoneNumber,
-  serviceNumber: "696 510 869",
+  serviceNumber: "+48 696 510 869",
   email: company[0].companyEmail,
   supportEmail: "support@autobahn.com",
   adress: company[0].companyLocation,

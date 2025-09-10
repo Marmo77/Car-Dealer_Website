@@ -1,4 +1,3 @@
-import { useDeferredValue } from "react";
 import {
   Select,
   SelectContent,
@@ -6,10 +5,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useMemo, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Grid3X3, List, Search } from "lucide-react";
+import { useDebouncedCallback } from "use-debounce";
 
 const BrowseMenu = ({
   sortBy,
@@ -28,89 +28,114 @@ const BrowseMenu = ({
   viewMode: "grid" | "list";
   setViewMode: React.Dispatch<React.SetStateAction<"grid" | "list">>;
 }) => {
-  useEffect(() => {
-    const fetchCount = async () => {
-      try {
-        const count = totalCars;
-      } catch (e) {
-        console.error("Failed to load cars count", e);
-      } finally {
-        // setIsLoading(false);
-      }
-    };
-    fetchCount();
-  }, []);
+  const [inputValue, setInputValue] = useState(searchTerm);
+  const [isPending, startTransition] = useTransition();
 
-  // if something change in Browse menu scroll to top
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [sortBy, searchTerm]);
+  // Debounced search with 300ms delay
+  const debouncedSearch = useDebouncedCallback((term: string) => {
+    startTransition(() => {
+      setSearchTerm(term);
+    });
+  }, 300);
 
-  // Replace direct searchTerm with:
-  const deferredSearchTerm = useDeferredValue(searchTerm);
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setInputValue(value);
+      debouncedSearch(value);
+    },
+    [debouncedSearch]
+  );
 
-  // HEADER OF THE PAGE
+  const handleSortChange = useCallback(
+    (value: string) => {
+      startTransition(() => {
+        setSortBy(value);
+      });
+    },
+    [setSortBy]
+  );
+
+  const handleViewModeChange = useCallback(
+    (mode: "grid" | "list") => {
+      setViewMode(mode);
+    },
+    [setViewMode]
+  );
+
+  // Memoized sort options to prevent recreation
+  const sortOptions = useMemo(
+    () => [
+      { value: "price-low", label: "Price: Low to High" },
+      { value: "price-high", label: "Price: High to Low" },
+      { value: "year-new", label: "Year: Newest First" },
+      { value: "year-old", label: "Year: Oldest First" },
+      { value: "mileage-low", label: "Mileage: Low to High" },
+      { value: "mileage-high", label: "Mileage: High to Low" },
+    ],
+    []
+  );
+
+  const carsFoundText = useMemo(
+    () => (totalCars !== null ? `${totalCars} cars found` : "Loading..."),
+    [totalCars]
+  );
+
   return (
-    <div className="bg-card py-3 ">
+    <div className="bg-card py-3">
       <div className="flex flex-col lg:flex-row items-center lg:justify-between gap-6">
         <div>
           <h2 className="text-4xl font-bold text-gray-900 mb-2">Browse Cars</h2>
           <p className="text-lg lg:text-left text-center text-gray-500 max-w-2xl mx-auto">
-            {totalCars !== null && `${totalCars} cars found`}
+            {carsFoundText}
           </p>
         </div>
-        {/* SEARCH BAR */}
+
         <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-end gap-4 lg:w-auto w-full">
-          <div className="relative min-w-64 lg:w-80 col-span-2">
+          <div className="relative min-w-64 lg:w-80">
             <Search className="absolute top-1/2 left-2 transform -translate-y-1/2 size-4 shrink-0 opacity-50" />
             <Input
-              placeholder="Search by brand, model, location..."
-              value={deferredSearchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 bg-card shadow-md"
+              placeholder="Search by brand, model..."
+              value={inputValue}
+              onChange={handleSearchChange}
+              className={`pl-10 bg-card shadow-md transition-opacity ${
+                isPending ? "opacity-50" : ""
+              }`}
             />
           </div>
-          {/* SORT BY PRICE / YEAR / MILEAGE */}
+
           <div className="flex gap-4">
-            <Select value={sortBy} onValueChange={setSortBy}>
+            <Select value={sortBy} onValueChange={handleSortChange}>
               <SelectTrigger className="w-full sm:w-48 bg-card shadow-md">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="price-low">Price: Low to High</SelectItem>
-                <SelectItem value="price-high">Price: High to Low</SelectItem>
-                <SelectItem value="year-new">Year: Newest First</SelectItem>
-                <SelectItem value="year-old">Year: Oldest First</SelectItem>
-                <SelectItem value="mileage-low">
-                  Mileage: Low to High
-                </SelectItem>
-                <SelectItem value="mileage-high">
-                  Mileage: High to Low
-                </SelectItem>
+                {sortOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
-            <div className="flex gap-3 items-center">
+
+            <div className="flex gap-2">
               <Button
                 variant={viewMode === "grid" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setViewMode("grid")}
-                className={`px-3 ${
-                  viewMode === "grid"
-                    ? "bg-blue-500 hover:bg-blue-600 border-[1px] border-blue-500"
-                    : ""
-                }`}
+                onClick={() => handleViewModeChange("grid")}
+                className={
+                  viewMode === "grid" ? "bg-blue-500 hover:bg-blue-600" : ""
+                }
               >
                 <Grid3X3 className="h-4 w-4" />
               </Button>
               <Button
                 variant={viewMode === "list" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setViewMode("list")}
-                className={`px-3 ${
-                  viewMode === "list"
-                    ? "bg-blue-500 hover:bg-blue-600 border-[1px] border-blue-500"
-                    : ""
-                }`}
+                onClick={() => handleViewModeChange("list")}
+                className={
+                  viewMode === "list" ? "bg-blue-500 hover:bg-blue-600" : ""
+                }
               >
                 <List className="h-4 w-4" />
               </Button>
@@ -122,4 +147,4 @@ const BrowseMenu = ({
   );
 };
 
-export default BrowseMenu;
+export default React.memo(BrowseMenu);

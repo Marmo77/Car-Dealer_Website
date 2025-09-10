@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { contactInfo } from "@/data/contact";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";

@@ -1,4 +1,3 @@
-import { Facebook, Twitter } from "lucide-react";
 import { company } from "./company";
 import {
   IoLogoFacebook,

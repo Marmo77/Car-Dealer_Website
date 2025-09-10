@@ -1,10 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { company } from "@/data/company";
 
 export const useNavigateHandler = () => {
   const navigate = useNavigate();
-  const locationInfo = useLocation();
 
   return (location: string) => {
     if (location.startsWith("/")) {

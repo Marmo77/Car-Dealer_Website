@@ -4,7 +4,6 @@ import Filters from "./ListingPage/Filters";
 import AllCars from "./ListingPage/AllCars";
 import { useSearchParams } from "react-router-dom";
 import ScrollTopButton from "./ui/scrolltop";
-import { Button } from "./ui/button";
 import { company } from "@/data/company";
 import Paging from "./ListingPage/Paging";
 

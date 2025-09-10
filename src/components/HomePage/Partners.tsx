@@ -5,7 +5,6 @@ import LamboLogo from "../../assets/imgs/lamborghini.png";
 import FordLogo from "../../assets/imgs/Ford.svg";
 import VolvoLogo from "../../assets/imgs/volvo.png";
 import VtechLogo from "../../assets/imgs/VTech.jpg";
-import { useEffect, useState } from "react";
 
 const partners = [
   {

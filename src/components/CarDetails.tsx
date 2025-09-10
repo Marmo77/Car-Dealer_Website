@@ -1,12 +1,11 @@
 import { getCarDetails } from "@/appwrite";
 import type { CarDocument } from "@/types/Car";
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Button } from "./ui/button";
 import {
   ArrowLeft,
   Award,
-  Badge,
   Car,
   CheckCircle,
   ChevronLeft,
@@ -18,17 +17,11 @@ import {
   Mail,
   MapPin,
   Phone,
-  Pin,
   Settings,
-  Star,
 } from "lucide-react";
-import {
-  useNavigateHandler as handleNavigate,
-  useNavigateHandler,
-} from "@/hooks/useNavigateHandler";
+import { useNavigateHandler } from "@/hooks/useNavigateHandler";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import FeaturedCars from "./HomePage/FeaturedCars";
-import { company } from "@/data/company";
 import { contact } from "@/data/contact";
 
 const CarDetails = () => {

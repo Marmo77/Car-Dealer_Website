@@ -1,4 +1,3 @@
-import React from "react";
 import Hero from "./AboutPage/AboutHero";
 import CoreValues from "./AboutPage/CoreValues";
 import Awards from "./AboutPage/Awards";

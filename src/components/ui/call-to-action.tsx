@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { company } from "@/data/company";
 import { useNavigateHandler } from "@/hooks/useNavigateHandler";
-import { useNavigate } from "react-router-dom";
 
 export default function CallToAction() {
   const handleNavigate = useNavigateHandler();

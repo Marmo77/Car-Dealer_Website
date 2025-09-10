@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { CarDocument } from "@/types/Car";
 import { useNavigateHandler } from "@/hooks/useNavigateHandler";
+import { Link } from "react-router-dom";
 
 const CarCard = (car: CarDocument) => {
   const navigateHandler = useNavigateHandler();
@@ -16,20 +17,22 @@ const CarCard = (car: CarDocument) => {
     <Card className="group max-md:w-full py-0 gap-3 bg-card shadow-lg border-none hover:md:scale-105 transition-transform duration-200 overflow-hidden rounded-xl">
       {/* Image + Badges */}
       <div className="relative">
-        <img
-          src={
-            car.imageUrl
-              ? car.imageUrl
-              : "https://c0.carzone.ie/web/image/electric-cars/octavia-electric/octavia-electric.png"
-          }
-          alt={`${car.brand} ${car.model}`}
-          className="w-full group-hover:scale-105 h-48 object-cover transition-transform duration-300"
-          loading="lazy"
-          onError={(e) => {
-            e.currentTarget.src =
-              "https://c0.carzone.ie/web/image/electric-cars/octavia-electric/octavia-electric.png";
-          }}
-        />
+        <Link to={`/car/${car.$id}`}>
+          <img
+            src={
+              car.imageUrl
+                ? car.imageUrl
+                : "https://c0.carzone.ie/web/image/electric-cars/octavia-electric/octavia-electric.png"
+            }
+            alt={`${car.brand} ${car.model}`}
+            className="w-full group-hover:scale-105 h-48 object-cover transition-transform duration-300"
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.src =
+                "https://c0.carzone.ie/web/image/electric-cars/octavia-electric/octavia-electric.png";
+            }}
+          />
+        </Link>
         <div className="absolute top-3 flex gap-2 left-3">
           <Badge className="bg-blue-600 text-white">Excellent</Badge>
           <Badge className="bg-gray-200 text-black">Featured</Badge>

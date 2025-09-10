@@ -214,7 +214,7 @@ const ContactForm = ({
                     setFormData((prev) => ({ ...prev, questionType: e }))
                   }
                 >
-                  <SelectTrigger className="w-full shadow-md px-2">
+                  <SelectTrigger className="w-full shadow-md px-2 text-blue-600">
                     <SelectValue placeholder="Select a question type" />
                   </SelectTrigger>
                   <SelectContent>

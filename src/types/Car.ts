@@ -13,6 +13,8 @@ export type Car = {
   power: number;
   imageUrl: string;
   price: number;
+  description?: string;
+  zero_to_hundred?: number;
 };
 
 // Appwrite Document type for cars
@@ -31,4 +33,9 @@ export interface CarDocument extends Models.Document {
   $engine_size: number;
   $createdAt: string;
   $updatedAt: string;
+  $description?: string;
+  $zero_to_hundred?: number;
+  $body_style?: string;
+  $drive_train?: string;
+  $seatings?: number;
 }

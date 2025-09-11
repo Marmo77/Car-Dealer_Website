@@ -67,7 +67,41 @@ This is my **first fully finished project** and represents a significant milesto
 ## <a name="showcase">📸 Showcase</a>
 
 <div align="center">
-  <h4>🎬 Project Highlights</h4>
+  <h2>🎬 Project Highlights</h2>
+  <div>
+  <h3>Home Page </h3>
+  <br/>
+  <img src="./public/githubGifsnippets/HomeGif.gif" alt="home" width="650" height="510" />
+  </div>
+    <div>
+  <h3>Browse Page </h3>
+  <br/>
+  <img src="./public/githubGifsnippets/BrowseGif.gif" alt="home" width="650" height="510" />
+  </div>
+    <div>
+  <h3>About Page </h3>
+  <br/>
+  <img src="./public/githubGifsnippets/aboutusGif.gif" alt="home" width="650" height="510" />
+  </div>
+    <div>
+  <h3>Contact Page </h3>
+  <br/>
+  <img src="./public/githubGifsnippets/contactGif.gif" alt="home" width="650" height="510" />
+  </div>
+  <div>
+  <h3>Contact Form </h3>
+  <br/>
+  <img src="./public/githubGifsnippets/contactformGif.gif" alt="home" width="650" height="510" />
+  </div>
+  <div>
+  <h3>Car Details</h3>
+  <br/>
+  <img src="./public/githubGifsnippets/cardetailGif.gif" alt="home" width="650" height="510" />
+  </div>
+
+  <h4>You can also see this on live server <a href="https://car-dealer-website-nine.vercel.app/">*LINK*</a></h4>
+
+  
 </div>
 
 ### 🏆 Current MVP Features

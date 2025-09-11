@@ -53,7 +53,7 @@ const CarDetails = () => {
 
   return (
     <div className="flex flex-col max-w-7xl mx-auto py-16">
-      <div className="mb-4">
+      <div className="mb-4 px-4">
         <Button
           variant="outline"
           className="text-blue-600 text-lg border-blue-200 hover:bg-blue-50"
@@ -64,7 +64,7 @@ const CarDetails = () => {
         </Button>
       </div>
       {/* TOP - CAR INFO */}
-      <div className="grid lg:grid-cols-2 gap-12 pb-12">
+      <div className="grid lg:grid-cols-2 max-lg:px-4 gap-12 pb-12">
         {/* IMG DIV */}
         <CarImages car={car as CarDocument} carid={car_id as string} />
         {/* INFO DIV */}
@@ -102,7 +102,7 @@ const CarDetails = () => {
         </div>
       </div>
       {/* SPECIFICATIONS & KEY FEATURES */}
-      <div className="flex flex-col gap-8">
+      <div className="flex max-lg:px-4 flex-col gap-8">
         <CarSpecifications car={car as CarDocument} />
         <CarKeyFeatures />
         <div className="flex flex-col gap-4">
@@ -145,7 +145,7 @@ const ContactInfo = () => {
   return (
     <Card className="px-5 font-raleway font-light py-6">
       <CardHeader>
-        <CardTitle className="text-xl flex items-center gap-2">
+        <CardTitle className="text-xl flex max-md:flex-col items-center gap-2">
           <MapPin className="w-5 h-5 text-blue-500" />
           Contact Informations
         </CardTitle>
@@ -156,12 +156,12 @@ const ContactInfo = () => {
 
           return (
             <div
-              className="flex items-center gap-2 hover:scale-[102%] transition-all hover:translate-x-1 hover:-translate-y-0.5"
+              className="flex items-center max-md:justify-center gap-2 hover:scale-[102%] transition-all hover:translate-x-1 hover:-translate-y-0.5"
               key={item.title}
             >
               <div className="flex gap-3">
-                <Icon className="w-5 h-5 text-blue-500" />
-                <div className="flex gap-2">
+                <div className="flex gap-2 max-md:flex-col max-md:items-center">
+                  <Icon className="w-5 h-5 text-blue-500" />
                   <span className="font-bold">{item.title}:</span>
                   <span className="hover:text-blue-500 duration-300">
                     {item.title === "Phone" ? (
@@ -182,7 +182,8 @@ const ContactInfo = () => {
                   </span>
                   {item?.value2 && (
                     <span className="hover:text-blue-500 duration-300">
-                      | <a href={`tel:${item.value2}`}>{item.value2}</a>
+                      {item.title === "Phone" ? "|" : ""}
+                      <a href={`tel:${item.value2}`}>{item.value2}</a>
                     </span>
                   )}
                 </div>
@@ -352,7 +353,7 @@ const CarImages = ({ car, carid }: { car: CarDocument; carid: string }) => {
           </div>
         )}
       </div>
-      <div className="w-full grid grid-cols-4 gap-4">
+      <div className="w-full grid grid-cols-7 gap-4">
         {CarImages.map((image, index) => (
           <img
             key={index}
@@ -360,7 +361,7 @@ const CarImages = ({ car, carid }: { car: CarDocument; carid: string }) => {
               image.image || "https://via.placeholder.com/400x300?text=No+image"
             }
             alt=""
-            className={`w-full even:col-span-2 rounded-3xl shadow-lg border-2 h-32 object-cover cursor-pointer ${
+            className={`w-full even:col-span-3 odd:col-span-2 rounded-3xl shadow-lg border-2 h-32 object-cover cursor-pointer ${
               index === activeCarImageIndex
                 ? "border-blue-500"
                 : "border-gray-200 "

@@ -12,6 +12,7 @@ import Contact from "./components/Contact";
 import NotFound from "./components/NotFound.tsx";
 import { type CarDocument } from "./types/Car";
 import CarDetails from "./components/CarDetails.tsx";
+import { Analytics } from "@vercel/analytics/react";
 
 const App = () => {
   const [cars, setCars] = useState<CarDocument[]>([]);
@@ -40,20 +41,26 @@ const App = () => {
   }, []);
 
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route
-          index
-          path={"/"}
-          element={<HomePage featuredCars={cars} isLoading={isLoading} />}
-        />
-        <Route path={company[0].navigationID[1].id} element={<ListingPage />} />
-        <Route path={company[0].navigationID[2].id} element={<About />} />
-        <Route path={company[0].navigationID[3].id} element={<Contact />} />
-        <Route path="*" element={<NotFound />} />
-        <Route path="/car/:car_id" element={<CarDetails />} />
-      </Route>
-    </Routes>
+    <>
+      <Analytics />
+      <Routes>
+        <Route element={<Layout />}>
+          <Route
+            index
+            path={"/"}
+            element={<HomePage featuredCars={cars} isLoading={isLoading} />}
+          />
+          <Route
+            path={company[0].navigationID[1].id}
+            element={<ListingPage />}
+          />
+          <Route path={company[0].navigationID[2].id} element={<About />} />
+          <Route path={company[0].navigationID[3].id} element={<Contact />} />
+          <Route path="/car/:car_id" element={<CarDetails />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </>
     // <Layout />
   );
 };

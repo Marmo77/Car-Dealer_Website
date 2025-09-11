@@ -64,8 +64,6 @@ This is my **first fully finished project** and represents a significant milesto
 - **Build Something Practical**: A functional car dealership with real-world features
 - **Minimize AI Dependency**: Focus on hands-on learning and problem-solving
 
-<br />
-
 ## <a name="showcase">📸 Showcase</a>
 
 <div align="center">

@@ -10,6 +10,7 @@ The website displays cars from a real database with filtering functionality, and
 I tried to use as little AI as possible; this is a typical learning/portfolio project. Obviously, I mostly used AI for repetitive tasks and formatting (in the sense of reducing work time).
 
 # 📸 Screenshots
+- Test gif ![gif1](./public/githubGifsnippets/BrowseGif.gif)
 - Home page ![snippet1](./public/snippet1.jpg)
 - Home page 2 ![snippet2](./public/snippet2.jpg)
 - Home page 3 ![snippet3](./public/snippet3.jpg)
